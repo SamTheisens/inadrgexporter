@@ -1,0 +1,35 @@
+MAIN	"PARM"	BEGIN
+Hospital Code:HOSPITAL_ID:::::::0::::::1:7:1::::::::::
+Hospital class:HOSPITAL_TYPE:::::::0::::::8:1:1::::::::::
+Patient record number:VISIT_ID:::::::0::::::9:11:1::::::::::
+Patient class:Patient class:::::::0::::::20:1:1::::::::::
+Payment:Payment:::::::0::::::21:10:1::::::::::
+recid:recid:::::::0::::::31:10:1::::::::::
+filler:filler.filler:::::::0::::::41:24:1::::::::::
+Patient type:INOUTTYPE:::::::0::::::65:1:1::::::::::
+Admit date:IMP_ADM_DATE:::::::0::::::66:10:1::::::::::
+Discharge date:IMP_DIS_DATE:::::::0::::::76:10:1::::::::::
+Acute LOS:IMP_LOS:::::::0::::::86:4:1::::::::::
+Birth date:IMP_BIRTH_DATE:::::::0::::::90:10:1::::::::::
+Age in years:IMP_AGE_IN_YEARS:::::::0::::::100:3:1::::::::::
+Age in days:IMP_AGE_IN_DAYS:::::::0::::::103:3:1::::::::::
+filler:filler.filler:::::::0::::::106:3:1::::::::::
+Gender:IMP_SEX:::::::0::::::109:1:1::::::::::
+Discharge disposition:IMP_DIS_STATUS:::::::0::::::110:2:1::::::::::
+Birth weight (gm):IMP_BIRTH_WEIGHT:::::::0::::::112:4:1:::::::::RIGHT:
+Diagnoses:DX.DX_CODE:::::::0::::::116:10:30::::::::::
+Procedures:PR.PR_CODE:::::::0::::::416:10:30::::::::::
+grouper type/version:G_TYPE:::::::0::::::716:17:1::::::::::
+patient type used:PATIENT_TYPE_USED:::::::0::::::733:1:1::::::::::
+DRG:DRG:::::::0::::::734:6:1::::::::::
+grouper status/return code:GROUPER_STATUS:::::::0::::::740:2:1::::::::::
+diagnosis validity flag:DX.DX_VALIDITY_FLAG:::::::0::::::742:1:30::::::::::
+procedure validity flag:PR.PR_VALIDITY_FLAG:::::::0::::::772:1:30::::::::::
+procedure class:PR.PR_CLASS:::::::0::::::802:1:30::::::::::
+birth weight used:BIRTH_WEIGHT_GROUPED:::::::0::::::832:4:1:::::::::LEFT:
+birth weight source:BIRTH_WEIGHT_SOURCE:::::::0::::::836:1:1::::::::::
+medical surgical flag:MEDICAL_SURGICAL_FLAG:::::::0::::::837:1:1::::::::::
+procedure DRG:PR.PR_DRG:::::::0::::::838:6:30::::::::::
+procedure statistic 1:PR.PR_DRG_WEIGHT:::::::0::::::1018:7:30::::::::::
+newline:eor:::::::0::::::1228:2:1::::::::::
+END
