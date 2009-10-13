@@ -152,5 +152,15 @@ namespace INADRGExporter
                                                                   comboBoxCustomer.SelectedValue.ToString());
         }
 
+        private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            untilDateTimePicker.MinDate = fromDateTimePicker.Value;
+        }
+
+        private void untilDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            fromDateTimePicker.MaxDate = untilDateTimePicker.Value;
+        }
+
     }
 }
