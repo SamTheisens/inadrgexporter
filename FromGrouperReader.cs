@@ -10,7 +10,7 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace INADRGExporter
 {
-    public static class FromGrouperReader
+    public class FromGrouperReader : IDisposable
     {
         private struct Tarif
         {
@@ -19,12 +19,84 @@ namespace INADRGExporter
             public double Harga;
         }
 
-        private static string outputBuffer = "";
-        public static void readFromGrouper()
+        private readonly StreamReader reader;
+        private readonly StreamWriter writer;
+        private readonly List<Tuple> dictionary;
+        private readonly Dictionary<string, Tarif> tarifJamkesmas;
+        private readonly TextFieldParser parser;
+        private readonly SqlConnection connection;
+
+        private readonly List<object> rows = new List<object>();
+        private SqlDataReader dataReader;
+        private int currentRow;
+
+        public FromGrouperReader(string inputFile, string outputFile)
         {
-            var dictionary = GrouperHelper.ReadDictionary("cgs_ina_out.dic");
-            var reader = new StreamReader(@"C:\fromgrouper.txt", true);
-            var tarifJamkesmas = readTarifJamkesmas();
+            reader = new StreamReader(inputFile, true);
+            writer = new StreamWriter(outputFile, false);
+            dictionary = GrouperHelper.ReadDictionary("cgs_ina_out.dic");
+            tarifJamkesmas = readTarifJamkesmas();
+            parser = CreateTextFieldParser();
+            connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString);
+            connection.Open();
+            var cmd = new SqlCommand("create table #DRG (rm VARCHAR(6), tglMasuk DATETIME)", connection);
+            cmd.ExecuteNonQuery();
+        }
+
+        private static string outputBuffer = "";
+        public bool readNextLine()
+        {
+            if (parser.EndOfData)
+                return false;
+
+            List<Tuple> toExcelDictionary;
+            var fields = new List<string>(parser.ReadFields());
+            string drg;
+            string rm;
+            DateTime tglMasuk;
+            ParseLine(fields, dictionary, out toExcelDictionary, out drg, out rm, out tglMasuk);
+
+            AddTarif(fields, drg, tarifJamkesmas);
+
+            InsertIntoTempTable(rm, tglMasuk, connection);
+
+            rows.Add(fields);
+
+            return true;
+        }
+        public void executeQuery()
+        {
+            const string queryDetails =
+                "select rm, tglMasuk, p.Nama as Nama, p.NO_ASURANSI AS SKP, MAX(d.NAMA) AS Dokter " +
+                "from #DRG AS drg LEFT OUTER JOIN dbo.KUNJUNGAN AS k " +
+                "ON k.TGL_MASUK = drg.tglMasuk " +
+                "AND RIGHT('000000' + REPLACE(k.KD_PASIEN, '-', ''), 6) = drg.rm " +
+                "LEFT OUTER JOIN dbo.PASIEN AS p ON p.KD_PASIEN = k.KD_PASIEN " +
+                "LEFT OUTER JOIN dbo.DOKTER AS d ON k.KD_DOKTER = d.KD_DOKTER " +
+                "group by rm, tglMasuk, p.Nama, p.NO_ASURANSI";
+
+            var command = new SqlCommand(
+                queryDetails, connection);
+
+            dataReader = command.ExecuteReader();
+            
+        }
+        public bool writeLine()
+        {
+            if (!dataReader.Read())
+                return false;
+
+            var fields = rows[currentRow] as List<string>;
+            fields.Add(dataReader["Nama"].ToString());
+            fields.Add(dataReader["Dokter"].ToString());
+            fields.Add(dataReader["SKP"].ToString());
+            WriteAsLine(fields, writer);
+            currentRow++;
+            return true;
+        }
+
+        private TextFieldParser CreateTextFieldParser()
+        {
             var parser = new TextFieldParser(reader) {TextFieldType = FieldType.FixedWidth};
 
             var widths = new List<int>();
@@ -34,62 +106,7 @@ namespace INADRGExporter
                     widths.Add(tuple.characters);
             }
             parser.SetFieldWidths(widths.ToArray());
-
-            var writer = new StreamWriter(@"C:\toexcel.txt", false);
-
-            var toExcelDictionary = new List<Tuple>();
-            using (var connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString))
-            {
-                connection.Open();
-                var cmd = new SqlCommand("create table #DRG (rm VARCHAR(6), tglMasuk DATETIME)", connection);
-                cmd.ExecuteNonQuery();
-                
-                var rows = new List<object>();
-                while (!parser.EndOfData)
-                {
-                    var fields = new List<string>(parser.ReadFields());
-                    string drg;
-                    string rm;
-                    DateTime tglMasuk;
-                    ParseLine(fields, dictionary, out toExcelDictionary, out drg, out rm, out tglMasuk);
-
-                    AddTarif(fields, drg, tarifJamkesmas);
-
-                    FetchPatientDetails(fields, rm, tglMasuk, connection);
-
-                    rows.Add(fields);
-                }
-
-                const string queryDetails = "select ISNULL(p.NAMA, '') AS Nama, MAX(ISNULL(d.NAMA, '')) AS Dokter, MAX(ISNULL(p.NO_ASURANSI, '')) AS SKP " +
-                                            "from #DRG AS drg INNER JOIN " +
-                                            "dbo.PASIEN AS p ON ISNULL(RIGHT('000000' + REPLACE(p.KD_PASIEN, '-', ''), 6), '0') = drg.rm " +
-                                            "LEFT OUTER JOIN dbo.KUNJUNGAN AS k ON ISNULL(RIGHT('000000' + REPLACE(p.KD_PASIEN, '-', ''), 6), '0') = drg.rm " +
-                                            "AND drg.tglMasuk = k.TGL_MASUK INNER JOIN dbo.DOKTER AS d ON k.KD_DOKTER = d.KD_DOKTER ";
-
-                var command = new SqlCommand(
-                    queryDetails, connection);
-
-                var sqlReader = command.ExecuteReader();
-
-                try
-                {
-                    const int i = 0;
-                    while (sqlReader.Read())
-                    {
-                        var fields = rows[i] as List<string>;
-                        fields.Add(sqlReader["Nama"].ToString());
-                        fields.Add(sqlReader["Dokter"].ToString());
-                        fields.Add(sqlReader["SKP"].ToString());
-                        WriteAsLine(fields, toExcelDictionary, writer);
-                    }
-                }
-                finally
-                {
-                    sqlReader.Close();
-                }
-                writer.Flush();
-                writer.Close();
-            }
+            return parser;
         }
 
         private static void AddTarif(ICollection<string> fields, string drg, IDictionary<string, Tarif> tarifJamkesmas)
@@ -114,7 +131,7 @@ namespace INADRGExporter
             fields.RemoveRange(maxColumn, fields.Count - maxColumn);
         }
 
-        private static void FetchPatientDetails(ICollection<string> fields, string rm, DateTime tglMasuk, SqlConnection connection)
+        private static void InsertIntoTempTable(string rm, DateTime tglMasuk, SqlConnection connection)
         {
             var insertCommand =
                 new SqlCommand(
@@ -122,14 +139,13 @@ namespace INADRGExporter
                     connection);
 
             insertCommand.ExecuteNonQuery();
-
         }
 
-        public static void WriteAsLine(List<string> values, List<Tuple> dictionary, StreamWriter writer)
+        public static void WriteAsLine(List<string> values, StreamWriter writer)
         {
             foreach (var s in values)
             {
-                printColumn(s, 1);
+                printColumn(s);
             }
             printNextLine(writer);
         }
@@ -140,7 +156,7 @@ namespace INADRGExporter
             outputBuffer = "";
         }
 
-        private static void printColumn(object col, int digits)
+        private static void printColumn(object col)
         {
             string output = col.ToString();
             outputBuffer += output + ";";
@@ -158,7 +174,7 @@ namespace INADRGExporter
                 var command = new OdbcCommand(
                     "Select * From tarif.dbf", connection);
                 connection.Open();
-                OdbcDataReader reader = command.ExecuteReader();
+                var reader = command.ExecuteReader();
                 try
                 {
                     while (reader.Read())
@@ -176,6 +192,14 @@ namespace INADRGExporter
                 }
             }
             return tarifJamkesmas;
+        }
+
+        public void Dispose()
+        {
+            dataReader.Close();
+            writer.Flush();
+            writer.Close();
+            connection.Close();
         }
     }
 }

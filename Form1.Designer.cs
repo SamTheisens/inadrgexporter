@@ -86,12 +86,24 @@ namespace INADRGExporter
             this.cUSTOMERBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.rSKUPANGDataSetCustomer = new INADRGExporter.RSKUPANGDataSetCustomer();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
+            this.intputExcelTextBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.button6 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.exportkeExcelButton = new System.Windows.Forms.Button();
             this.exportWorker = new System.ComponentModel.BackgroundWorker();
             this.inadrgTableAdapter = new INADRGExporter.RSKUPANGDataSetTableAdapters.inadrgTableAdapter();
             this.cUSTOMERTableAdapter = new INADRGExporter.RSKUPANGDataSetCustomerTableAdapters.CUSTOMERTableAdapter();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportkeExcelWorker = new System.ComponentModel.BackgroundWorker();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -103,6 +115,11 @@ namespace INADRGExporter
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cUSTOMERBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rSKUPANGDataSetCustomer)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -221,7 +238,8 @@ namespace INADRGExporter
             this.fromGrouperTextBox.Name = "fromGrouperTextBox";
             this.fromGrouperTextBox.Size = new System.Drawing.Size(200, 20);
             this.fromGrouperTextBox.TabIndex = 0;
-            this.fromGrouperTextBox.Text = "C:\\kegrouper.txt";
+            this.fromGrouperTextBox.Text = "C:\\fromgrouper.txt";
+            this.fromGrouperTextBox.TextChanged += new System.EventHandler(this.fromGrouperTextBox_TextChanged);
             // 
             // label3
             // 
@@ -231,7 +249,6 @@ namespace INADRGExporter
             this.label3.Size = new System.Drawing.Size(39, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Output";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // button2
             // 
@@ -241,7 +258,6 @@ namespace INADRGExporter
             this.button2.TabIndex = 6;
             this.button2.Text = "Ganti database";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // dataGridView1
             // 
@@ -602,6 +618,7 @@ namespace INADRGExporter
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.tableLayoutPanel2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -609,6 +626,114 @@ namespace INADRGExporter
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Dari Grouper";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 67F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 413F));
+            this.tableLayoutPanel2.Controls.Add(this.label6, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel4, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.panel5, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.panel6, 2, 2);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 4);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 4;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 74.28571F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 294F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(742, 430);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(31, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Input";
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.button5);
+            this.panel4.Controls.Add(this.intputExcelTextBox);
+            this.panel4.Location = new System.Drawing.Point(70, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(256, 32);
+            this.panel4.TabIndex = 5;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(165, 4);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 1;
+            this.button5.Text = "Browse...";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // intputExcelTextBox
+            // 
+            this.intputExcelTextBox.Location = new System.Drawing.Point(4, 4);
+            this.intputExcelTextBox.Name = "intputExcelTextBox";
+            this.intputExcelTextBox.Size = new System.Drawing.Size(155, 20);
+            this.intputExcelTextBox.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 38);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(39, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Output";
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.button6);
+            this.panel5.Controls.Add(this.textBox1);
+            this.panel5.Location = new System.Drawing.Point(70, 41);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(256, 32);
+            this.panel5.TabIndex = 7;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(166, 0);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 1;
+            this.button6.Text = "Browse...";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(4, 4);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(155, 20);
+            this.textBox1.TabIndex = 0;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.exportkeExcelButton);
+            this.panel6.Location = new System.Drawing.Point(332, 79);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(200, 54);
+            this.panel6.TabIndex = 9;
+            // 
+            // exportkeExcelButton
+            // 
+            this.exportkeExcelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exportkeExcelButton.Location = new System.Drawing.Point(3, 3);
+            this.exportkeExcelButton.Name = "exportkeExcelButton";
+            this.exportkeExcelButton.Size = new System.Drawing.Size(75, 23);
+            this.exportkeExcelButton.TabIndex = 8;
+            this.exportkeExcelButton.Text = "Export";
+            this.exportkeExcelButton.UseVisualStyleBackColor = true;
+            this.exportkeExcelButton.Click += new System.EventHandler(this.exportkeExcelButton_Click);
             // 
             // exportWorker
             // 
@@ -650,6 +775,12 @@ namespace INADRGExporter
             this.toolStripMenuItem2.Text = "Ganti &database";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
+            // exportkeExcelWorker
+            // 
+            this.exportkeExcelWorker.WorkerReportsProgress = true;
+            this.exportkeExcelWorker.WorkerSupportsCancellation = true;
+            this.exportkeExcelWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.exportkeExcel_DoWork);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -676,6 +807,14 @@ namespace INADRGExporter
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cUSTOMERBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rSKUPANGDataSetCustomer)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.panel6.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -742,6 +881,18 @@ namespace INADRGExporter
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEdit;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox intputExcelTextBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button exportkeExcelButton;
+        private System.Windows.Forms.Panel panel6;
+        private System.ComponentModel.BackgroundWorker exportkeExcelWorker;
 
     }
 }
