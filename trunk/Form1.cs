@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Windows.Forms;
-using INADRGExporter.Properties;
 
 namespace INADRGExporter
 {
@@ -16,16 +15,6 @@ namespace INADRGExporter
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -47,7 +36,7 @@ namespace INADRGExporter
             }
             else
             {
-                dialogConnection = new ADODB.Connection {Provider = "SQLOLEDB.1"};
+                dialogConnection = new ADODB.Connection { Provider = "SQLOLEDB.1" };
                 var persistProperty = dialogConnection.Properties["Persist Security Info"];
                 persistProperty.Value = true;
 
@@ -78,15 +67,6 @@ namespace INADRGExporter
             return "";
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -102,9 +82,9 @@ namespace INADRGExporter
 
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            
+
             exportWorker.ReportProgress(0, "Sabar. Sedang baca database. . . ");
-            var arguments = (ReaderArguments) e.Argument;
+            var arguments = (ReaderArguments)e.Argument;
             using (var writer = new ToGrouperWriter(arguments.from, arguments.until, arguments.kdCustomer))
             {
                 var line = 1;
@@ -139,6 +119,7 @@ namespace INADRGExporter
             cUSTOMERTableAdapter.Fill(rSKUPANGDataSetCustomer.CUSTOMER);
             comboBoxCustomer.SelectedIndex = 3;
             comboBoxCustomer.Refresh();
+            intputExcelTextBox.Text = fromGrouperTextBox.Text;
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
@@ -162,5 +143,28 @@ namespace INADRGExporter
             fromDateTimePicker.MaxDate = untilDateTimePicker.Value;
         }
 
+        private void fromGrouperTextBox_TextChanged(object sender, EventArgs e)
+        {
+            intputExcelTextBox.Text = fromGrouperTextBox.Text;
+        }
+
+        private void exportkeExcelButton_Click(object sender, EventArgs e)
+        {
+            exportkeExcelWorker.RunWorkerAsync();
+        }
+
+        private void exportkeExcel_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            using (var reader = new FromGrouperReader(@"c:\fromgrouper.txt", @"c:\keexcel.txt"))
+            {
+                while (reader.readNextLine())
+                {
+                }
+                reader.executeQuery();
+                while (reader.writeLine())
+                {
+                }
+            }
+        }
     }
 }
