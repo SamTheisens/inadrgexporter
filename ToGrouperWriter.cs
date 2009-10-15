@@ -1,27 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
-using INADRGExporter.Properties;
 using INADRGExporter;
+using INADRGExporter.Properties;
 
 namespace INADRGExporter
 {
     public class ToGrouperWriter: IDisposable
     {
         private static string outputBuffer = "";
-        private SqlConnection connection;
-        private SqlDataReader reader;
-        private StreamWriter writer;
-        private List<Tuple> dictionary;
+        private readonly SqlConnection connection;
+        private readonly SqlDataReader reader;
+        private readonly StreamWriter writer;
+        private readonly List<Tuple> dictionary;
         
-        public ToGrouperWriter(DateTime from, DateTime until, string kdCustomer)
+        public ToGrouperWriter(IFormattable from, IFormattable until, string kdCustomer)
         {
             writer = new StreamWriter(@"C:\togrouper.txt", false);
             dictionary = GrouperHelper.ReadDictionary("cgs_ina_in.dic");
 
-            var queryString = string.Format("exec dbo.RSUD_GET_INADRG '{0}', '{1}', '{2}'", from.ToUniversalTime(),
-                                            until.ToUniversalTime(), kdCustomer);
+            var queryString = string.Format("exec dbo.RSUD_GET_INADRG '{0}', '{1}', '{2}'", from.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                                            until.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), kdCustomer);
 
 
             connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString);
@@ -39,12 +40,12 @@ namespace INADRGExporter
             return true;
         }
 
-        private static void WriteAsLine(object[] values, List<Tuple> dictionary, StreamWriter writer)
+        private static void WriteAsLine(object[] values, IList<Tuple> dictionary, TextWriter writer)
         {
             int nocolumn = 0;
             for (int i = 0; i < dictionary.Count && nocolumn < values.Length; i++)
             {
-                for (int j = 0; j < dictionary[i].repeat; j++)
+                for (int j = 0; j < dictionary[i].repeat && nocolumn < values.Length; j++)
                 {
                     if (dictionary[i].filler)
                         printColumn("", dictionary[i].characters);

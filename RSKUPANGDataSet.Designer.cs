@@ -8,9 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using INADRGExporter.Properties;
-using Settings=INADRGExporter.Properties.Settings;
-
 #pragma warning disable 1591
 
 namespace INADRGExporter {
@@ -3904,7 +3901,7 @@ namespace INADRGExporter.RSKUPANGDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = Settings.Default.RSKUPANGConnectionString;
+            this._connection.ConnectionString = global::INADRGExporter.Properties.Settings.Default.RSKUPANGConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

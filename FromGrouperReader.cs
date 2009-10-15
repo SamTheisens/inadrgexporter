@@ -29,6 +29,7 @@ namespace INADRGExporter
         private readonly List<object> rows = new List<object>();
         private SqlDataReader dataReader;
         private int currentRow;
+        private static string insertBuffer = "";
 
         public FromGrouperReader(string inputFile, string outputFile)
         {
@@ -44,6 +45,12 @@ namespace INADRGExporter
         }
 
         private static string outputBuffer = "";
+        public void clearTempDB()
+        {
+            dataReader.Close();
+            var clearDB = new SqlCommand("delete from #DRG", connection);
+            clearDB.ExecuteNonQuery();
+        }
         public bool readNextLine()
         {
             if (parser.EndOfData)
@@ -58,7 +65,7 @@ namespace INADRGExporter
 
             AddTarif(fields, drg, tarifJamkesmas);
 
-            InsertIntoTempTable(rm, tglMasuk, connection);
+            InsertIntoTempTable(rm, tglMasuk);
 
             rows.Add(fields);
 
@@ -66,6 +73,10 @@ namespace INADRGExporter
         }
         public void executeQuery()
         {
+            var insertCommand = new SqlCommand(insertBuffer, connection);
+            insertCommand.ExecuteNonQuery();
+            insertBuffer = string.Empty;
+
             const string queryDetails =
                 "select rm, tglMasuk, p.Nama as Nama, p.NO_ASURANSI AS SKP, MAX(d.NAMA) AS Dokter " +
                 "from #DRG AS drg LEFT OUTER JOIN dbo.KUNJUNGAN AS k " +
@@ -79,7 +90,6 @@ namespace INADRGExporter
                 queryDetails, connection);
 
             dataReader = command.ExecuteReader();
-            
         }
         public bool writeLine()
         {
@@ -112,10 +122,19 @@ namespace INADRGExporter
         private static void AddTarif(ICollection<string> fields, string drg, IDictionary<string, Tarif> tarifJamkesmas)
         {
             fields.Add(drg);
-            var tarif = tarifJamkesmas[drg];
-            fields.Add(tarif.Harga.ToString());
-            fields.Add(tarif.Deskripsi);
-            fields.Add(tarif.Alos.ToString());
+            Tarif tarif;
+            if (tarifJamkesmas.TryGetValue(drg, out tarif))
+            {
+                fields.Add(tarif.Harga.ToString());
+                fields.Add(tarif.Deskripsi);
+                fields.Add(tarif.Alos.ToString());
+            }
+            else
+            {
+                fields.Add("ERROR");
+                fields.Add("ERROR");
+                fields.Add("ERROR");
+            }
         }
 
         private static void ParseLine(List<string> fields, IEnumerable<Tuple> dictionary, out List<Tuple> toExcelDictionary, out string drg, out string rm, out DateTime tglMasuk)
@@ -131,14 +150,10 @@ namespace INADRGExporter
             fields.RemoveRange(maxColumn, fields.Count - maxColumn);
         }
 
-        private static void InsertIntoTempTable(string rm, DateTime tglMasuk, SqlConnection connection)
+        private static void InsertIntoTempTable(string rm, DateTime tglMasuk)
         {
-            var insertCommand =
-                new SqlCommand(
-                    string.Format("INSERT INTO #DRG VALUES ('{0}','{1}')", rm, tglMasuk.ToString("yyyy-MM-dd")),
-                    connection);
-
-            insertCommand.ExecuteNonQuery();
+            insertBuffer += string.Format("INSERT INTO #DRG VALUES ('{0}','{1}');", rm.Replace("\'", ""),
+                                          tglMasuk.ToString("yyyy-MM-dd"));
         }
 
         public static void WriteAsLine(List<string> values, StreamWriter writer)

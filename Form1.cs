@@ -155,16 +155,50 @@ namespace INADRGExporter
 
         private void exportkeExcel_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            using (var reader = new FromGrouperReader(@"c:\fromgrouper.txt", @"c:\keexcel.txt"))
+            using (var reader = new FromGrouperReader(@"c:\semuah-output.txt", @"c:\keexcel.txt"))
             {
-                while (reader.readNextLine())
+                var linesRead = 0;
+                var linesWritten = 0;
+                var linesReadLastTime = -1;
+                const int stepsize = 200;
+                while (linesRead > linesReadLastTime)
                 {
+                    linesReadLastTime = linesRead;
+                    while (reader.readNextLine())
+                    {
+                        linesRead++;
+                        if (linesRead % stepsize == 0)
+                            break;
+
+                        exportkeExcelWorker.ReportProgress(0,
+                                                           string.Format("Lines read: {0}. Lines written: {1}",
+                                                                         linesRead,
+                                                                         linesWritten));
+
+                    }
+                    reader.executeQuery();
+                    while (reader.writeLine())
+                    {
+                        linesWritten++;
+                        if (linesWritten % stepsize == 0)
+                            break;
+                        exportkeExcelWorker.ReportProgress(0,
+                                                           string.Format("Lines read: {0}. Lines written: {1}",
+                                                                         linesRead,
+                                                                         linesWritten));
+
+                    }
+                    reader.clearTempDB();
                 }
-                reader.executeQuery();
-                while (reader.writeLine())
-                {
-                }
+
+                
             }
         }
+
+        private void exportkeExcel_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            label5.Text = e.UserState.ToString();
+        }
+
     }
 }

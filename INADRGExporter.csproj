@@ -8,8 +8,8 @@
     <ProjectGuid>{36272262-C827-4657-B3F5-C683C527947F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>INADRGReader</RootNamespace>
-    <AssemblyName>INADRGReader</AssemblyName>
+    <RootNamespace>INADRGExporter</RootNamespace>
+    <AssemblyName>INADRGExporter</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
@@ -111,6 +111,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
     <None Include="cgs_ina_in.dic">

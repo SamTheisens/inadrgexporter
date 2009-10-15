@@ -8,16 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using INADRGExporter.Properties;
-using Settings=INADRGExporter.Properties.Settings;
-
 namespace INADRGExporter {
     
     
     public partial class RSKUPANGCacheClientSyncProvider : Microsoft.Synchronization.Data.SqlServerCe.SqlCeClientSyncProvider {
         
         public RSKUPANGCacheClientSyncProvider() {
-            this.ConnectionString = Settings.Default.ClientRSKUPANGConnectionString;
+            this.ConnectionString = global::INADRGExporter.Properties.Settings.Default.ClientRSKUPANGConnectionString;
         }
         
         public RSKUPANGCacheClientSyncProvider(string connectionString) {
@@ -171,7 +168,7 @@ namespace INADRGExporter {
         partial void OnInitialized();
         
         public RSKUPANGCacheServerSyncProvider() {
-            string connectionString = Settings.Default.RSKUPANGConnectionString;
+            string connectionString = global::INADRGExporter.Properties.Settings.Default.RSKUPANGConnectionString;
             this.InitializeConnection(connectionString);
             this.InitializeSyncAdapters();
             this.InitializeNewAnchorCommand();
