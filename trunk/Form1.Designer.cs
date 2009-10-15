@@ -104,6 +104,7 @@ namespace INADRGExporter
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.exportkeExcelWorker = new System.ComponentModel.BackgroundWorker();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -718,10 +719,11 @@ namespace INADRGExporter
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.label5);
             this.panel6.Controls.Add(this.exportkeExcelButton);
             this.panel6.Location = new System.Drawing.Point(332, 79);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(200, 54);
+            this.panel6.Size = new System.Drawing.Size(407, 54);
             this.panel6.TabIndex = 9;
             // 
             // exportkeExcelButton
@@ -780,6 +782,16 @@ namespace INADRGExporter
             this.exportkeExcelWorker.WorkerReportsProgress = true;
             this.exportkeExcelWorker.WorkerSupportsCancellation = true;
             this.exportkeExcelWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.exportkeExcel_DoWork);
+            this.exportkeExcelWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.exportkeExcel_ProgressChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(84, 3);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Click to export.";
             // 
             // Form1
             // 
@@ -815,6 +827,7 @@ namespace INADRGExporter
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -893,6 +906,7 @@ namespace INADRGExporter
         private System.Windows.Forms.Button exportkeExcelButton;
         private System.Windows.Forms.Panel panel6;
         private System.ComponentModel.BackgroundWorker exportkeExcelWorker;
+        private System.Windows.Forms.Label label5;
 
     }
 }
