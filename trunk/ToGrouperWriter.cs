@@ -16,9 +16,9 @@ namespace INADRGExporter
         private readonly StreamWriter writer;
         private readonly List<Tuple> dictionary;
         
-        public ToGrouperWriter(IFormattable from, IFormattable until, string kdCustomer)
+        public ToGrouperWriter(string outputFile, IFormattable from, IFormattable until, string kdCustomer)
         {
-            writer = new StreamWriter(@"C:\togrouper.txt", false);
+            writer = new StreamWriter(outputFile, false);
             dictionary = GrouperHelper.ReadDictionary("cgs_ina_in.dic");
 
             var queryString = string.Format("exec dbo.RSUD_GET_INADRG '{0}', '{1}', '{2}'", from.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
