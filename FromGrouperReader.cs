@@ -30,6 +30,7 @@ namespace INADRGExporter
         private SqlDataReader dataReader;
         private int currentRow;
         private static string insertBuffer = "";
+        
 
         public FromGrouperReader(string inputFile, string outputFile)
         {
@@ -56,20 +57,23 @@ namespace INADRGExporter
             if (parser.EndOfData)
                 return false;
 
-            List<Tuple> toExcelDictionary;
             var fields = new List<string>(parser.ReadFields());
             string drg;
             string rm;
             DateTime tglMasuk;
-            ParseLine(fields, dictionary, out toExcelDictionary, out drg, out rm, out tglMasuk);
+            List<object> outputColumns;
+            ParseLine(fields, dictionary, out outputColumns, out drg, out rm, out tglMasuk);
 
-            AddTarif(fields, drg, tarifJamkesmas);
-
+            AddTarif(outputColumns, drg, tarifJamkesmas);
             InsertIntoTempTable(rm, tglMasuk);
 
-            rows.Add(fields);
+            rows.Add(outputColumns);
 
             return true;
+        }
+        public bool endOfData()
+        {
+            return parser.EndOfData;
         }
         public void executeQuery()
         {
@@ -96,7 +100,8 @@ namespace INADRGExporter
             if (!dataReader.Read())
                 return false;
 
-            var fields = rows[currentRow] as List<string>;
+            var fields = rows[currentRow] as List<object>;
+
             fields.Add(dataReader["Nama"].ToString());
             fields.Add(dataReader["Dokter"].ToString());
             fields.Add(dataReader["SKP"].ToString());
@@ -119,35 +124,52 @@ namespace INADRGExporter
             return parser;
         }
 
-        private static void AddTarif(ICollection<string> fields, string drg, IDictionary<string, Tarif> tarifJamkesmas)
+        private void AddTarif(ICollection<object> outputColumns, string drg, IDictionary<string, Tarif> tarifJamkesmas)
         {
-            fields.Add(drg);
             Tarif tarif;
             if (tarifJamkesmas.TryGetValue(drg, out tarif))
             {
-                fields.Add(tarif.Harga.ToString());
-                fields.Add(tarif.Deskripsi);
-                fields.Add(tarif.Alos.ToString());
+                outputColumns.Add(tarif.Harga.ToString());
+                outputColumns.Add(tarif.Deskripsi);
+                outputColumns.Add(tarif.Alos.ToString());
             }
             else
             {
-                fields.Add("ERROR");
-                fields.Add("ERROR");
-                fields.Add("ERROR");
+                outputColumns.Add("ERROR");
+                outputColumns.Add("ERROR");
+                outputColumns.Add("ERROR");
             }
         }
 
-        private static void ParseLine(List<string> fields, IEnumerable<Tuple> dictionary, out List<Tuple> toExcelDictionary, out string drg, out string rm, out DateTime tglMasuk)
+        private static void ParseLine(IList<string> fields, IEnumerable<Tuple> dictionary, out List<object> outputColumns, out string drg, out string rm, out DateTime tglMasuk)
         {
+            outputColumns = new List<object>();
             if (fields == null) throw new ArgumentNullException("fields");
+            var excelColumns = GrouperHelper.ReadMapping("dic_excel_mapping.dic");
+            foreach (var map in excelColumns)
+            {
+                var tuple = getTuple(dictionary, map.dicColumn);
+                var thingy = fields[tuple.number + map.columnNumber  -1 ];
+                outputColumns.Add(thingy);
+            }
 
-            rm = fields[dictionary.AsQueryable().Single(t => t.name == "VISIT_ID").number];
-            tglMasuk = DateTime.ParseExact(fields[dictionary.AsQueryable().Single(t => t.name == "IMP_ADM_DATE").number],
-                                           "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            drg = fields[dictionary.AsQueryable().Single(t => t.name == "DRG").number];
-            toExcelDictionary = GrouperHelper.ReadDictionary("cgs_ina_in.dic");
-            int maxColumn = toExcelDictionary.Max(t => t.number);
-            fields.RemoveRange(maxColumn, fields.Count - maxColumn);
+
+            rm = fields[getFieldIndex(dictionary, "VISIT_ID")];
+
+            tglMasuk = DateTime.ParseExact(fields[getFieldIndex(dictionary, "IMP_ADM_DATE")], "dd/MM/yyyy",
+                                           CultureInfo.InvariantCulture);
+            drg = fields[getFieldIndex(dictionary, "DRG")];
+        }
+
+        private static Tuple getTuple(IEnumerable<Tuple> dictionary, string tupleName)
+        {
+            return dictionary.AsQueryable().Single(t => t.name == tupleName);
+        }
+
+
+        private static int getFieldIndex(IEnumerable<Tuple> dictionary, string tupleName)
+        {
+            return dictionary.AsQueryable().Single(t => t.name == tupleName).number;
         }
 
         private static void InsertIntoTempTable(string rm, DateTime tglMasuk)
@@ -156,7 +178,7 @@ namespace INADRGExporter
                                           tglMasuk.ToString("yyyy-MM-dd"));
         }
 
-        public static void WriteAsLine(List<string> values, StreamWriter writer)
+        public static void WriteAsLine(List<object> values, StreamWriter writer)
         {
             foreach (var s in values)
             {

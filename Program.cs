@@ -14,6 +14,14 @@ namespace INADRGExporter
         public bool filler;
     }
 
+    public struct Map
+    {
+        public int number;
+        public string excelColumn;
+        public string dicColumn;
+        public int columnNumber;
+    }
+
     static class Program
     {
         /// <summary>

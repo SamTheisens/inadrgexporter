@@ -5,7 +5,7 @@ using inadrgTableAdapter=INADRGExporter.RSKUPANGDataSetTableAdapters.inadrgTable
 
 namespace INADRGExporter
 {
-    partial class Form1
+    partial class ExporterForm
     {
         /// <summary>
         /// Required designer variable.
@@ -34,7 +34,7 @@ namespace INADRGExporter
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExporterForm));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -90,12 +90,13 @@ namespace INADRGExporter
             this.label6 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
-            this.intputExcelTextBox = new System.Windows.Forms.TextBox();
+            this.inputExcelTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.outputExcelTextBox = new System.Windows.Forms.TextBox();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.exportkeExcelButton = new System.Windows.Forms.Button();
             this.exportWorker = new System.ComponentModel.BackgroundWorker();
             this.inadrgTableAdapter = new INADRGExporter.RSKUPANGDataSetTableAdapters.inadrgTableAdapter();
@@ -104,7 +105,6 @@ namespace INADRGExporter
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.exportkeExcelWorker = new System.ComponentModel.BackgroundWorker();
-            this.label5 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -176,7 +176,6 @@ namespace INADRGExporter
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(736, 443);
             this.tableLayoutPanel1.TabIndex = 3;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // fromDateTimePicker
             // 
@@ -239,8 +238,7 @@ namespace INADRGExporter
             this.fromGrouperTextBox.Name = "fromGrouperTextBox";
             this.fromGrouperTextBox.Size = new System.Drawing.Size(200, 20);
             this.fromGrouperTextBox.TabIndex = 0;
-            this.fromGrouperTextBox.Text = "C:\\fromgrouper.txt";
-            this.fromGrouperTextBox.TextChanged += new System.EventHandler(this.fromGrouperTextBox_TextChanged);
+            this.fromGrouperTextBox.Text = "C:\\togrouper.txt";
             // 
             // label3
             // 
@@ -563,7 +561,6 @@ namespace INADRGExporter
             this.progressLabel.Size = new System.Drawing.Size(128, 13);
             this.progressLabel.TabIndex = 0;
             this.progressLabel.Text = "Mohon pilih jarak tanggal.";
-            this.progressLabel.Click += new System.EventHandler(this.progressLabel_Click);
             // 
             // button3
             // 
@@ -661,7 +658,7 @@ namespace INADRGExporter
             // panel4
             // 
             this.panel4.Controls.Add(this.button5);
-            this.panel4.Controls.Add(this.intputExcelTextBox);
+            this.panel4.Controls.Add(this.inputExcelTextBox);
             this.panel4.Location = new System.Drawing.Point(70, 3);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(256, 32);
@@ -676,12 +673,13 @@ namespace INADRGExporter
             this.button5.Text = "Browse...";
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // intputExcelTextBox
+            // inputExcelTextBox
             // 
-            this.intputExcelTextBox.Location = new System.Drawing.Point(4, 4);
-            this.intputExcelTextBox.Name = "intputExcelTextBox";
-            this.intputExcelTextBox.Size = new System.Drawing.Size(155, 20);
-            this.intputExcelTextBox.TabIndex = 0;
+            this.inputExcelTextBox.Location = new System.Drawing.Point(4, 4);
+            this.inputExcelTextBox.Name = "inputExcelTextBox";
+            this.inputExcelTextBox.Size = new System.Drawing.Size(155, 20);
+            this.inputExcelTextBox.TabIndex = 0;
+            this.inputExcelTextBox.Text = "c:\\fromgrouper.txt";
             // 
             // label4
             // 
@@ -695,7 +693,7 @@ namespace INADRGExporter
             // panel5
             // 
             this.panel5.Controls.Add(this.button6);
-            this.panel5.Controls.Add(this.textBox1);
+            this.panel5.Controls.Add(this.outputExcelTextBox);
             this.panel5.Location = new System.Drawing.Point(70, 41);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(256, 32);
@@ -710,12 +708,13 @@ namespace INADRGExporter
             this.button6.Text = "Browse...";
             this.button6.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // outputExcelTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(4, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(155, 20);
-            this.textBox1.TabIndex = 0;
+            this.outputExcelTextBox.Location = new System.Drawing.Point(4, 4);
+            this.outputExcelTextBox.Name = "outputExcelTextBox";
+            this.outputExcelTextBox.Size = new System.Drawing.Size(155, 20);
+            this.outputExcelTextBox.TabIndex = 0;
+            this.outputExcelTextBox.Text = "c:\\toexcel.txt";
             // 
             // panel6
             // 
@@ -725,6 +724,15 @@ namespace INADRGExporter
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(407, 54);
             this.panel6.TabIndex = 9;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(84, 3);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Click to export.";
             // 
             // exportkeExcelButton
             // 
@@ -784,16 +792,7 @@ namespace INADRGExporter
             this.exportkeExcelWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.exportkeExcel_DoWork);
             this.exportkeExcelWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.exportkeExcel_ProgressChanged);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(84, 3);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Click to export.";
-            // 
-            // Form1
+            // ExporterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -802,7 +801,7 @@ namespace INADRGExporter
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "ExporterForm";
             this.Text = "INADRG Reader";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
@@ -898,11 +897,11 @@ namespace INADRGExporter
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.TextBox intputExcelTextBox;
+        private System.Windows.Forms.TextBox inputExcelTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox outputExcelTextBox;
         private System.Windows.Forms.Button exportkeExcelButton;
         private System.Windows.Forms.Panel panel6;
         private System.ComponentModel.BackgroundWorker exportkeExcelWorker;

@@ -9,10 +9,12 @@ namespace INADRGExporter
         public DateTime from;
         public DateTime until;
         public string kdCustomer;
+        public string inputFile;
+        public string outputFile;
     }
-    public partial class Form1 : Form
+    public partial class ExporterForm : Form
     {
-        public Form1()
+        public ExporterForm()
         {
             InitializeComponent();
         }
@@ -75,7 +77,8 @@ namespace INADRGExporter
                                 {
                                     from = fromDateTimePicker.Value,
                                     until = untilDateTimePicker.Value,
-                                    kdCustomer = comboBoxCustomer.SelectedValue.ToString()
+                                    kdCustomer = comboBoxCustomer.SelectedValue.ToString(),
+                                    inputFile = fromGrouperTextBox.Text
                                 };
             exportWorker.RunWorkerAsync(arguments);
         }
@@ -85,7 +88,7 @@ namespace INADRGExporter
 
             exportWorker.ReportProgress(0, "Sabar. Sedang baca database. . . ");
             var arguments = (ReaderArguments)e.Argument;
-            using (var writer = new ToGrouperWriter(arguments.from, arguments.until, arguments.kdCustomer))
+            using (var writer = new ToGrouperWriter(arguments.inputFile, arguments.from, arguments.until, arguments.kdCustomer))
             {
                 var line = 1;
                 while (writer.NextLine())
@@ -103,23 +106,14 @@ namespace INADRGExporter
             Cursor = e.UserState.ToString() == "Data telah export." ? Cursors.Default : Cursors.WaitCursor;
         }
 
-        private void progressLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'rSKUPANGDataSetCustomer.CUSTOMER' table. You can move, or remove it, as needed.
             cUSTOMERTableAdapter.Fill(rSKUPANGDataSetCustomer.CUSTOMER);
             comboBoxCustomer.SelectedIndex = 3;
             comboBoxCustomer.Refresh();
-            intputExcelTextBox.Text = fromGrouperTextBox.Text;
+            fromDateTimePicker.Value = new DateTime(2009,6,20);
+            untilDateTimePicker.Value = new DateTime(2009, 6, 20);
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
@@ -143,25 +137,27 @@ namespace INADRGExporter
             fromDateTimePicker.MaxDate = untilDateTimePicker.Value;
         }
 
-        private void fromGrouperTextBox_TextChanged(object sender, EventArgs e)
-        {
-            intputExcelTextBox.Text = fromGrouperTextBox.Text;
-        }
-
         private void exportkeExcelButton_Click(object sender, EventArgs e)
         {
-            exportkeExcelWorker.RunWorkerAsync();
+            var arguments = new ReaderArguments
+            {
+                inputFile = inputExcelTextBox.Text,
+                outputFile = outputExcelTextBox.Text
+            };
+
+            exportkeExcelWorker.RunWorkerAsync(arguments);
         }
 
         private void exportkeExcel_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            using (var reader = new FromGrouperReader(@"c:\semuah-output.txt", @"c:\keexcel.txt"))
+            var args = (ReaderArguments) e.Argument;
+            using (var reader = new FromGrouperReader(args.inputFile, args.outputFile))
             {
                 var linesRead = 0;
                 var linesWritten = 0;
                 var linesReadLastTime = -1;
                 const int stepsize = 200;
-                while (linesRead > linesReadLastTime)
+                while (linesRead > linesReadLastTime && !reader.endOfData())
                 {
                     linesReadLastTime = linesRead;
                     while (reader.readNextLine())
@@ -169,12 +165,7 @@ namespace INADRGExporter
                         linesRead++;
                         if (linesRead % stepsize == 0)
                             break;
-
-                        exportkeExcelWorker.ReportProgress(0,
-                                                           string.Format("Lines read: {0}. Lines written: {1}",
-                                                                         linesRead,
-                                                                         linesWritten));
-
+                        ReportProgress(linesRead, linesWritten);
                     }
                     reader.executeQuery();
                     while (reader.writeLine())
@@ -182,17 +173,19 @@ namespace INADRGExporter
                         linesWritten++;
                         if (linesWritten % stepsize == 0)
                             break;
-                        exportkeExcelWorker.ReportProgress(0,
-                                                           string.Format("Lines read: {0}. Lines written: {1}",
-                                                                         linesRead,
-                                                                         linesWritten));
-
+                        ReportProgress(linesRead, linesWritten);
                     }
                     reader.clearTempDB();
                 }
-
-                
             }
+        }
+
+        private void ReportProgress(int linesRead, int linesWritten)
+        {
+            exportkeExcelWorker.ReportProgress(0,
+                                               string.Format("Lines read: {0}. Lines written: {1}",
+                                                             linesRead,
+                                                             linesWritten));
         }
 
         private void exportkeExcel_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)

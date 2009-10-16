@@ -30,6 +30,28 @@ namespace INADRGExporter
             }
             return dic;
         }
+        public static List<Map> ReadMapping(string fileName)
+        {
+            var file = new StreamReader(fileName);
+            file.ReadLine();
+            var dic = new List<Map>();
+            int i = 0;
+            string line = "";
+            while (!file.EndOfStream)
+            {
+                line = file.ReadLine();
+                var columns = line.Split(':');
+                var tuple = new Map
+                {
+                    number = i,
+                    excelColumn = columns[0],
+                    dicColumn = columns[1],
+                    columnNumber = int.Parse(columns[2])
+                };
+                dic.Add(tuple);
+            }
+            return dic;
+        }
 
         
     }
