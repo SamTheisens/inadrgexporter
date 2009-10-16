@@ -42,10 +42,10 @@ namespace INADRGExporter
 
         private static void WriteAsLine(object[] values, IList<Tuple> dictionary, TextWriter writer)
         {
-            int nocolumn = 0;
-            for (int i = 0; i < dictionary.Count && nocolumn < values.Length; i++)
+            var nocolumn = 0;
+            for (var i = 0; i < dictionary.Count && nocolumn < values.Length; i++)
             {
-                for (int j = 0; j < dictionary[i].repeat && nocolumn < values.Length; j++)
+                for (var j = 0; j < dictionary[i].repeat; j++)
                 {
                     if (dictionary[i].filler)
                         printColumn("", dictionary[i].characters);
