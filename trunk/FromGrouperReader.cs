@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Odbc;
 using System.Data.SqlClient;
 using System.Globalization;
@@ -39,7 +40,7 @@ namespace INADRGExporter
             dictionary = GrouperHelper.ReadDictionary("cgs_ina_out.dic");
             tarifJamkesmas = readTarifJamkesmas();
             parser = CreateTextFieldParser();
-            connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString);
+            connection = new SqlConnection(ConfigurationManager.ConnectionStrings["INADRGReader.Properties.Settings.RSKUPANGConnectionString"].ConnectionString);
             connection.Open();
             var cmd = new SqlCommand("create table #DRG (rm VARCHAR(6), tglMasuk DATETIME)", connection);
             cmd.ExecuteNonQuery();

@@ -1,0 +1,42 @@
+﻿An Input File [-i] Must Be Specified
+An Output File [-u] Must Be Specified
+An Input Template [-it] Must Be Specified
+An Output Template [-ut] Must Be Specified
+Grouper Logic [-g] Must Be Specified
+
+-p profile_file
+	[Profile Preference Name]
+-i input_file
+	[Input File Name]
+-it input_template 
+	[Input Template Name]
+-idf date_format
+	[Input Date Format]
+-u output_file
+	[Output File Name]
+-ut output_template 
+	[Output Template Name]
+-udf date_format
+	[Input Date Format]
+-g logic
+	[Grouper Logic]
+-cv code_version
+	[Code Scheme Version]
+-b audit_file
+	[Batch Audit File]
+-o report_file
+	[Report File Name]
+-r
+	[Reorder and Compress Codes]
+-cp
+	[Compress Codes]
+-opi
+	[Outpatient Visit Indicator]
+-di
+	[Procedure Level DRG]
+-e
+	[Suppress Error Messages]
+-h
+	[Display Usage Statement]
+-w
+	[Overwrite Output File]

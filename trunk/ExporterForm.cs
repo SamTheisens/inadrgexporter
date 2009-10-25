@@ -1,6 +1,12 @@
 ﻿using System;
-using System.Configuration;
+using System.Data.SqlClient;
+using System.IO;
+using System.Threading;
 using System.Windows.Forms;
+using INADRGExporter.Properties;
+using Mmm.His.Cgs.AppPlg.Batch;
+using Mmm.His.Cgs.CGSMainForms;
+using Mmm.His.Prm.Std.Global;
 
 namespace INADRGExporter
 {
@@ -14,15 +20,22 @@ namespace INADRGExporter
     }
     public partial class ExporterForm : Form
     {
+        private readonly string commandText;
+        private const int selectionWindowSize = 10;
+        private int selectionWindowStart;
         public ExporterForm()
         {
             InitializeComponent();
+            using (var reader = new StreamReader("SelectInadrg.sql"))
+            {
+                commandText = reader.ReadToEnd();
+            }
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
             openFileDialog1.FileName = fromGrouperTextBox.Text;
-            openFileDialog1.Filter = "*.txt";
+            openFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             openFileDialog1.ShowDialog();
         }
         private static string PromptForConnectionString(string currentConnectionString)
@@ -32,8 +45,7 @@ namespace INADRGExporter
             string generatedConnectionString = string.Empty;
 
             if (currentConnectionString == String.Empty)
-            {
-                dialogConnection = (ADODB.Connection)dataLinks.PromptNew();
+            {                dialogConnection = (ADODB.Connection)dataLinks.PromptNew();
                 generatedConnectionString = dialogConnection.ConnectionString;
             }
             else
@@ -51,6 +63,7 @@ namespace INADRGExporter
                     generatedConnectionString = dialogConnection.ConnectionString;
                 }
             }
+
             generatedConnectionString = generatedConnectionString.Replace("Provider=SQLOLEDB.1;", string.Empty);
             if (
                     !generatedConnectionString.Contains("Integrated Security=SSPI")
@@ -60,12 +73,15 @@ namespace INADRGExporter
                 )
                 if (dialogConnection.Properties["Password"] != null)
                     generatedConnectionString += ";Password=" + dialogConnection.Properties["Password"].Value;
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-            config.ConnectionStrings.ConnectionStrings["INADRGReader.Properties.Settings.RSKUPANGConnectionString"].
-                ConnectionString = generatedConnectionString;
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("connectionStrings");
+            //config.ConnectionStrings.ConnectionStrings["INADRGReader.Properties.Settings.RSKUPANGConnectionString"].
+            //    ConnectionString = generatedConnectionString;
+            //config.Save(ConfigurationSaveMode.Modified);
+            //Properties.Settings.Default["RSKUPANGConnectionString"] = generatedConnectionString;
+
+
+            //ConfigurationManager.RefreshSection("connectionStrings");
             return "";
         }
 
@@ -108,7 +124,6 @@ namespace INADRGExporter
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'rSKUPANGDataSetCustomer.CUSTOMER' table. You can move, or remove it, as needed.
             cUSTOMERTableAdapter.Fill(rSKUPANGDataSetCustomer.CUSTOMER);
             comboBoxCustomer.SelectedIndex = 3;
             comboBoxCustomer.Refresh();
@@ -116,15 +131,37 @@ namespace INADRGExporter
             untilDateTimePicker.Value = new DateTime(2009, 6, 20);
         }
 
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        private void toolStripMenuItemChangeConnectionstring_Click(object sender, EventArgs e)
         {
-            PromptForConnectionString(ConfigurationManager.ConnectionStrings["INADRGReader.Properties.Settings.RSKUPANGConnectionString"].ConnectionString);
+            PromptForConnectionString(Settings.Default.RSKUPANGConnectionString);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = inadrgTableAdapter.GetData(fromDateTimePicker.Value, untilDateTimePicker.Value,
-                                                                  comboBoxCustomer.SelectedValue.ToString());
+            selectionWindowStart = 0;
+            RefreshPreview();
+//            dataGridView1.DataSource = inadrgTableAdapter.GetData(fromDateTimePicker.Value, untilDateTimePicker.Value,
+//                                                                  );
+        }
+
+        private void RefreshPreview()
+        {
+            using (var connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString))
+            {
+                connection.Open();
+                var selectCommand = string.Format(commandText, GrouperHelper.ToSQLDate(fromDateTimePicker.Value),
+                                                  GrouperHelper.ToSQLDate(untilDateTimePicker.Value),
+                                                  comboBoxCustomer.SelectedValue,
+                                                  string.Format("WHERE Recid between {0} and {1}", selectionWindowStart + 1, selectionWindowStart + selectionWindowSize));
+                inadrgTableAdapter.Adapter.SelectCommand = new SqlCommand(selectCommand, connection);
+                var dataTable = new RSKUPANGDataSet.inadrgDataTable();
+                inadrgTableAdapter.Adapter.Fill(dataTable);
+
+                dataGridView1.DataSource = dataTable;
+                selanjutnyaButton.Enabled = dataTable.Rows.Count >= selectionWindowSize;
+                sebelumnyaButton.Enabled = selectionWindowStart > 0;
+                dataGridView1.Refresh();
+            }
         }
 
         private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
@@ -193,5 +230,66 @@ namespace INADRGExporter
             label5.Text = e.UserState.ToString();
         }
 
+        private void ExporterForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Settings.Default.Save();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            CGSGlobalCommandLine.GetInstance();
+            string commandLine = "-O ";
+            var frm = new UsageForm();
+            frm.ShowDialog();
+
+            GlobalContainer.CreateInstance(@"C:\3mhis\3M_CGS\3M CGS INA");
+            CGSProcessBatch batch = new CGSProcessBatch();
+            var directories = Directories.GetInstance();
+            //directories.InstanceFilePath = @"C:\3mhis\3M_CGS\3M CGS INA";
+            //directories.StdReportsFilePath = Path(@"C:\3mhis\3M_CGS\3M CGS INA\common\config\groupingprofiles");
+                
+            string profile = @"C:\3mhis\3M_CGS\3M CGS INA\common\config\groupingprofiles\default.pro";
+            CGSGroupingProfile profieletje = new CGSGroupingProfile();
+            profieletje.LoadFromXml(@"default.pro");
+            profieletje.InFile = @"C:\kegrouper-dari-inadrg.txt";
+            profieletje.OutFile = @"C:\batch-output.txt";
+            string errorstr = "Errortjes : \\n";
+            foreach (var error in profieletje.ErrorList())
+            {
+                errorstr += error.Errortext + @"\n";
+            }
+
+            if (profieletje.HasErrors())
+            {
+                MessageBox.Show(errorstr);
+            }
+            profieletje.SaveToXml(@"c:\profielo.tdxt");
+                batch.InitFromParameterObject(profieletje);
+
+            var errors = batch.Execute(@"C:\kegrouper-dari-inadrg.txt", @"C:\batch-output.txt", @"C:\poep.rpt", "", true);
+            errorstr = "Errortjes : \\n";
+           
+            foreach (var error in errors)
+            {
+                errorstr += error.Errortext + @"\n";
+            }
+            MessageBox.Show(errorstr, "Errors!");
+            Thread.Sleep(4000);
+
+///            Execute(string infile, string outfile, string preportfile, string pauditfile, bool overwrite)
+
+        }
+
+        private void selanjutnyaButton_Click(object sender, EventArgs e)
+        {
+            selectionWindowStart += selectionWindowSize;
+            RefreshPreview();
+        }
+
+        private void sebelumnyaButton_Click(object sender, EventArgs e)
+        {
+            selectionWindowStart -= selectionWindowSize;
+            RefreshPreview();
+        }
     }
 }

@@ -34,6 +34,10 @@ namespace INADRGExporter
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExporterForm));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -47,7 +51,6 @@ namespace INADRGExporter
             this.button1 = new System.Windows.Forms.Button();
             this.fromGrouperTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.kdrsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.klsrsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -85,6 +88,7 @@ namespace INADRGExporter
             this.comboBoxCustomer = new System.Windows.Forms.ComboBox();
             this.cUSTOMERBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.rSKUPANGDataSetCustomer = new INADRGExporter.RSKUPANGDataSetCustomer();
+            this.selanjutnyaButton = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
@@ -98,6 +102,7 @@ namespace INADRGExporter
             this.panel6 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.exportkeExcelButton = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.exportWorker = new System.ComponentModel.BackgroundWorker();
             this.inadrgTableAdapter = new INADRGExporter.RSKUPANGDataSetTableAdapters.inadrgTableAdapter();
             this.cUSTOMERTableAdapter = new INADRGExporter.RSKUPANGDataSetCustomerTableAdapters.CUSTOMERTableAdapter();
@@ -105,6 +110,9 @@ namespace INADRGExporter
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.exportkeExcelWorker = new System.ComponentModel.BackgroundWorker();
+            this.button7 = new System.Windows.Forms.Button();
+            this.sebelumnyaButton = new System.Windows.Forms.Button();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -122,6 +130,7 @@ namespace INADRGExporter
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -136,7 +145,6 @@ namespace INADRGExporter
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(756, 466);
-            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 3;
             // 
             // tabPage1
@@ -163,18 +171,21 @@ namespace INADRGExporter
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.button2, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.panel3, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button7, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel7, 0, 4);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 6);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(736, 443);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(736, 428);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // fromDateTimePicker
@@ -216,9 +227,9 @@ namespace INADRGExporter
             // 
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.fromGrouperTextBox);
-            this.panel1.Location = new System.Drawing.Point(51, 68);
+            this.panel1.Location = new System.Drawing.Point(51, 65);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(282, 48);
+            this.panel1.Size = new System.Drawing.Size(282, 34);
             this.panel1.TabIndex = 4;
             // 
             // button1
@@ -243,26 +254,27 @@ namespace INADRGExporter
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 65);
+            this.label3.Location = new System.Drawing.Point(3, 62);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Output";
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(339, 39);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(124, 23);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Ganti database";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.AutoGenerateColumns = false;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.kdrsDataGridViewTextBoxColumn,
@@ -293,11 +305,28 @@ namespace INADRGExporter
             this.p5DataGridViewTextBoxColumn});
             this.tableLayoutPanel1.SetColumnSpan(this.dataGridView1, 3);
             this.dataGridView1.DataSource = this.inadrgBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 122);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 105);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.RowHeadersWidth = 30;
-            this.dataGridView1.Size = new System.Drawing.Size(733, 328);
+            this.dataGridView1.ShowEditingIcon = false;
+            this.dataGridView1.Size = new System.Drawing.Size(733, 289);
             this.dataGridView1.TabIndex = 8;
             // 
             // kdrsDataGridViewTextBoxColumn
@@ -548,9 +577,9 @@ namespace INADRGExporter
             // 
             this.panel2.Controls.Add(this.progressLabel);
             this.panel2.Controls.Add(this.button3);
-            this.panel2.Location = new System.Drawing.Point(339, 68);
+            this.panel2.Location = new System.Drawing.Point(339, 65);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(397, 48);
+            this.panel2.Size = new System.Drawing.Size(364, 34);
             this.panel2.TabIndex = 9;
             // 
             // progressLabel
@@ -577,6 +606,7 @@ namespace INADRGExporter
             // 
             this.panel3.Controls.Add(this.button4);
             this.panel3.Controls.Add(this.comboBoxCustomer);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(339, 3);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(397, 30);
@@ -614,6 +644,16 @@ namespace INADRGExporter
             this.rSKUPANGDataSetCustomer.DataSetName = "RSKUPANGDataSetCustomer";
             this.rSKUPANGDataSetCustomer.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
+            // selanjutnyaButton
+            // 
+            this.selanjutnyaButton.Location = new System.Drawing.Point(630, 3);
+            this.selanjutnyaButton.Name = "selanjutnyaButton";
+            this.selanjutnyaButton.Size = new System.Drawing.Size(100, 23);
+            this.selanjutnyaButton.TabIndex = 11;
+            this.selanjutnyaButton.Text = "10 selanjutnya ->";
+            this.selanjutnyaButton.UseVisualStyleBackColor = true;
+            this.selanjutnyaButton.Click += new System.EventHandler(this.selanjutnyaButton_Click);
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.tableLayoutPanel2);
@@ -636,6 +676,7 @@ namespace INADRGExporter
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.panel5, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.panel6, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.button2, 1, 2);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
@@ -745,6 +786,16 @@ namespace INADRGExporter
             this.exportkeExcelButton.UseVisualStyleBackColor = true;
             this.exportkeExcelButton.Click += new System.EventHandler(this.exportkeExcelButton_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(70, 79);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "Groupit";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // exportWorker
             // 
             this.exportWorker.WorkerReportsProgress = true;
@@ -783,7 +834,7 @@ namespace INADRGExporter
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(158, 22);
             this.toolStripMenuItem2.Text = "Ganti &database";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItemChangeConnectionstring_Click);
             // 
             // exportkeExcelWorker
             // 
@@ -791,6 +842,36 @@ namespace INADRGExporter
             this.exportkeExcelWorker.WorkerSupportsCancellation = true;
             this.exportkeExcelWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.exportkeExcel_DoWork);
             this.exportkeExcelWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.exportkeExcel_ProgressChanged);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(742, 3);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(37, 23);
+            this.button7.TabIndex = 12;
+            this.button7.Text = "button7";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // sebelumnyaButton
+            // 
+            this.sebelumnyaButton.Enabled = false;
+            this.sebelumnyaButton.Location = new System.Drawing.Point(3, 3);
+            this.sebelumnyaButton.Name = "sebelumnyaButton";
+            this.sebelumnyaButton.Size = new System.Drawing.Size(102, 23);
+            this.sebelumnyaButton.TabIndex = 13;
+            this.sebelumnyaButton.Text = "<- 10 sebelumnya";
+            this.sebelumnyaButton.UseVisualStyleBackColor = true;
+            this.sebelumnyaButton.Click += new System.EventHandler(this.sebelumnyaButton_Click);
+            // 
+            // panel7
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.panel7, 3);
+            this.panel7.Controls.Add(this.selanjutnyaButton);
+            this.panel7.Controls.Add(this.sebelumnyaButton);
+            this.panel7.Location = new System.Drawing.Point(3, 400);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(733, 25);
+            this.panel7.TabIndex = 14;
             // 
             // ExporterForm
             // 
@@ -804,6 +885,7 @@ namespace INADRGExporter
             this.Name = "ExporterForm";
             this.Text = "INADRG Reader";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExporterForm_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -829,6 +911,7 @@ namespace INADRGExporter
             this.panel6.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.panel7.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -849,7 +932,6 @@ namespace INADRGExporter
         private System.Windows.Forms.TextBox fromGrouperTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource inadrgBindingSource;
@@ -906,6 +988,11 @@ namespace INADRGExporter
         private System.Windows.Forms.Panel panel6;
         private System.ComponentModel.BackgroundWorker exportkeExcelWorker;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button selanjutnyaButton;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button sebelumnyaButton;
+        private System.Windows.Forms.Panel panel7;
 
     }
 }

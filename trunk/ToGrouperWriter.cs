@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
@@ -15,17 +16,16 @@ namespace INADRGExporter
         private readonly SqlDataReader reader;
         private readonly StreamWriter writer;
         private readonly List<Tuple> dictionary;
-        
-        public ToGrouperWriter(string outputFile, IFormattable from, IFormattable until, string kdCustomer)
+
+        public ToGrouperWriter(string outputFile, DateTime from, DateTime until, string kdCustomer)
         {
             writer = new StreamWriter(outputFile, false);
             dictionary = GrouperHelper.ReadDictionary("cgs_ina_in.dic");
 
-            var queryString = string.Format("exec dbo.RSUD_GET_INADRG '{0}', '{1}', '{2}'", from.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
-                                            until.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), kdCustomer);
+            var queryString = string.Format("exec dbo.RSUD_GET_INADRG '{0}', '{1}', '{2}'", GrouperHelper.ToSQLDate(from), GrouperHelper.ToSQLDate(until), kdCustomer);
 
 
-            connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString);
+            connection = new SqlConnection(ConfigurationManager.ConnectionStrings["INADRGReader.Properties.Settings.RSKUPANGConnectionString"].ConnectionString);
             var command = new SqlCommand(queryString, connection);
             connection.Open();
             reader = command.ExecuteReader();

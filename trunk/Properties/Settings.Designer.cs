@@ -26,21 +26,21 @@ namespace INADRGExporter.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\\RSKUPANG.sdf;Max Database Size=2047")]
-        public string ClientRSKUPANGConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID" +
+            "=sa;Password=pocopoco")]
+        public string RSKUPANGConnectionString {
             get {
-                return ((string)(this["ClientRSKUPANGConnectionString"]));
+                return ((string)(this["RSKUPANGConnectionString"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SERVER;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=sa" +
-            ";Password=pocopoco")]
-        public string RSKUPANGConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\\RSKUPANG.sdf;Max Database Size=2047")]
+        public string ClientRSKUPANGConnectionString {
             get {
-                return ((string)(this["RSKUPANGConnectionString"]));
+                return ((string)(this["ClientRSKUPANGConnectionString"]));
             }
         }
     }
