@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using INADRGExporter;
 
@@ -52,7 +54,10 @@ namespace INADRGExporter
             }
             return dic;
         }
-
+        public static string ToSQLDate(DateTime date)
+        {
+            return date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        }
         
     }
 }

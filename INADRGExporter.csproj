@@ -47,9 +47,37 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="3MCGSMainForms, Version=1.2.0.70, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\3MCGSMainForms.dll</HintPath>
+    </Reference>
+    <Reference Include="3MCgsPlugInBatch, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\3MCgsPlugInBatch.dll</HintPath>
+    </Reference>
+    <Reference Include="3MPrmStdGlobal, Version=0.9.3098.35564, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\3MPrmStdGlobal.dll</HintPath>
+    </Reference>
+    <Reference Include="3MPrmStdInterfaces, Version=0.9.3098.35563, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\3MPrmStdInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="3MPrmStdStandards, Version=0.9.3098.35574, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\3MPrmStdStandards.dll</HintPath>
+    </Reference>
     <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Microsoft.NET\Primary Interop Assemblies\adodb.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v7.2, Version=7.2.5.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\DevExpress.Utils.v7.2.dll</HintPath>
+    </Reference>
+    <Reference Include="interop.xlsgen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\interop.xlsgen.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Synchronization.Data, Version=1.0.0.0" />
     <Reference Include="Microsoft.Synchronization.Data.Server, Version=1.0.0.0" />
@@ -155,6 +183,9 @@
     <None Include="RSKUPANGDataSetCustomer.xss">
       <DependentUpon>RSKUPANGDataSetCustomer.xsd</DependentUpon>
     </None>
+    <None Include="SelectInadrg.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -202,6 +233,9 @@
   <ItemGroup>
     <Content Include="RSKUPANG.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="usage.txt">
+      <SubType>Form</SubType>
     </Content>
     <Content Include="VSO.ico" />
   </ItemGroup>
