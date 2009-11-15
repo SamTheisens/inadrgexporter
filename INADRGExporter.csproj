@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{36272262-C827-4657-B3F5-C683C527947F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -12,6 +12,8 @@
     <AssemblyName>INADRGExporter</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ApplicationIcon>VSO.ico</ApplicationIcon>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,10 +26,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <ApplicationIcon>VSO.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,41 +47,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="3MCGSMainForms, Version=1.2.0.70, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\3MCGSMainForms.dll</HintPath>
-    </Reference>
-    <Reference Include="3MCgsPlugInBatch, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\3MCgsPlugInBatch.dll</HintPath>
-    </Reference>
-    <Reference Include="3MPrmStdGlobal, Version=0.9.3098.35564, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\3MPrmStdGlobal.dll</HintPath>
-    </Reference>
-    <Reference Include="3MPrmStdInterfaces, Version=0.9.3098.35563, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\3MPrmStdInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="3MPrmStdStandards, Version=0.9.3098.35574, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\3MPrmStdStandards.dll</HintPath>
-    </Reference>
     <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Program Files\Microsoft.NET\Primary Interop Assemblies\adodb.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Microsoft.NET\Primary Interop Assemblies\adodb.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Utils.v7.2, Version=7.2.5.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+    <Reference Include="Microsoft.Synchronization, Version=2.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\DevExpress.Utils.v7.2.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\Microsoft.Synchronization.dll</HintPath>
     </Reference>
-    <Reference Include="interop.xlsgen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Synchronization.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\3mhis\3M_CGS\3M CGS INA\interop.xlsgen.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\Microsoft.Synchronization.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Synchronization.Data, Version=1.0.0.0" />
-    <Reference Include="Microsoft.Synchronization.Data.Server, Version=1.0.0.0" />
-    <Reference Include="Microsoft.Synchronization.Data.SqlServerCe, Version=3.5.0.0" />
+    <Reference Include="Microsoft.Synchronization.Data.Server, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\Microsoft.Synchronization.Data.Server.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.Data.SqlServer, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\Microsoft.Synchronization.Data.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.Data.SqlServerCe, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\Microsoft.Synchronization.Data.SqlServerCe.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
@@ -94,7 +84,10 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="System.Data.SqlServerCe, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\Microsoft SQL Server\90\Tools\Binn\VSShell\Common7\IDE\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -118,6 +111,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerDataset.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CustomerDataset.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ExporterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +134,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ExporterForm.resx">
       <DependentUpon>ExporterForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -147,6 +152,17 @@
     </None>
     <None Include="cgs_ina_out.dic">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CustomerDataset.xsc">
+      <DependentUpon>CustomerDataset.xsd</DependentUpon>
+    </None>
+    <None Include="CustomerDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CustomerDataset.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CustomerDataset.xss">
+      <DependentUpon>CustomerDataset.xsd</DependentUpon>
     </None>
     <None Include="dic_excel_mapping.dic">
       <SubType>Form</SubType>
@@ -172,24 +188,13 @@
     <None Include="RSKUPANGDataSet.xss">
       <DependentUpon>RSKUPANGDataSet.xsd</DependentUpon>
     </None>
-    <None Include="RSKUPANGDataSetCustomer.xsc">
-      <DependentUpon>RSKUPANGDataSetCustomer.xsd</DependentUpon>
-    </None>
-    <None Include="RSKUPANGDataSetCustomer.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>RSKUPANGDataSetCustomer.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="RSKUPANGDataSetCustomer.xss">
-      <DependentUpon>RSKUPANGDataSetCustomer.xsd</DependentUpon>
-    </None>
-    <None Include="SelectInadrg.sql">
+    <Content Include="SelectInadrg.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="RSKUPANGCache.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -205,11 +210,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RSKUPANGDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="RSKUPANGDataSetCustomer.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RSKUPANGDataSetCustomer.xsd</DependentUpon>
-    </Compile>
+    <Compile Include="ToExcelExporter.cs" />
     <Compile Include="ToGrouperWriter.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -237,14 +238,13 @@
     <Content Include="usage.txt">
       <SubType>Form</SubType>
     </Content>
-    <Content Include="VSO.ico" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VSO.ico" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
       <ProductName>.NET Framework 2.0 %28x86%29</ProductName>

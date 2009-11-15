@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Globalization;
 using System.IO;
 using INADRGExporter;
-using INADRGExporter.Properties;
 
 namespace INADRGExporter
 {
