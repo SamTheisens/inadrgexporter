@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("INADRGReader")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("INADRG Exporter")]
+[assembly: AssemblyDescription("Program yang bisa eskpor informasi dari SIM ke INADRG grouper")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("D+ Productions")]
-[assembly: AssemblyProduct("INADRGReader")]
-[assembly: AssemblyCopyright("Copyright © D+ Productions 2009")]
+[assembly: AssemblyCompany("Sam Theisens")]
+[assembly: AssemblyProduct("INADRG Exporter")]
+[assembly: AssemblyCopyright("Copyright © Sam Theisens 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

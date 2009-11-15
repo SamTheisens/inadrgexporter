@@ -1,12 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 using INADRGExporter.Properties;
-using Mmm.His.Cgs.AppPlg.Batch;
-using Mmm.His.Cgs.CGSMainForms;
-using Mmm.His.Prm.Std.Global;
 
 namespace INADRGExporter
 {
@@ -18,6 +15,7 @@ namespace INADRGExporter
         public string inputFile;
         public string outputFile;
     }
+    
     public partial class ExporterForm : Form
     {
         private readonly string commandText;
@@ -116,7 +114,7 @@ namespace INADRGExporter
             exportWorker.ReportProgress(0, "Data telah export.");
         }
 
-        private void exportWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        private void exportWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressLabel.Text = e.UserState.ToString();
             Cursor = e.UserState.ToString() == "Data telah export." ? Cursors.Default : Cursors.WaitCursor;
@@ -124,9 +122,9 @@ namespace INADRGExporter
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cUSTOMERTableAdapter.Fill(rSKUPANGDataSetCustomer.CUSTOMER);
+            // TODO: This line of code loads data into the 'customerDataset.CUSTOMER' table. You can move, or remove it, as needed.
+            cUSTOMERTableAdapter.Fill(customerDataset.CUSTOMER);
             comboBoxCustomer.SelectedIndex = 3;
-            comboBoxCustomer.Refresh();
             fromDateTimePicker.Value = new DateTime(2009,6,20);
             untilDateTimePicker.Value = new DateTime(2009, 6, 20);
         }
@@ -140,8 +138,6 @@ namespace INADRGExporter
         {
             selectionWindowStart = 0;
             RefreshPreview();
-//            dataGridView1.DataSource = inadrgTableAdapter.GetData(fromDateTimePicker.Value, untilDateTimePicker.Value,
-//                                                                  );
         }
 
         private void RefreshPreview()
@@ -161,6 +157,8 @@ namespace INADRGExporter
                 selanjutnyaButton.Enabled = dataTable.Rows.Count >= selectionWindowSize;
                 sebelumnyaButton.Enabled = selectionWindowStart > 0;
                 dataGridView1.Refresh();
+
+                exportGridKeExcelButton.Enabled = dataTable.Rows.Count > 0;
             }
         }
 
@@ -174,16 +172,16 @@ namespace INADRGExporter
             fromDateTimePicker.MaxDate = untilDateTimePicker.Value;
         }
 
-        private void exportkeExcelButton_Click(object sender, EventArgs e)
-        {
-            var arguments = new ReaderArguments
-            {
-                inputFile = inputExcelTextBox.Text,
-                outputFile = outputExcelTextBox.Text
-            };
+        //private void exportkeExcelButton_Click(object sender, EventArgs e)
+        //{
+        //    var arguments = new ReaderArguments
+        //    {
+        //        inputFile = inputExcelTextBox.Text,
+        //        outputFile = outputExcelTextBox.Text
+        //    };
 
-            exportkeExcelWorker.RunWorkerAsync(arguments);
-        }
+        //    exportkeExcelWorker.RunWorkerAsync(arguments);
+        //}
 
         private void exportkeExcel_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
@@ -225,10 +223,10 @@ namespace INADRGExporter
                                                              linesWritten));
         }
 
-        private void exportkeExcel_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
-        {
-            label5.Text = e.UserState.ToString();
-        }
+        //private void exportkeExcel_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        //{
+        //    label5.Text = e.UserState.ToString();
+        //}
 
         private void ExporterForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -237,7 +235,7 @@ namespace INADRGExporter
 
         private void button2_Click(object sender, EventArgs e)
         {
-            CGSGlobalCommandLine.GetInstance();
+/*            CGSGlobalCommandLine.GetInstance();
             string commandLine = "-O ";
             var frm = new UsageForm();
             frm.ShowDialog();
@@ -277,7 +275,7 @@ namespace INADRGExporter
             Thread.Sleep(4000);
 
 ///            Execute(string infile, string outfile, string preportfile, string pauditfile, bool overwrite)
-
+            */
         }
 
         private void selanjutnyaButton_Click(object sender, EventArgs e)
@@ -291,5 +289,52 @@ namespace INADRGExporter
             selectionWindowStart -= selectionWindowSize;
             RefreshPreview();
         }
+
+
+        private void exportGridKeExcelButton_Click(object sender, EventArgs e)
+        {
+            exportGridKeExcelProgressBar.Visible = true;
+            var args = new ReaderArguments
+                           {
+                               from = fromDateTimePicker.Value,
+                               until = untilDateTimePicker.Value,
+                               kdCustomer = comboBoxCustomer.SelectedValue.ToString()
+                           };
+            exportGridKeExcelWorker.RunWorkerAsync(args);
+        }
+
+        private void exportGridKeExcelWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var args = (ReaderArguments) e.Argument;
+            System.Data.DataTable dataTable;
+            using (var connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString))
+            {
+                connection.Open();
+                var selectCommand = string.Format(commandText, GrouperHelper.ToSQLDate(args.from),
+                                                  GrouperHelper.ToSQLDate(args.until), args.kdCustomer
+                                                  , string.Empty);
+                inadrgTableAdapter.Adapter.SelectCommand = new SqlCommand(selectCommand, connection);
+                dataTable = new RSKUPANGDataSet.inadrgDataTable();
+                inadrgTableAdapter.Adapter.Fill(dataTable);
+            }
+
+            ToExcelExporter.WriteToExcelSpreadsheet(@"c:\hoi.xls", dataTable, sender as BackgroundWorker);
+        }
+
+        private void exportGridKeExcelWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            exportGridKeExcelProgressBar.Value = e.ProgressPercentage;
+        }
+
+        private void exportGridKeExcelWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            exportGridKeExcelProgressBar.Visible = false;
+        }
+
+        private void aboutINADRGExporterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new AboutBox().ShowDialog();
+        }
+
     }
 }
