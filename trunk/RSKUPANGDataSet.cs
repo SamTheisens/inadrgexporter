@@ -2,12 +2,20 @@
     
     
     public partial class RSKUPANGDataSet {
+        partial class inadrgDataTable
+        {
+        }
+    
+        partial class _inadrg_oldDataTable
+        {
+        }
     }
 }
 
 namespace INADRGExporter.RSKUPANGDataSetTableAdapters {
-    
-    
-    public partial class inadrgTableAdapter {
+
+
+    public partial class inadrg_oldTableAdapter
+    {
     }
 }

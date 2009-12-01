@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.Odbc;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using INADRGExporter.Properties;
 using Microsoft.VisualBasic.FileIO;
 
@@ -30,19 +30,23 @@ namespace INADRGExporter
         private readonly List<object> rows = new List<object>();
         private SqlDataReader dataReader;
         private int currentRow;
+        private static int currentReadRow;
         private static string insertBuffer = "";
-        
+        private readonly List<Map> excelColumns;
+        private readonly Dictionary<string,string> errorCodes;
 
         public FromGrouperReader(string inputFile, string outputFile)
         {
             reader = new StreamReader(inputFile, true);
             writer = new StreamWriter(outputFile, false);
             dictionary = GrouperHelper.ReadDictionary("cgs_ina_out.dic");
+            excelColumns = GrouperHelper.ReadMapping("dic_excel_mapping.dic");
+            errorCodes = GrouperHelper.ReadErrorCodes("errorcodes.dic");
             tarifJamkesmas = readTarifJamkesmas();
             parser = CreateTextFieldParser();
-            connection = new SqlConnection(ConfigurationManager.ConnectionStrings["INADRGReader.Properties.Settings.RSKUPANGConnectionString"].ConnectionString);
+            connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString);
             connection.Open();
-            var cmd = new SqlCommand("create table #DRG (rm VARCHAR(6), tglMasuk DATETIME)", connection);
+            var cmd = new SqlCommand("create table #DRG (urut INT, rm VARCHAR(6), tglMasuk DATETIME)", connection);
             cmd.ExecuteNonQuery();
         }
 
@@ -63,11 +67,9 @@ namespace INADRGExporter
             string rm;
             DateTime tglMasuk;
             List<object> outputColumns;
-            ParseLine(fields, dictionary, out outputColumns, out drg, out rm, out tglMasuk);
-
+            ParseLine(fields, dictionary, excelColumns.Where(col => col.dicColumn != string.Empty).ToList(), out outputColumns, out drg, out rm, out tglMasuk);
             AddTarif(outputColumns, drg, tarifJamkesmas);
             InsertIntoTempTable(rm, tglMasuk);
-
             rows.Add(outputColumns);
 
             return true;
@@ -81,18 +83,9 @@ namespace INADRGExporter
             var insertCommand = new SqlCommand(insertBuffer, connection);
             insertCommand.ExecuteNonQuery();
             insertBuffer = string.Empty;
+            currentReadRow = 0;
 
-            const string queryDetails =
-                "select rm, tglMasuk, p.Nama as Nama, p.NO_ASURANSI AS SKP, MAX(d.NAMA) AS Dokter " +
-                "from #DRG AS drg LEFT OUTER JOIN dbo.KUNJUNGAN AS k " +
-                "ON k.TGL_MASUK = drg.tglMasuk " +
-                "AND RIGHT('000000' + REPLACE(k.KD_PASIEN, '-', ''), 6) = drg.rm " +
-                "LEFT OUTER JOIN dbo.PASIEN AS p ON p.KD_PASIEN = k.KD_PASIEN " +
-                "LEFT OUTER JOIN dbo.DOKTER AS d ON k.KD_DOKTER = d.KD_DOKTER " +
-                "group by rm, tglMasuk, p.Nama, p.NO_ASURANSI";
-
-            var command = new SqlCommand(
-                queryDetails, connection);
+            var command = new SqlCommand(SQLCodeService.Instance.PatientDetailsQuery, connection);
 
             dataReader = command.ExecuteReader();
         }
@@ -136,47 +129,46 @@ namespace INADRGExporter
             }
             else
             {
-                outputColumns.Add("ERROR");
-                outputColumns.Add("ERROR");
-                outputColumns.Add("ERROR");
+                outputColumns.Add(string.Empty);
+                if (errorCodes.ContainsKey(drg)) outputColumns.Add(errorCodes[drg]);
+                outputColumns.Add(string.Empty);
             }
         }
 
-        private static void ParseLine(IList<string> fields, IEnumerable<Tuple> dictionary, out List<object> outputColumns, out string drg, out string rm, out DateTime tglMasuk)
+        private static void ParseLine(IList<string> fields, IEnumerable<Tuple> dictionary, List<Map> excelColumns, out List<object> outputColumns, out string drg, out string rm, out DateTime tglMasuk)
         {
             outputColumns = new List<object>();
             if (fields == null) throw new ArgumentNullException("fields");
-            var excelColumns = GrouperHelper.ReadMapping("dic_excel_mapping.dic");
             foreach (var map in excelColumns)
             {
                 var tuple = getTuple(dictionary, map.dicColumn);
-                var thingy = fields[tuple.number + map.columnNumber  -1 ];
-                outputColumns.Add(thingy);
+                var cell = fields[tuple.number + map.columnNumber - 1];
+                outputColumns.Add(cell);
             }
-
 
             rm = fields[getFieldIndex(dictionary, "VISIT_ID")];
 
-            tglMasuk = DateTime.ParseExact(fields[getFieldIndex(dictionary, "IMP_ADM_DATE")], "dd/MM/yyyy",
+            tglMasuk = DateTime.ParseExact(fields[getFieldIndex(dictionary, "IMP_ADM_DATE")], Settings.Default.DateFormat,
                                            CultureInfo.InvariantCulture);
             drg = fields[getFieldIndex(dictionary, "DRG")];
         }
 
         private static Tuple getTuple(IEnumerable<Tuple> dictionary, string tupleName)
         {
-            return dictionary.AsQueryable().Single(t => t.name == tupleName);
+            return dictionary.Single(t => t.name == tupleName);
         }
 
 
         private static int getFieldIndex(IEnumerable<Tuple> dictionary, string tupleName)
         {
-            return dictionary.AsQueryable().Single(t => t.name == tupleName).number;
+            return dictionary.Single(t => t.name == tupleName).number;
         }
 
         private static void InsertIntoTempTable(string rm, DateTime tglMasuk)
         {
-            insertBuffer += string.Format("INSERT INTO #DRG VALUES ('{0}','{1}');", rm.Replace("\'", ""),
-                                          tglMasuk.ToString("yyyy-MM-dd"));
+            insertBuffer += string.Format("INSERT INTO #DRG VALUES ({0},'{1}','{2}');", currentReadRow, rm.Replace("\'", ""),
+                                          GrouperHelper.ToSQLDate(tglMasuk));
+            currentReadRow++;
         }
 
         public static void WriteAsLine(List<object> values, StreamWriter writer)
@@ -204,8 +196,10 @@ namespace INADRGExporter
         {
             var tarifJamkesmas = new Dictionary<string, Tarif>();
 
+            if (!File.Exists(Path.Combine(Application.StartupPath, "tarif.dbf")))
+                throw new FileNotFoundException(string.Format("tarif.dbf not found in {0}", Application.StartupPath ));
             var connectionString = "Driver={Microsoft dBASE Driver (*.dbf)};DriverID=277;Dbq=" +
-                                   Directory.GetCurrentDirectory();
+                                   Application.StartupPath;
 
             using (var connection = new OdbcConnection(connectionString))
             {
@@ -220,7 +214,8 @@ namespace INADRGExporter
                         Tarif tarif;
                         tarif.Deskripsi = reader["DESKRIPSI"].ToString();
                         tarif.Alos = float.Parse(reader["ALOS"].ToString());
-                        tarif.Harga = float.Parse(reader["B"].ToString());
+                        tarif.Harga =
+                            float.Parse(reader[Settings.Default.RumahSakit[Settings.Default.TypeRumahSakit]].ToString());
                         tarifJamkesmas[reader["KODE"].ToString()] =  tarif;
                     }
                 }
@@ -238,6 +233,11 @@ namespace INADRGExporter
             writer.Flush();
             writer.Close();
             connection.Close();
+        }
+
+        public void writeHeaders()
+        {
+            writer.WriteLine(String.Join(";", excelColumns.Select(c => c.excelColumn).ToArray()));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,18 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="logoPictureBox.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAZNJREFUOE/VUk1L
-        QkEUTQQXLlyUpBVqukoLqk1qZenTLNQ0KkLRjL40KystpS/IELMsk8o+yDR5ZEEE/cTTe/NctFMKggaG
-        OzOcc+6Ze29Dw79b7280fmW69HSP/FX2ZyLZ8xOMWi1YWw2i8JDnRCZcTvTrdeTSqVFjzu+DdcQMqVSC
-        jfUQeTdTRiiV7QgFl7AdCcPndSMei3ICB3sx9oB06phEi5ki0ef14C6fg3HYAKFQiIF+fRWXQG9PNyFX
-        6BInwufzoVDI0dTUiGLhDgKBgICnpyYgEomwMO8nQIVcDo97BibTMCjGVWwnwglUv4BZxlqFLmInuom2
-        1lbIZDLotH0Qi8WYmnSBx+PhcD8OnU5LiA6HjRPIX2dBMaqfH69IJY8gkTSjRSrF5UWaADTqDuLKOW7H
-        VS4Dk3EI0a0wXE5Hfd1IpxK4vckhtLKMrq5OBAOL2I1HSY1qzsTbyzPWQgGoVErYbWOgy4+kA2wtapJZ
-        AF1+AisSYSxfXpzCYBhk5iBQH/l7hkw6iTNm15X1T0Ff/5bEl1V/pl8AAAAASUVORK5CYII=
-</value>
-  </data>
 </root>

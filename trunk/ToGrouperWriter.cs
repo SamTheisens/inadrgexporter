@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using INADRGExporter;
+using INADRGExporter.Properties;
 
 namespace INADRGExporter
 {
@@ -20,10 +20,16 @@ namespace INADRGExporter
             writer = new StreamWriter(outputFile, false);
             dictionary = GrouperHelper.ReadDictionary("cgs_ina_in.dic");
 
-            var queryString = string.Format("exec dbo.RSUD_GET_INADRG '{0}', '{1}', '{2}'", GrouperHelper.ToSQLDate(from), GrouperHelper.ToSQLDate(until), kdCustomer);
+            var queryString = string.Format(SQLCodeService.Instance.InadrgQuery,
+                                  GrouperHelper.ToSQLDate(from),
+                                  GrouperHelper.ToSQLDate(until),
+                                  kdCustomer,
+                                  string.Format(SQLCodeService.Instance.SelectInadrgPredicate, ""),
+                                  Settings.Default.NamaRumahSakit,
+                                  Settings.Default.KodeRumahSakit,
+                                  Settings.Default.TypeRumahSakit);
 
-
-            connection = new SqlConnection(ConfigurationManager.ConnectionStrings["INADRGReader.Properties.Settings.RSKUPANGConnectionString"].ConnectionString);
+            connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString);
             var command = new SqlCommand(queryString, connection);
             connection.Open();
             reader = command.ExecuteReader();
@@ -69,13 +75,13 @@ namespace INADRGExporter
             if (col is DateTime)
             {
                 var tgl = (DateTime)col;
-                output = tgl.ToString("dd/MM/yyyy");
+                output = tgl.ToString(Settings.Default.DateFormat);
             }
             else
             {
                 output = col.ToString();
             }
-            outputBuffer += output.PadRight(digits);
+            outputBuffer += (output.PadRight(digits)).Substring(0,digits);
         }
         public void Dispose()
         {
