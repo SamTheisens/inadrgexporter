@@ -2,14 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="INADRGExporter.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="RSKUPANGConnectionString" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=localhost;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=sa;Password=pocopoco&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=localhost;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=sa;Password=pocopoco</Value>
-    </Setting>
     <Setting Name="ClientRSKUPANGConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
@@ -17,6 +9,62 @@
   &lt;ProviderName&gt;Microsoft.SqlServerCe.Client.3.5&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=RSKUPANG.sdf;Max Database Size=2047</Value>
+    </Setting>
+    <Setting Name="RSKUPANGConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=server;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=sa;Password=pocopoco&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=server;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=sa;Password=pocopoco</Value>
+    </Setting>
+    <Setting Name="DateFormat" Description="Format tanggal yang diluarkan oleh grouper" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dd/MM/yyyy</Value>
+    </Setting>
+    <Setting Name="OutputDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\grouping</Value>
+    </Setting>
+    <Setting Name="AutomaticGrouping" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ErrorColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">DarkRed</Value>
+    </Setting>
+    <Setting Name="PreviewSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="NamaRumahSakit" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Prof. Dr. W. Z. Johannes Kupang</Value>
+    </Setting>
+    <Setting Name="KodeRumahSakit" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">5303035</Value>
+    </Setting>
+    <Setting Name="RumahSakit" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;A&lt;/string&gt;
+  &lt;string&gt;B&lt;/string&gt;
+  &lt;string&gt;CD&lt;/string&gt;
+  &lt;string&gt;RSCM&lt;/string&gt;
+  &lt;string&gt;RSAB&lt;/string&gt;
+  &lt;string&gt;RSJP&lt;/string&gt;
+  &lt;string&gt;KANKER&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="TypeRumahSakit" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="DecimalSeparator" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.</Value>
+    </Setting>
+    <Setting Name="GroupingProfile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">default.pro</Value>
+    </Setting>
+    <Setting Name="ThreeMHISDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\3mhis\3M_CGS\3M CGS INA</Value>
+    </Setting>
+    <Setting Name="ThreeHMISExecutable" Type="System.String" Scope="User">
+      <Value Profile="(Default)">3MCGS.exe</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{36272262-C827-4657-B3F5-C683C527947F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -51,7 +51,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files\Microsoft.NET\Primary Interop Assemblies\adodb.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="LumenWorks.Framework.IO, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\LumenWorks.Framework.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.Synchronization, Version=2.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\Microsoft.Synchronization.dll</HintPath>
@@ -89,6 +103,8 @@
       <HintPath>..\..\..\..\..\..\Program Files\Microsoft SQL Server\90\Tools\Binn\VSShell\Common7\IDE\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -111,10 +127,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox.cs">
+    <Compile Include="DatabaseBindingSource.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TextFileBindingSource.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox.Designer.cs">
+    <Compile Include="Forms\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomerDataset.Designer.cs">
@@ -122,17 +144,38 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CustomerDataset.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ExporterForm.cs">
+    <Compile Include="Forms\SettingsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExporterForm.Designer.cs">
+    <Compile Include="Forms\SettingsWindow.Designer.cs">
+      <DependentUpon>SettingsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DataViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DataViewer.Designer.cs">
+      <DependentUpon>DataViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ExporterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ExporterForm.Designer.cs">
       <DependentUpon>ExporterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FromGrouperReader.cs" />
     <Compile Include="GrouperHelper.cs" />
+    <Compile Include="Forms\IndividualReportViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IndividualReportViewer.Designer.cs">
+      <DependentUpon>IndividualReportViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PreviewBindingSource.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ExporterForm.resx">
+    <EmbeddedResource Include="Forms\ExporterForm.resx">
       <DependentUpon>ExporterForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -147,12 +190,12 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="cgs_ina_in.dic">
+    <Content Include="Dictionaries\cgs_ina_in.dic">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="cgs_ina_out.dic">
+    </Content>
+    <Content Include="Dictionaries\cgs_ina_out.dic">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="CustomerDataset.xsc">
       <DependentUpon>CustomerDataset.xsd</DependentUpon>
     </None>
@@ -164,12 +207,12 @@
     <None Include="CustomerDataset.xss">
       <DependentUpon>CustomerDataset.xsd</DependentUpon>
     </None>
-    <None Include="dic_excel_mapping.dic">
+    <Content Include="Dictionaries\dic_excel_mapping.dic">
       <SubType>Form</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="RSKUPANGCache.sync">
@@ -188,7 +231,13 @@
     <None Include="RSKUPANGDataSet.xss">
       <DependentUpon>RSKUPANGDataSet.xsd</DependentUpon>
     </None>
-    <Content Include="SelectInadrg.sql">
+    <Content Include="tarif.DBF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQLCode\SelectPatientDetails.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQLCode\SelectInadrg.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="Properties\Settings.Designer.cs">
@@ -210,6 +259,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RSKUPANGDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="SQLCodeService.cs" />
     <Compile Include="ToExcelExporter.cs" />
     <Compile Include="ToGrouperWriter.cs" />
   </ItemGroup>
@@ -232,17 +282,49 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\DataSources\ExporterForm.datasource" />
+    <None Include="Properties\DataSources\INADRGExporter.Forms.SettingsWindow.datasource" />
+    <None Include="Properties\DataSources\INADRGExporter.Properties.Settings.datasource" />
+    <None Include="Resources\kasirrwj.png" />
+    <None Include="Resources\3M.png" />
+    <None Include="Resources\excel.png" />
+    <Content Include="Dictionaries\errorcodes.dic">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\crystal.png" />
+    <None Include="Resources\excel-salah.png" />
+    <Content Include="SQLCode\CountInadrgPredicate.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQLCode\SelectInadrgPredicate.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="RSKUPANG.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="usage.txt">
       <SubType>Form</SubType>
     </Content>
-    <EmbeddedResource Include="AboutBox.resx">
+    <EmbeddedResource Include="Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingsWindow.resx">
+      <DependentUpon>SettingsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DataViewer.resx">
+      <DependentUpon>DataViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IndividualReportViewer.resx">
+      <DependentUpon>IndividualReportViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="rpt_individual.rpt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="VSO.ico" />
+    <Content Include="rpt_rekapitulasi.rpt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -275,6 +357,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

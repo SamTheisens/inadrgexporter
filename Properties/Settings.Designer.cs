@@ -13,7 +13,7 @@ namespace INADRGExporter.Properties {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "9.0.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
@@ -26,21 +26,190 @@ namespace INADRGExporter.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID" +
-            "=sa;Password=pocopoco")]
-        public string RSKUPANGConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=RSKUPANG.sdf;Max Database Size=2047")]
+        public string ClientRSKUPANGConnectionString {
             get {
-                return ((string)(this["RSKUPANGConnectionString"]));
+                return ((string)(this["ClientRSKUPANGConnectionString"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=RSKUPANG.sdf;Max Database Size=2047")]
-        public string ClientRSKUPANGConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=server;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=sa" +
+            ";Password=pocopoco")]
+        public string RSKUPANGConnectionString {
             get {
-                return ((string)(this["ClientRSKUPANGConnectionString"]));
+                return ((string)(this["RSKUPANGConnectionString"]));
+            }
+        }
+        
+        /// <summary>
+        /// Format tanggal yang diluarkan oleh grouper
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsDescriptionAttribute("Format tanggal yang diluarkan oleh grouper")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("dd/MM/yyyy")]
+        public string DateFormat {
+            get {
+                return ((string)(this["DateFormat"]));
+            }
+            set {
+                this["DateFormat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\grouping")]
+        public string OutputDirectory {
+            get {
+                return ((string)(this["OutputDirectory"]));
+            }
+            set {
+                this["OutputDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutomaticGrouping {
+            get {
+                return ((bool)(this["AutomaticGrouping"]));
+            }
+            set {
+                this["AutomaticGrouping"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DarkRed")]
+        public global::System.Drawing.Color ErrorColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ErrorColor"]));
+            }
+            set {
+                this["ErrorColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int PreviewSize {
+            get {
+                return ((int)(this["PreviewSize"]));
+            }
+            set {
+                this["PreviewSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Prof. Dr. W. Z. Johannes Kupang")]
+        public string NamaRumahSakit {
+            get {
+                return ((string)(this["NamaRumahSakit"]));
+            }
+            set {
+                this["NamaRumahSakit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5303035")]
+        public long KodeRumahSakit {
+            get {
+                return ((long)(this["KodeRumahSakit"]));
+            }
+            set {
+                this["KodeRumahSakit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>A</string>
+  <string>B</string>
+  <string>CD</string>
+  <string>RSCM</string>
+  <string>RSAB</string>
+  <string>RSJP</string>
+  <string>KANKER</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection RumahSakit {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["RumahSakit"]));
+            }
+            set {
+                this["RumahSakit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int TypeRumahSakit {
+            get {
+                return ((int)(this["TypeRumahSakit"]));
+            }
+            set {
+                this["TypeRumahSakit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".")]
+        public string DecimalSeparator {
+            get {
+                return ((string)(this["DecimalSeparator"]));
+            }
+            set {
+                this["DecimalSeparator"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("default.pro")]
+        public string GroupingProfile {
+            get {
+                return ((string)(this["GroupingProfile"]));
+            }
+            set {
+                this["GroupingProfile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\3mhis\\3M_CGS\\3M CGS INA")]
+        public string ThreeMHISDirectory {
+            get {
+                return ((string)(this["ThreeMHISDirectory"]));
+            }
+            set {
+                this["ThreeMHISDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3MCGS.exe")]
+        public string ThreeHMISExecutable {
+            get {
+                return ((string)(this["ThreeHMISExecutable"]));
+            }
+            set {
+                this["ThreeHMISExecutable"] = value;
             }
         }
     }

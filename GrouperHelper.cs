@@ -2,15 +2,32 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Windows.Forms;
 using INADRGExporter;
 
 namespace INADRGExporter
 {
     public static class GrouperHelper
     {
+        public static Dictionary<string, string> ReadErrorCodes(string fileName)
+        {
+            var errorCodes = new Dictionary<string, string>();
+            using (
+                var file =
+                    new StreamReader(Path.Combine(Application.StartupPath, Path.Combine(@"Dictionaries\", fileName))))
+            {
+                while (!file.EndOfStream)
+                {
+                    var fields = file.ReadLine().Split(';');
+                    errorCodes[fields[0]] = fields[1];
+                }
+            }
+            return errorCodes;
+        }
+
         public static List<Tuple> ReadDictionary(string fileName)
         {
-            var file = new StreamReader(fileName);
+            var file = new StreamReader(Path.Combine(Application.StartupPath, Path.Combine(@"Dictionaries\", fileName)));
             file.ReadLine();
             string line = file.ReadLine();
             var dic = new List<Tuple>();
@@ -34,11 +51,11 @@ namespace INADRGExporter
         }
         public static List<Map> ReadMapping(string fileName)
         {
-            var file = new StreamReader(fileName);
+            var file = new StreamReader(Path.Combine(Application.StartupPath, Path.Combine(@"Dictionaries\", fileName)));
             file.ReadLine();
             var dic = new List<Map>();
             int i = 0;
-            string line = "";
+            string line;
             while (!file.EndOfStream)
             {
                 line = file.ReadLine();

@@ -1,4 +1,5 @@
-﻿Kdrs:HOSPITAL_ID:1
+﻿MAIN	"PARM"	BEGIN
+Kdrs:HOSPITAL_ID:1
 Klsrs:HOSPITAL_TYPE:1
 Norm:VISIT_ID:1
 Klsrawat:Patient class:1
@@ -75,3 +76,10 @@ P29:PR.PR_CODE:29
 P30:PR.PR_CODE:30
 Recid:recid:1
 Inadrg:DRG:1
+Tarif::1
+Deskripsi::1
+ALOS::1
+Nama::1
+Dokter::1
+SKP::1
+NamaRs::1

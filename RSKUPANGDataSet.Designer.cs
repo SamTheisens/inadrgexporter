@@ -304,16 +304,6 @@ namespace INADRGExporter {
             
             private global::System.Data.DataColumn columnD4;
             
-            private global::System.Data.DataColumn columnP1;
-            
-            private global::System.Data.DataColumn columnP2;
-            
-            private global::System.Data.DataColumn columnP3;
-            
-            private global::System.Data.DataColumn columnP4;
-            
-            private global::System.Data.DataColumn columnP5;
-            
             private global::System.Data.DataColumn columnD5;
             
             private global::System.Data.DataColumn columnD6;
@@ -363,6 +353,16 @@ namespace INADRGExporter {
             private global::System.Data.DataColumn columnD28;
             
             private global::System.Data.DataColumn columnD29;
+            
+            private global::System.Data.DataColumn columnP1;
+            
+            private global::System.Data.DataColumn columnP2;
+            
+            private global::System.Data.DataColumn columnP3;
+            
+            private global::System.Data.DataColumn columnP4;
+            
+            private global::System.Data.DataColumn columnP5;
             
             private global::System.Data.DataColumn columnP6;
             
@@ -421,6 +421,18 @@ namespace INADRGExporter {
             private global::System.Data.DataColumn columnALOS;
             
             private global::System.Data.DataColumn columnTOTAL;
+            
+            private global::System.Data.DataColumn columnNama;
+            
+            private global::System.Data.DataColumn columnDokter;
+            
+            private global::System.Data.DataColumn columnSKP;
+            
+            private global::System.Data.DataColumn columnTglDari;
+            
+            private global::System.Data.DataColumn columnTglSampai;
+            
+            private global::System.Data.DataColumn columnNamaRs;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public inadrgDataTable() {
@@ -600,41 +612,6 @@ namespace INADRGExporter {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn P1Column {
-                get {
-                    return this.columnP1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn P2Column {
-                get {
-                    return this.columnP2;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn P3Column {
-                get {
-                    return this.columnP3;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn P4Column {
-                get {
-                    return this.columnP4;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn P5Column {
-                get {
-                    return this.columnP5;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public global::System.Data.DataColumn D5Column {
                 get {
                     return this.columnD5;
@@ -806,6 +783,41 @@ namespace INADRGExporter {
             public global::System.Data.DataColumn D29Column {
                 get {
                     return this.columnD29;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn P1Column {
+                get {
+                    return this.columnP1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn P2Column {
+                get {
+                    return this.columnP2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn P3Column {
+                get {
+                    return this.columnP3;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn P4Column {
+                get {
+                    return this.columnP4;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn P5Column {
+                get {
+                    return this.columnP5;
                 }
             }
             
@@ -1013,6 +1025,48 @@ namespace INADRGExporter {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn NamaColumn {
+                get {
+                    return this.columnNama;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn DokterColumn {
+                get {
+                    return this.columnDokter;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn SKPColumn {
+                get {
+                    return this.columnSKP;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn TglDariColumn {
+                get {
+                    return this.columnTglDari;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn TglSampaiColumn {
+                get {
+                    return this.columnTglSampai;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn NamaRsColumn {
+                get {
+                    return this.columnNamaRs;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1063,11 +1117,6 @@ namespace INADRGExporter {
                         string D2, 
                         string D3, 
                         string D4, 
-                        int P1, 
-                        int P2, 
-                        int P3, 
-                        int P4, 
-                        int P5, 
                         string D5, 
                         string D6, 
                         string D7, 
@@ -1093,10 +1142,15 @@ namespace INADRGExporter {
                         int D27, 
                         int D28, 
                         int D29, 
-                        int P6, 
-                        int P7, 
-                        int P8, 
-                        int P9, 
+                        string P1, 
+                        string P2, 
+                        string P3, 
+                        string P4, 
+                        string P5, 
+                        string P6, 
+                        string P7, 
+                        string P8, 
+                        string P9, 
                         int P10, 
                         int P11, 
                         int P12, 
@@ -1118,10 +1172,16 @@ namespace INADRGExporter {
                         int P28, 
                         int P29, 
                         int Inadrg, 
-                        int Tarif, 
-                        int Deskripsi, 
-                        int ALOS, 
-                        int TOTAL) {
+                        double Tarif, 
+                        string Deskripsi, 
+                        double ALOS, 
+                        int TOTAL, 
+                        string Nama, 
+                        string Dokter, 
+                        string SKP, 
+                        System.DateTime TglDari, 
+                        System.DateTime TglSampai, 
+                        string NamaRs) {
                 inadrgRow rowinadrgRow = ((inadrgRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Kdrs,
@@ -1145,11 +1205,6 @@ namespace INADRGExporter {
                         D2,
                         D3,
                         D4,
-                        P1,
-                        P2,
-                        P3,
-                        P4,
-                        P5,
                         D5,
                         D6,
                         D7,
@@ -1175,6 +1230,11 @@ namespace INADRGExporter {
                         D27,
                         D28,
                         D29,
+                        P1,
+                        P2,
+                        P3,
+                        P4,
+                        P5,
                         P6,
                         P7,
                         P8,
@@ -1203,10 +1263,22 @@ namespace INADRGExporter {
                         Tarif,
                         Deskripsi,
                         ALOS,
-                        TOTAL};
+                        TOTAL,
+                        Nama,
+                        Dokter,
+                        SKP,
+                        TglDari,
+                        TglSampai,
+                        NamaRs};
                 rowinadrgRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowinadrgRow);
                 return rowinadrgRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public inadrgRow FindByRecid(long Recid) {
+                return ((inadrgRow)(this.Rows.Find(new object[] {
+                            Recid})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1244,11 +1316,6 @@ namespace INADRGExporter {
                 this.columnD2 = base.Columns["D2"];
                 this.columnD3 = base.Columns["D3"];
                 this.columnD4 = base.Columns["D4"];
-                this.columnP1 = base.Columns["P1"];
-                this.columnP2 = base.Columns["P2"];
-                this.columnP3 = base.Columns["P3"];
-                this.columnP4 = base.Columns["P4"];
-                this.columnP5 = base.Columns["P5"];
                 this.columnD5 = base.Columns["D5"];
                 this.columnD6 = base.Columns["D6"];
                 this.columnD7 = base.Columns["D7"];
@@ -1274,6 +1341,11 @@ namespace INADRGExporter {
                 this.columnD27 = base.Columns["D27"];
                 this.columnD28 = base.Columns["D28"];
                 this.columnD29 = base.Columns["D29"];
+                this.columnP1 = base.Columns["P1"];
+                this.columnP2 = base.Columns["P2"];
+                this.columnP3 = base.Columns["P3"];
+                this.columnP4 = base.Columns["P4"];
+                this.columnP5 = base.Columns["P5"];
                 this.columnP6 = base.Columns["P6"];
                 this.columnP7 = base.Columns["P7"];
                 this.columnP8 = base.Columns["P8"];
@@ -1303,6 +1375,12 @@ namespace INADRGExporter {
                 this.columnDeskripsi = base.Columns["Deskripsi"];
                 this.columnALOS = base.Columns["ALOS"];
                 this.columnTOTAL = base.Columns["TOTAL"];
+                this.columnNama = base.Columns["Nama"];
+                this.columnDokter = base.Columns["Dokter"];
+                this.columnSKP = base.Columns["SKP"];
+                this.columnTglDari = base.Columns["TglDari"];
+                this.columnTglSampai = base.Columns["TglSampai"];
+                this.columnNamaRs = base.Columns["NamaRs"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1349,16 +1427,6 @@ namespace INADRGExporter {
                 base.Columns.Add(this.columnD3);
                 this.columnD4 = new global::System.Data.DataColumn("D4", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnD4);
-                this.columnP1 = new global::System.Data.DataColumn("P1", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnP1);
-                this.columnP2 = new global::System.Data.DataColumn("P2", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnP2);
-                this.columnP3 = new global::System.Data.DataColumn("P3", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnP3);
-                this.columnP4 = new global::System.Data.DataColumn("P4", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnP4);
-                this.columnP5 = new global::System.Data.DataColumn("P5", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnP5);
                 this.columnD5 = new global::System.Data.DataColumn("D5", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnD5);
                 this.columnD6 = new global::System.Data.DataColumn("D6", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1409,13 +1477,23 @@ namespace INADRGExporter {
                 base.Columns.Add(this.columnD28);
                 this.columnD29 = new global::System.Data.DataColumn("D29", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnD29);
-                this.columnP6 = new global::System.Data.DataColumn("P6", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnP1 = new global::System.Data.DataColumn("P1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnP1);
+                this.columnP2 = new global::System.Data.DataColumn("P2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnP2);
+                this.columnP3 = new global::System.Data.DataColumn("P3", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnP3);
+                this.columnP4 = new global::System.Data.DataColumn("P4", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnP4);
+                this.columnP5 = new global::System.Data.DataColumn("P5", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnP5);
+                this.columnP6 = new global::System.Data.DataColumn("P6", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnP6);
-                this.columnP7 = new global::System.Data.DataColumn("P7", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnP7 = new global::System.Data.DataColumn("P7", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnP7);
-                this.columnP8 = new global::System.Data.DataColumn("P8", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnP8 = new global::System.Data.DataColumn("P8", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnP8);
-                this.columnP9 = new global::System.Data.DataColumn("P9", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnP9 = new global::System.Data.DataColumn("P9", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnP9);
                 this.columnP10 = new global::System.Data.DataColumn("P10", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnP10);
@@ -1459,95 +1537,49 @@ namespace INADRGExporter {
                 base.Columns.Add(this.columnP29);
                 this.columnInadrg = new global::System.Data.DataColumn("Inadrg", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnInadrg);
-                this.columnTarif = new global::System.Data.DataColumn("Tarif", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnTarif = new global::System.Data.DataColumn("Tarif", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTarif);
-                this.columnDeskripsi = new global::System.Data.DataColumn("Deskripsi", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnDeskripsi = new global::System.Data.DataColumn("Deskripsi", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDeskripsi);
-                this.columnALOS = new global::System.Data.DataColumn("ALOS", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnALOS = new global::System.Data.DataColumn("ALOS", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnALOS);
                 this.columnTOTAL = new global::System.Data.DataColumn("TOTAL", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTOTAL);
-                this.columnKdrs.ReadOnly = true;
-                this.columnKlsrs.ReadOnly = true;
-                this.columnNorm.ReadOnly = true;
-                this.columnKlsrawat.ReadOnly = true;
-                this.columnBiaya.ReadOnly = true;
-                this.columnJnsrawat.ReadOnly = true;
-                this.columnTglmsk.AllowDBNull = false;
-                this.columnLos.ReadOnly = true;
-                this.columnUmurThn.ReadOnly = true;
-                this.columnUmurHari.ReadOnly = true;
-                this.columnJK.ReadOnly = true;
-                this.columnCaraPlg.ReadOnly = true;
-                this.columnBerat.ReadOnly = true;
+                this.columnNama = new global::System.Data.DataColumn("Nama", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNama);
+                this.columnDokter = new global::System.Data.DataColumn("Dokter", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDokter);
+                this.columnSKP = new global::System.Data.DataColumn("SKP", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSKP);
+                this.columnTglDari = new global::System.Data.DataColumn("TglDari", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTglDari);
+                this.columnTglSampai = new global::System.Data.DataColumn("TglSampai", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTglSampai);
+                this.columnNamaRs = new global::System.Data.DataColumn("NamaRs", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNamaRs);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnRecid}, true));
+                this.columnRecid.AllowDBNull = false;
+                this.columnRecid.Unique = true;
                 this.columnDutama.MaxLength = 8000;
                 this.columnD1.MaxLength = 8000;
                 this.columnD2.MaxLength = 8000;
                 this.columnD3.MaxLength = 8000;
                 this.columnD4.MaxLength = 8000;
-                this.columnP1.ReadOnly = true;
-                this.columnP2.ReadOnly = true;
-                this.columnP3.ReadOnly = true;
-                this.columnP4.ReadOnly = true;
-                this.columnP5.ReadOnly = true;
-                this.columnD5.ReadOnly = true;
                 this.columnD5.MaxLength = 8000;
-                this.columnD6.ReadOnly = true;
                 this.columnD6.MaxLength = 8000;
-                this.columnD7.ReadOnly = true;
                 this.columnD7.MaxLength = 8000;
-                this.columnD8.ReadOnly = true;
                 this.columnD8.MaxLength = 8000;
-                this.columnD9.ReadOnly = true;
-                this.columnD10.ReadOnly = true;
-                this.columnD11.ReadOnly = true;
-                this.columnD12.ReadOnly = true;
-                this.columnD13.ReadOnly = true;
-                this.columnD14.ReadOnly = true;
-                this.columnD15.ReadOnly = true;
-                this.columnD16.ReadOnly = true;
-                this.columnD17.ReadOnly = true;
-                this.columnD18.ReadOnly = true;
-                this.columnD19.ReadOnly = true;
-                this.columnD20.ReadOnly = true;
-                this.columnD21.ReadOnly = true;
-                this.columnD22.ReadOnly = true;
-                this.columnD23.ReadOnly = true;
-                this.columnD24.ReadOnly = true;
-                this.columnD25.ReadOnly = true;
-                this.columnD26.ReadOnly = true;
-                this.columnD27.ReadOnly = true;
-                this.columnD28.ReadOnly = true;
-                this.columnD29.ReadOnly = true;
-                this.columnP6.ReadOnly = true;
-                this.columnP7.ReadOnly = true;
-                this.columnP8.ReadOnly = true;
-                this.columnP9.ReadOnly = true;
-                this.columnP10.ReadOnly = true;
-                this.columnP11.ReadOnly = true;
-                this.columnP12.ReadOnly = true;
-                this.columnP13.ReadOnly = true;
-                this.columnP14.ReadOnly = true;
-                this.columnP15.ReadOnly = true;
-                this.columnP16.ReadOnly = true;
-                this.columnP17.ReadOnly = true;
-                this.columnP18.ReadOnly = true;
-                this.columnP19.ReadOnly = true;
-                this.columnP20.ReadOnly = true;
-                this.columnP21.ReadOnly = true;
-                this.columnP22.ReadOnly = true;
-                this.columnP23.ReadOnly = true;
-                this.columnP24.ReadOnly = true;
-                this.columnP25.ReadOnly = true;
-                this.columnP26.ReadOnly = true;
-                this.columnP27.ReadOnly = true;
-                this.columnP28.ReadOnly = true;
-                this.columnP29.ReadOnly = true;
-                this.columnInadrg.ReadOnly = true;
-                this.columnTarif.ReadOnly = true;
-                this.columnDeskripsi.ReadOnly = true;
-                this.columnALOS.ReadOnly = true;
-                this.columnTOTAL.ReadOnly = true;
+                this.columnP1.MaxLength = 8000;
+                this.columnP2.MaxLength = 8000;
+                this.columnP3.MaxLength = 8000;
+                this.columnP4.MaxLength = 8000;
+                this.columnP5.MaxLength = 8000;
+                this.columnP6.MaxLength = 8000;
+                this.columnP7.MaxLength = 8000;
+                this.columnP8.MaxLength = 8000;
+                this.columnP9.MaxLength = 8000;
+                this.columnTarif.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1757,12 +1789,7 @@ namespace INADRGExporter {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public long Recid {
                 get {
-                    try {
-                        return ((long)(this[this.tableinadrg.RecidColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Recid\' in table \'inadrg\' is DBNull.", e);
-                    }
+                    return ((long)(this[this.tableinadrg.RecidColumn]));
                 }
                 set {
                     this[this.tableinadrg.RecidColumn] = value;
@@ -1787,7 +1814,12 @@ namespace INADRGExporter {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime Tglmsk {
                 get {
-                    return ((global::System.DateTime)(this[this.tableinadrg.TglmskColumn]));
+                    try {
+                        return ((global::System.DateTime)(this[this.tableinadrg.TglmskColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Tglmsk\' in table \'inadrg\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableinadrg.TglmskColumn] = value;
@@ -1986,81 +2018,6 @@ namespace INADRGExporter {
                 }
                 set {
                     this[this.tableinadrg.D4Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int P1 {
-                get {
-                    try {
-                        return ((int)(this[this.tableinadrg.P1Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'P1\' in table \'inadrg\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableinadrg.P1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int P2 {
-                get {
-                    try {
-                        return ((int)(this[this.tableinadrg.P2Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'P2\' in table \'inadrg\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableinadrg.P2Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int P3 {
-                get {
-                    try {
-                        return ((int)(this[this.tableinadrg.P3Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'P3\' in table \'inadrg\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableinadrg.P3Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int P4 {
-                get {
-                    try {
-                        return ((int)(this[this.tableinadrg.P4Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'P4\' in table \'inadrg\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableinadrg.P4Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int P5 {
-                get {
-                    try {
-                        return ((int)(this[this.tableinadrg.P5Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'P5\' in table \'inadrg\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableinadrg.P5Column] = value;
                 }
             }
             
@@ -2440,10 +2397,85 @@ namespace INADRGExporter {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int P6 {
+            public string P1 {
                 get {
                     try {
-                        return ((int)(this[this.tableinadrg.P6Column]));
+                        return ((string)(this[this.tableinadrg.P1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'P1\' in table \'inadrg\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinadrg.P1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string P2 {
+                get {
+                    try {
+                        return ((string)(this[this.tableinadrg.P2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'P2\' in table \'inadrg\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinadrg.P2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string P3 {
+                get {
+                    try {
+                        return ((string)(this[this.tableinadrg.P3Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'P3\' in table \'inadrg\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinadrg.P3Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string P4 {
+                get {
+                    try {
+                        return ((string)(this[this.tableinadrg.P4Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'P4\' in table \'inadrg\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinadrg.P4Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string P5 {
+                get {
+                    try {
+                        return ((string)(this[this.tableinadrg.P5Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'P5\' in table \'inadrg\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinadrg.P5Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string P6 {
+                get {
+                    try {
+                        return ((string)(this[this.tableinadrg.P6Column]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'P6\' in table \'inadrg\' is DBNull.", e);
@@ -2455,10 +2487,10 @@ namespace INADRGExporter {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int P7 {
+            public string P7 {
                 get {
                     try {
-                        return ((int)(this[this.tableinadrg.P7Column]));
+                        return ((string)(this[this.tableinadrg.P7Column]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'P7\' in table \'inadrg\' is DBNull.", e);
@@ -2470,10 +2502,10 @@ namespace INADRGExporter {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int P8 {
+            public string P8 {
                 get {
                     try {
-                        return ((int)(this[this.tableinadrg.P8Column]));
+                        return ((string)(this[this.tableinadrg.P8Column]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'P8\' in table \'inadrg\' is DBNull.", e);
@@ -2485,10 +2517,10 @@ namespace INADRGExporter {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int P9 {
+            public string P9 {
                 get {
                     try {
-                        return ((int)(this[this.tableinadrg.P9Column]));
+                        return ((string)(this[this.tableinadrg.P9Column]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'P9\' in table \'inadrg\' is DBNull.", e);
@@ -2815,14 +2847,9 @@ namespace INADRGExporter {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Tarif {
+            public double Tarif {
                 get {
-                    try {
-                        return ((int)(this[this.tableinadrg.TarifColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Tarif\' in table \'inadrg\' is DBNull.", e);
-                    }
+                    return ((double)(this[this.tableinadrg.TarifColumn]));
                 }
                 set {
                     this[this.tableinadrg.TarifColumn] = value;
@@ -2830,10 +2857,10 @@ namespace INADRGExporter {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Deskripsi {
+            public string Deskripsi {
                 get {
                     try {
-                        return ((int)(this[this.tableinadrg.DeskripsiColumn]));
+                        return ((string)(this[this.tableinadrg.DeskripsiColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'Deskripsi\' in table \'inadrg\' is DBNull.", e);
@@ -2845,10 +2872,10 @@ namespace INADRGExporter {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ALOS {
+            public double ALOS {
                 get {
                     try {
-                        return ((int)(this[this.tableinadrg.ALOSColumn]));
+                        return ((double)(this[this.tableinadrg.ALOSColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'ALOS\' in table \'inadrg\' is DBNull.", e);
@@ -2871,6 +2898,96 @@ namespace INADRGExporter {
                 }
                 set {
                     this[this.tableinadrg.TOTALColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Nama {
+                get {
+                    try {
+                        return ((string)(this[this.tableinadrg.NamaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Nama\' in table \'inadrg\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinadrg.NamaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Dokter {
+                get {
+                    try {
+                        return ((string)(this[this.tableinadrg.DokterColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Dokter\' in table \'inadrg\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinadrg.DokterColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string SKP {
+                get {
+                    try {
+                        return ((string)(this[this.tableinadrg.SKPColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SKP\' in table \'inadrg\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinadrg.SKPColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime TglDari {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableinadrg.TglDariColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TglDari\' in table \'inadrg\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinadrg.TglDariColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime TglSampai {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableinadrg.TglSampaiColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TglSampai\' in table \'inadrg\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinadrg.TglSampaiColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string NamaRs {
+                get {
+                    try {
+                        return ((string)(this[this.tableinadrg.NamaRsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NamaRs\' in table \'inadrg\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinadrg.NamaRsColumn] = value;
                 }
             }
             
@@ -2925,16 +3042,6 @@ namespace INADRGExporter {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsRecidNull() {
-                return this.IsNull(this.tableinadrg.RecidColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetRecidNull() {
-                this[this.tableinadrg.RecidColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsJnsrawatNull() {
                 return this.IsNull(this.tableinadrg.JnsrawatColumn);
             }
@@ -2942,6 +3049,16 @@ namespace INADRGExporter {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetJnsrawatNull() {
                 this[this.tableinadrg.JnsrawatColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsTglmskNull() {
+                return this.IsNull(this.tableinadrg.TglmskColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetTglmskNull() {
+                this[this.tableinadrg.TglmskColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3072,56 +3189,6 @@ namespace INADRGExporter {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetD4Null() {
                 this[this.tableinadrg.D4Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsP1Null() {
-                return this.IsNull(this.tableinadrg.P1Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetP1Null() {
-                this[this.tableinadrg.P1Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsP2Null() {
-                return this.IsNull(this.tableinadrg.P2Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetP2Null() {
-                this[this.tableinadrg.P2Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsP3Null() {
-                return this.IsNull(this.tableinadrg.P3Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetP3Null() {
-                this[this.tableinadrg.P3Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsP4Null() {
-                return this.IsNull(this.tableinadrg.P4Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetP4Null() {
-                this[this.tableinadrg.P4Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsP5Null() {
-                return this.IsNull(this.tableinadrg.P5Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetP5Null() {
-                this[this.tableinadrg.P5Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3375,6 +3442,56 @@ namespace INADRGExporter {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsP1Null() {
+                return this.IsNull(this.tableinadrg.P1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetP1Null() {
+                this[this.tableinadrg.P1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsP2Null() {
+                return this.IsNull(this.tableinadrg.P2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetP2Null() {
+                this[this.tableinadrg.P2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsP3Null() {
+                return this.IsNull(this.tableinadrg.P3Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetP3Null() {
+                this[this.tableinadrg.P3Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsP4Null() {
+                return this.IsNull(this.tableinadrg.P4Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetP4Null() {
+                this[this.tableinadrg.P4Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsP5Null() {
+                return this.IsNull(this.tableinadrg.P5Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetP5Null() {
+                this[this.tableinadrg.P5Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsP6Null() {
                 return this.IsNull(this.tableinadrg.P6Column);
             }
@@ -3625,16 +3742,6 @@ namespace INADRGExporter {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsTarifNull() {
-                return this.IsNull(this.tableinadrg.TarifColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetTarifNull() {
-                this[this.tableinadrg.TarifColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsDeskripsiNull() {
                 return this.IsNull(this.tableinadrg.DeskripsiColumn);
             }
@@ -3662,6 +3769,66 @@ namespace INADRGExporter {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetTOTALNull() {
                 this[this.tableinadrg.TOTALColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNamaNull() {
+                return this.IsNull(this.tableinadrg.NamaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetNamaNull() {
+                this[this.tableinadrg.NamaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDokterNull() {
+                return this.IsNull(this.tableinadrg.DokterColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDokterNull() {
+                this[this.tableinadrg.DokterColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsSKPNull() {
+                return this.IsNull(this.tableinadrg.SKPColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetSKPNull() {
+                this[this.tableinadrg.SKPColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsTglDariNull() {
+                return this.IsNull(this.tableinadrg.TglDariColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetTglDariNull() {
+                this[this.tableinadrg.TglDariColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsTglSampaiNull() {
+                return this.IsNull(this.tableinadrg.TglSampaiColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetTglSampaiNull() {
+                this[this.tableinadrg.TglSampaiColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNamaRsNull() {
+                return this.IsNull(this.tableinadrg.NamaRsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetNamaRsNull() {
+                this[this.tableinadrg.NamaRsColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3836,11 +4003,6 @@ namespace INADRGExporter.RSKUPANGDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("D2", "D2");
             tableMapping.ColumnMappings.Add("D3", "D3");
             tableMapping.ColumnMappings.Add("D4", "D4");
-            tableMapping.ColumnMappings.Add("P1", "P1");
-            tableMapping.ColumnMappings.Add("P2", "P2");
-            tableMapping.ColumnMappings.Add("P3", "P3");
-            tableMapping.ColumnMappings.Add("P4", "P4");
-            tableMapping.ColumnMappings.Add("P5", "P5");
             tableMapping.ColumnMappings.Add("D5", "D5");
             tableMapping.ColumnMappings.Add("D6", "D6");
             tableMapping.ColumnMappings.Add("D7", "D7");
@@ -3866,6 +4028,11 @@ namespace INADRGExporter.RSKUPANGDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("D27", "D27");
             tableMapping.ColumnMappings.Add("D28", "D28");
             tableMapping.ColumnMappings.Add("D29", "D29");
+            tableMapping.ColumnMappings.Add("P1", "P1");
+            tableMapping.ColumnMappings.Add("P2", "P2");
+            tableMapping.ColumnMappings.Add("P3", "P3");
+            tableMapping.ColumnMappings.Add("P4", "P4");
+            tableMapping.ColumnMappings.Add("P5", "P5");
             tableMapping.ColumnMappings.Add("P6", "P6");
             tableMapping.ColumnMappings.Add("P7", "P7");
             tableMapping.ColumnMappings.Add("P8", "P8");
@@ -3895,6 +4062,9 @@ namespace INADRGExporter.RSKUPANGDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Deskripsi", "Deskripsi");
             tableMapping.ColumnMappings.Add("ALOS", "ALOS");
             tableMapping.ColumnMappings.Add("TOTAL", "TOTAL");
+            tableMapping.ColumnMappings.Add("Nama", "Nama");
+            tableMapping.ColumnMappings.Add("Dokter", "Dokter");
+            tableMapping.ColumnMappings.Add("SKP", "SKP");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -3909,40 +4079,20 @@ namespace INADRGExporter.RSKUPANGDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "RSUD_GET_INADRG";
-            this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@from", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 23, 3, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@until", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 23, 3, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@kd_customer", global::System.Data.SqlDbType.VarChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].CommandText = @"SELECT Kdrs, Klsrs, Norm, Klsrawat, Biaya, Recid, Jnsrawat, Tglmsk, Tglklr, Los, Tgllhr, UmurThn, UmurHari, JK, CaraPlg, Berat, Dutama, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13, D14, D15, D16, D17, D18, D19, D20, D21, D22, D23, D24, D25, D26, D27, D28, D29, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P24, P25, P26, P27, P28, P29, Inadrg, Tarif, Deskripsi, ALOS, TOTAL FROM inadrg";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual RSKUPANGDataSet.inadrgDataTable GetData(global::System.Nullable<global::System.DateTime> from, global::System.Nullable<global::System.DateTime> until, string kd_customer) {
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(RSKUPANGDataSet.inadrgDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((from.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(from.Value));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
             }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            if ((until.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[2].Value = ((System.DateTime)(until.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((kd_customer == null)) {
-                this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[3].Value = ((string)(kd_customer));
-            }
-            RSKUPANGDataSet.inadrgDataTable dataTable = new RSKUPANGDataSet.inadrgDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
         }
     }
     
