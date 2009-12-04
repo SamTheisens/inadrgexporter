@@ -13,6 +13,14 @@ namespace INADRGExporter
 
         private readonly string selectCommand;
 
+        public DataTable Table
+        {
+            get
+            {
+                return table;
+            }
+        }
+
         public DatabaseBindingSource(DataTable table, int stepsize, DateTime from, DateTime until, string kdCustomer)
             : base(table, stepsize, from, until)
         {
@@ -67,6 +75,11 @@ namespace INADRGExporter
         {
             base.EndReadingRows();
             connection.Close();
+        }
+
+        public void Start()
+        {
+            base.OnPositionChanged(new EventArgs());
         }
 
     }

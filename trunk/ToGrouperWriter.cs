@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.IO;
 using INADRGExporter;
 using INADRGExporter.Properties;
@@ -10,37 +9,27 @@ namespace INADRGExporter
     public class ToGrouperWriter: IDisposable
     {
         private static string outputBuffer = "";
-        private readonly SqlConnection connection;
-        private readonly SqlDataReader reader;
         private readonly StreamWriter writer;
         private readonly List<DicField> dictionary;
+        private readonly DatabaseBindingSource bindingSource;
+        private int currentRow;
 
         public ToGrouperWriter(string outputFile, DateTime from, DateTime until, string kdCustomer)
         {
             writer = new StreamWriter(outputFile, false);
             dictionary = GrouperHelper.ReadDictionary("cgs_ina_in.dic");
+            bindingSource = new DatabaseBindingSource(new RSKUPANGDataSet.inadrgDataTable(), Int32.MaxValue, from,
+                                                       until, kdCustomer);
+            bindingSource.Start();
 
-            var queryString = string.Format(SQLCodeService.Instance.InadrgQuery,
-                                  GrouperHelper.ToSQLDate(from),
-                                  GrouperHelper.ToSQLDate(until),
-                                  kdCustomer,
-                                  string.Format(SQLCodeService.Instance.SelectInadrgPredicate, ""),
-                                  Settings.Default.NamaRumahSakit,
-                                  Settings.Default.KodeRumahSakit,
-                                  Settings.Default.TypeRumahSakit + 1);
-
-            connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString);
-            var command = new SqlCommand(queryString, connection);
-            connection.Open();
-            reader = command.ExecuteReader();
         }
         public bool NextLine()
         {
-            if (!reader.Read())
+            if (currentRow >= bindingSource.Table.Rows.Count)
                 return false;
-            var values = new object[reader.FieldCount];
-            reader.GetValues(values);
-            WriteAsLine(values, dictionary, writer);
+            var rowSet = bindingSource.Table.Rows[currentRow];
+            currentRow++;
+            WriteAsLine(rowSet.ItemArray, dictionary, writer);
             return true;
         }
 
@@ -87,8 +76,6 @@ namespace INADRGExporter
         {
             writer.Flush();
             writer.Close();
-            reader.Close();
-            connection.Close();
         }
     }
 }
