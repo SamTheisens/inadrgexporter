@@ -54,9 +54,6 @@
     <Setting Name="TypeRumahSakit" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="DecimalSeparator" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.</Value>
-    </Setting>
     <Setting Name="GroupingProfile" Type="System.String" Scope="User">
       <Value Profile="(Default)">default.pro</Value>
     </Setting>
@@ -65,6 +62,15 @@
     </Setting>
     <Setting Name="ThreeHMISExecutable" Type="System.String" Scope="User">
       <Value Profile="(Default)">3MCGS.exe</Value>
+    </Setting>
+    <Setting Name="ToGrouperFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">togrouper.txt</Value>
+    </Setting>
+    <Setting Name="FromGrouperFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">fromgrouper.txt</Value>
+    </Setting>
+    <Setting Name="ToExcelFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">toexcel.txt</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -167,18 +167,6 @@ namespace INADRGExporter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".")]
-        public string DecimalSeparator {
-            get {
-                return ((string)(this["DecimalSeparator"]));
-            }
-            set {
-                this["DecimalSeparator"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("default.pro")]
         public string GroupingProfile {
             get {
@@ -210,6 +198,42 @@ namespace INADRGExporter.Properties {
             }
             set {
                 this["ThreeHMISExecutable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("togrouper.txt")]
+        public string ToGrouperFileName {
+            get {
+                return ((string)(this["ToGrouperFileName"]));
+            }
+            set {
+                this["ToGrouperFileName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("fromgrouper.txt")]
+        public string FromGrouperFileName {
+            get {
+                return ((string)(this["FromGrouperFileName"]));
+            }
+            set {
+                this["FromGrouperFileName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("toexcel.txt")]
+        public string ToExcelFileName {
+            get {
+                return ((string)(this["ToExcelFileName"]));
+            }
+            set {
+                this["ToExcelFileName"] = value;
             }
         }
     }
