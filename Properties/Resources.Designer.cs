@@ -74,6 +74,15 @@ namespace INADRGExporter.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Error, tolong hubungi SIMRS dan berlapor ini: {0}.
+        /// </summary>
+        internal static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap excel {
             get {
                 object obj = ResourceManager.GetObject("excel", resourceCulture);

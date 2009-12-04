@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using CrystalDecisions.CrystalReports.Engine;
+using INADRGExporter.Properties;
 
-namespace INADRGExporter
+namespace INADRGExporter.Forms
 {
     public partial class IndividualReportViewer : Form
     {
@@ -35,7 +31,7 @@ namespace INADRGExporter
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ada masalah, tolong hubungi SIMRS {0}", ex.Message);
+                MessageBox.Show(Resources.ErrorMessage, ex.Message);
             }
             crystalReportViewer1.ReportSource = individualReport;
 

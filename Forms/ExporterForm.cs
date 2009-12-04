@@ -283,7 +283,7 @@ namespace INADRGExporter.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("Error, tolong hubungi SIMRS dan berlapor ini: \\{0}", ex.Message));
+                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message));
             }
 
         }
@@ -328,7 +328,7 @@ namespace INADRGExporter.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("Error, tolong hubungi SIMRS dan berlapor ini: \\{0}", ex.Message));
+                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message));
             }
         }
 
@@ -395,7 +395,7 @@ namespace INADRGExporter.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("Error, tolong hubungi SIMRS dan berlapor ini: \\{0}", ex.Message));
+                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message));
             }
             ExportToExcel();
         }
