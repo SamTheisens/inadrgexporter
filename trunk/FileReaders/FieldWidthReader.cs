@@ -26,7 +26,7 @@ namespace INADRGExporter.FileReaders
             {
                 for (int i = 0; i < tuple.repeat; i++)
                     widths.Add(tuple.characters);
-                lineWidth += tuple.characters;
+                lineWidth += tuple.characters * tuple.repeat;
             }
             parser.SetFieldWidths(widths.ToArray());
             mappingDictionary = GrouperHelper.CreateMappingDictionary(excelMapping, dictionary);
