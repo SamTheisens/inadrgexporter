@@ -4,9 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using INADRGExporter;
+using InadrgExporter;
 
-namespace INADRGExporter
+namespace InadrgExporter
 {
     public static class GrouperHelper
     {
@@ -31,72 +31,72 @@ namespace INADRGExporter
             return file.ReadLine().Split(';');
         }
 
-        public static List<DicField> ReadDictionary(string fileName)
+        public static List<DictionaryField> ReadDictionary(string fileName)
         {
             var file = new StreamReader(Path.Combine(Application.StartupPath, Path.Combine(@"Dictionaries\", fileName)));
             file.ReadLine();
             string line = file.ReadLine();
-            var dic = new List<DicField>();
+            var dic = new List<DictionaryField>();
             int i = 0;
             while (!line.Contains("newline"))
             {
                 var columns = line.Split(':');
-                var tuple = new DicField
+                var tuple = new DictionaryField
                                 {
-                                    number = i,
-                                    name = columns[1],
-                                    characters = int.Parse(columns[15]),
-                                    repeat = int.Parse(columns[16]),
-                                    filler = string.Equals(columns[0], "filler")
+                                    Number = i,
+                                    Name = columns[1],
+                                    Characters = int.Parse(columns[15]),
+                                    Repeat = int.Parse(columns[16]),
+                                    Filler = string.Equals(columns[0], "filler")
                                 };
-                i+= tuple.repeat;
+                i+= tuple.Repeat;
                 dic.Add(tuple);
                 line = file.ReadLine();
             }
             return dic;
         }
-        public static List<Map> ReadMapping(string fileName)
+        public static List<FieldMapping> ReadMapping(string fileName)
         {
             var file = new StreamReader(Path.Combine(Application.StartupPath, Path.Combine(@"Dictionaries\", fileName)));
             file.ReadLine();
-            var dic = new List<Map>();
+            var dic = new List<FieldMapping>();
             int i = 0;
             string line;
             while (!file.EndOfStream)
             {
                 line = file.ReadLine();
                 var columns = line.Split(':');
-                var tuple = new Map
+                var tuple = new FieldMapping
                 {
-                    number = i,
-                    excelColumn = columns[0],
-                    dicColumn = columns[1],
-                    columnNumber = int.Parse(columns[2])
+                    Number = i,
+                    ExcelColumn = columns[0],
+                    DictionaryColumn = columns[1],
+                    ColumnNumber = int.Parse(columns[2])
                 };
                 dic.Add(tuple);
             }
             return dic;
         }
-        public static Dictionary<string, int> CreateMappingDictionary(List<Map> maps, List<DicField> dictionary)
+        public static Dictionary<string, int> CreateMappingDictionary(List<FieldMapping> maps, List<DictionaryField> dictionary)
         {
             var mappingDic = new Dictionary<string, int>();
             foreach (var dicField in dictionary)
             {
-                for (int i = 0; i < dicField.repeat; i++)
+                for (int i = 0; i < dicField.Repeat; i++)
                 {
-                    if (dicField.filler)
+                    if (dicField.Filler)
                         continue;
-                    var map = maps.SingleOrDefault(m => m.dicColumn == dicField.name && m.columnNumber == i + 1);
-                    if (map.dicColumn != null)
+                    var map = maps.SingleOrDefault(m => m.DictionaryColumn == dicField.Name && m.ColumnNumber == i + 1);
+                    if (map.DictionaryColumn != null)
                     {
-                        mappingDic[map.excelColumn] = dicField.number + i;
+                        mappingDic[map.ExcelColumn] = dicField.Number + i;
                     }
                 }
             }
             return mappingDic;
         }
 
-        public static Dictionary<string, string> JoinMapping(List<Map> maps, Dictionary<string, int> mappingDic, string[] readFields)
+        public static Dictionary<string, string> JoinMapping(List<FieldMapping> maps, Dictionary<string, int> mappingDic, string[] readFields)
         {
             var rowSet = new Dictionary<string, string>();
             foreach (var pair in mappingDic)
@@ -106,8 +106,8 @@ namespace INADRGExporter
             var resultSet = new Dictionary<string, string>();
             foreach (var map in maps)
             {
-                resultSet[map.excelColumn] = rowSet.ContainsKey(map.excelColumn)
-                                                 ? rowSet[map.excelColumn]
+                resultSet[map.ExcelColumn] = rowSet.ContainsKey(map.ExcelColumn)
+                                                 ? rowSet[map.ExcelColumn]
                                                  : string.Empty;
             }
             return resultSet;

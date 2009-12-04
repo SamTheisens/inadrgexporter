@@ -4,7 +4,7 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="RSKUPANGConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="RSKUPANGConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.INADRGExporter.Properties.Settings.GlobalReference.Default.RSKUPANGConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="RSKUPANGConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="RSKUPANGConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.InadrgExporter.Properties.Settings.GlobalReference.Default.RSKUPANGConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="CUSTOMERTableAdapter" GeneratorDataComponentClassName="CUSTOMERTableAdapter" Name="CUSTOMER" UserDataComponentName="CUSTOMERTableAdapter">
@@ -62,20 +62,20 @@ SELECT KD_CUSTOMER, CUSTOMER FROM CUSTOMER WHERE (KD_CUSTOMER = @KD_CUSTOMER)</C
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="CustomerDataset" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="CustomerDataset" msprop:Generator_UserDSName="CustomerDataset" msprop:EnableTableAdapterManager="True">
+  <xs:element name="CustomerDataset" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="CustomerDataset" msprop:Generator_DataSetName="CustomerDataset" msprop:EnableTableAdapterManager="True">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="CUSTOMER" msprop:Generator_UserTableName="CUSTOMER" msprop:Generator_RowDeletedName="CUSTOMERRowDeleted" msprop:Generator_TableClassName="CUSTOMERDataTable" msprop:Generator_RowChangedName="CUSTOMERRowChanged" msprop:Generator_RowClassName="CUSTOMERRow" msprop:Generator_RowChangingName="CUSTOMERRowChanging" msprop:Generator_RowEvArgName="CUSTOMERRowChangeEvent" msprop:Generator_RowEvHandlerName="CUSTOMERRowChangeEventHandler" msprop:Generator_TablePropName="CUSTOMER" msprop:Generator_TableVarName="tableCUSTOMER" msprop:Generator_RowDeletingName="CUSTOMERRowDeleting">
+        <xs:element name="CUSTOMER" msprop:Generator_UserTableName="CUSTOMER" msprop:Generator_RowDeletedName="CUSTOMERRowDeleted" msprop:Generator_RowChangedName="CUSTOMERRowChanged" msprop:Generator_RowClassName="CUSTOMERRow" msprop:Generator_RowChangingName="CUSTOMERRowChanging" msprop:Generator_RowEvArgName="CUSTOMERRowChangeEvent" msprop:Generator_RowEvHandlerName="CUSTOMERRowChangeEventHandler" msprop:Generator_TableClassName="CUSTOMERDataTable" msprop:Generator_TableVarName="tableCUSTOMER" msprop:Generator_RowDeletingName="CUSTOMERRowDeleting" msprop:Generator_TablePropName="CUSTOMER">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="KD_CUSTOMER" msprop:Generator_UserColumnName="KD_CUSTOMER" msprop:Generator_ColumnPropNameInRow="KD_CUSTOMER" msprop:Generator_ColumnVarNameInTable="columnKD_CUSTOMER" msprop:Generator_ColumnPropNameInTable="KD_CUSTOMERColumn">
+              <xs:element name="KD_CUSTOMER" msprop:Generator_UserColumnName="KD_CUSTOMER" msprop:Generator_ColumnVarNameInTable="columnKD_CUSTOMER" msprop:Generator_ColumnPropNameInRow="KD_CUSTOMER" msprop:Generator_ColumnPropNameInTable="KD_CUSTOMERColumn">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="10" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="CUSTOMER" msprop:Generator_UserColumnName="CUSTOMER" msprop:Generator_ColumnPropNameInRow="CUSTOMER" msprop:Generator_ColumnVarNameInTable="columnCUSTOMER" msprop:Generator_ColumnPropNameInTable="CUSTOMERColumn" minOccurs="0">
+              <xs:element name="CUSTOMER" msprop:Generator_UserColumnName="CUSTOMER" msprop:Generator_ColumnVarNameInTable="columnCUSTOMER" msprop:Generator_ColumnPropNameInRow="CUSTOMER" msprop:Generator_ColumnPropNameInTable="CUSTOMERColumn" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="40" />

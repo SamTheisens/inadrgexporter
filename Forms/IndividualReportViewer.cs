@@ -3,14 +3,14 @@ using System.Data;
 using System.IO;
 using System.Windows.Forms;
 using CrystalDecisions.CrystalReports.Engine;
-using INADRGExporter.Properties;
+using InadrgExporter.Properties;
 
-namespace INADRGExporter.Forms
+namespace InadrgExporter.Forms
 {
     public partial class IndividualReportViewer : Form
     {
         private ReportDocument individualReport;
-        public RSKUPANGDataSet.inadrgDataTable IndividualsDataset { get; set; }
+        public RSKUPANGDataSet.inadrgDataTable IndividualsDataSet { get; set; }
         public string ReportFileName { get; set; }
 
         public IndividualReportViewer()
@@ -23,15 +23,17 @@ namespace INADRGExporter.Forms
             individualReport = new ReportDocument();
             string reportPath = Path.Combine(Application.StartupPath, ReportFileName);
             individualReport.Load(reportPath);
-            IndividualsDataset.TarifColumn.AllowDBNull = true;
+            IndividualsDataSet.TarifColumn.AllowDBNull = true;
 
             try
             {
-                individualReport.SetDataSource((DataTable)IndividualsDataset);
+                individualReport.SetDataSource((DataTable)IndividualsDataSet);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Resources.ErrorMessage, ex.Message);
+                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message), Resources.ErrorTitle,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1,
+                                MessageBoxOptions.RtlReading);
             }
             crystalReportViewer1.ReportSource = individualReport;
 

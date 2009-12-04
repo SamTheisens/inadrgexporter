@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace INADRGExporter.Properties {
+namespace InadrgExporter.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace INADRGExporter.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("INADRGExporter.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("InadrgExporter.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -67,6 +67,15 @@ namespace INADRGExporter.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to About {0}.
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap crystal {
             get {
                 object obj = ResourceManager.GetObject("crystal", resourceCulture);
@@ -80,6 +89,15 @@ namespace INADRGExporter.Properties {
         internal static string ErrorMessage {
             get {
                 return ResourceManager.GetString("ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kesalahan.
+        /// </summary>
+        internal static string ErrorTitle {
+            get {
+                return ResourceManager.GetString("ErrorTitle", resourceCulture);
             }
         }
         
@@ -97,10 +115,37 @@ namespace INADRGExporter.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Jumlah baris: {0}.
+        /// </summary>
+        internal static string JumlahBaris {
+            get {
+                return ResourceManager.GetString("JumlahBaris", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap kasirrwj {
             get {
                 object obj = ResourceManager.GetObject("kasirrwj", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lines read: {0}. Lines written: {1}.
+        /// </summary>
+        internal static string LinesReadWritten {
+            get {
+                return ResourceManager.GetString("LinesReadWritten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0}.
+        /// </summary>
+        internal static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
     }

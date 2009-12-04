@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows.Forms;
+using InadrgExporter.Properties;
 
-namespace INADRGExporter
+namespace InadrgExporter.Forms
 {
     partial class AboutBox : Form
     {
         public AboutBox()
         {
             InitializeComponent();
-            Text = String.Format("About {0}", AssemblyTitle);
+            Text = String.Format(Resources.About, AssemblyTitle);
             labelProductName.Text = AssemblyProduct;
-            labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
+            labelVersion.Text = String.Format(Resources.Version, AssemblyVersion);
             labelCopyright.Text = AssemblyCopyright;
             labelCompanyName.Text = AssemblyCompany;
             textBoxDescription.Text = AssemblyDescription;

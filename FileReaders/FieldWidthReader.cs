@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.VisualBasic.FileIO;
 
-namespace INADRGExporter.FileReaders
+namespace InadrgExporter.FileReaders
 {
-    public class FieldWidthReader : ITextFileFieldReader
+    public sealed class FieldWidthReader : ITextFileFieldReader
     {
         private readonly long rows;
         private readonly TextFieldParser parser;
         private Dictionary<string,string> currentFields;
         private readonly Dictionary<string, int> mappingDictionary;
-        private readonly List<Map> excelMapping;
+        private readonly List<FieldMapping> excelMapping;
 
 
-        public FieldWidthReader(string fileName, List<DicField> dictionary)
+        public FieldWidthReader(string fileName, List<DictionaryField> dictionary)
         {
             parser = new TextFieldParser(fileName) {TextFieldType = FieldType.FixedWidth};
 
@@ -24,9 +24,9 @@ namespace INADRGExporter.FileReaders
 
             foreach (var tuple in dictionary)
             {
-                for (int i = 0; i < tuple.repeat; i++)
-                    widths.Add(tuple.characters);
-                lineWidth += tuple.characters * tuple.repeat;
+                for (int i = 0; i < tuple.Repeat; i++)
+                    widths.Add(tuple.Characters);
+                lineWidth += tuple.Characters * tuple.Repeat;
             }
             parser.SetFieldWidths(widths.ToArray());
             mappingDictionary = GrouperHelper.CreateMappingDictionary(excelMapping, dictionary);
@@ -76,6 +76,11 @@ namespace INADRGExporter.FileReaders
         public object Current
         {
             get { return currentFields; }
+        }
+
+        public void Dispose()
+        {
+            parser.Dispose();
         }
     }
 }

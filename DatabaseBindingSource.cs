@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using INADRGExporter.Properties;
+using System.Globalization;
+using InadrgExporter.Properties;
 
-namespace INADRGExporter
+namespace InadrgExporter
 {
     class DatabaseBindingSource : PreviewBindingSource
     {
@@ -24,7 +25,7 @@ namespace INADRGExporter
         public DatabaseBindingSource(DataTable table, int stepsize, DateTime from, DateTime until, string kdCustomer)
             : base(table, stepsize, from, until)
         {
-            selectCommand = string.Format(SQLCodeService.Instance.InadrgQuery,
+            selectCommand = string.Format(CultureInfo.InvariantCulture, SQLCodeService.Instance.InadrgQuery,
                                               GrouperHelper.ToSQLDate(from),
                                               GrouperHelper.ToSQLDate(until),
                                               kdCustomer,
@@ -38,7 +39,7 @@ namespace INADRGExporter
             {
                 countConnection.Open();
                 var countCommand =
-                    new SqlCommand(string.Format(selectCommand, SQLCodeService.Instance.CountInadrgPredicate),
+                    new SqlCommand(string.Format(CultureInfo.InvariantCulture, selectCommand, SQLCodeService.Instance.CountInadrgPredicate),
                                    countConnection);
                 count = (int) countCommand.ExecuteScalar();
                 countConnection.Close();
@@ -49,8 +50,8 @@ namespace INADRGExporter
         {
             connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString);
             connection.Open();
-            var rangeSelectCommand = string.Format(string.Format(selectCommand,SQLCodeService.Instance.SelectInadrgPredicate),
-                                                   string.Format("WHERE Recid between {0} and {1}",
+            var rangeSelectCommand = string.Format(CultureInfo.InvariantCulture, string.Format(CultureInfo.InvariantCulture, selectCommand, SQLCodeService.Instance.SelectInadrgPredicate),
+                                                   string.Format(CultureInfo.InvariantCulture, "WHERE Recid between {0} and {1}",
                                                                  startPosition + 1,
                                                                  startPosition + stepsize));
             var command = new SqlCommand(rangeSelectCommand, connection);

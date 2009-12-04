@@ -1,4 +1,4 @@
-﻿namespace INADRGExporter
+﻿namespace InadrgExporter.Forms
 {
     partial class AboutBox
     {

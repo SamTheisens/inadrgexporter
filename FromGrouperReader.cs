@@ -5,22 +5,22 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
-using INADRGExporter.FileReaders;
-using INADRGExporter.Properties;
+using InadrgExporter.FileReaders;
+using InadrgExporter.Properties;
 
-namespace INADRGExporter
+namespace InadrgExporter
 {
+    public struct Tarif
+    {
+        public string Deskripsi { get; set; }
+        public double Alos { get; set; }
+        public double Harga { get; set; }
+    }
+
     public class FromGrouperReader : IDisposable
     {
-        public struct Tarif
-        {
-            public string Deskripsi;
-            public double Alos;
-            public double Harga;
-        }
-
         private readonly StreamWriter writer;
-        private readonly List<DicField> dictionary;
+        private readonly List<DictionaryField> dictionary;
         private readonly Dictionary<string, Tarif> tarifJamkesmas;
         private readonly ITextFileFieldReader fieldWidthReader;
         private readonly SqlConnection connection;
@@ -134,7 +134,7 @@ namespace INADRGExporter
 
         private static void InsertIntoTempTable(string rm, DateTime tglMasuk)
         {
-            insertBuffer += string.Format("INSERT INTO #DRG VALUES ({0},{1},'{2}');", currentReadRow, rm.Replace("\'", ""),
+            insertBuffer += string.Format(CultureInfo.InvariantCulture, "INSERT INTO #DRG VALUES ({0},{1},'{2}');", currentReadRow, rm.Replace("\'", ""),
                                           GrouperHelper.ToSQLDate(tglMasuk));
             currentReadRow++;
         }
@@ -156,7 +156,7 @@ namespace INADRGExporter
             var tarifJamkesmas = new Dictionary<string, Tarif>();
 
             if (!File.Exists(Path.Combine(Application.StartupPath, "tarif.dbf")))
-                throw new FileNotFoundException(string.Format("tarif.dbf not found in {0}", Application.StartupPath ));
+                throw new FileNotFoundException(string.Format(CultureInfo.InvariantCulture, "tarif.dbf not found in {0}", Application.StartupPath));
             var connectionString = "Driver={Microsoft dBASE Driver (*.dbf)};DriverID=277;Dbq=" +
                                    Application.StartupPath;
 
@@ -170,10 +170,11 @@ namespace INADRGExporter
                 {
                     while (reader.Read())
                     {
-                        Tarif tarif;
+                        var tarif = new Tarif();
                         tarif.Deskripsi = reader["DESKRIPSI"].ToString();
-                        tarif.Alos = (double)reader["ALOS"];
-                        tarif.Harga = (double)reader[Settings.Default.RumahSakit[Settings.Default.TypeRumahSakit]];
+                        tarif.Alos = ((double) reader["ALOS"]);
+                        tarif.Harga = ((double)
+                                       reader[Settings.Default.RumahSakit[Settings.Default.TypeRumahSakit]]);
                         tarifJamkesmas[reader["KODE"].ToString()] =  tarif;
                     }
                 }

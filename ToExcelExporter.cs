@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using DataTable=System.Data.DataTable;
 
-namespace INADRGExporter
+namespace InadrgExporter
 {
     class ToExcelExporter
     {
