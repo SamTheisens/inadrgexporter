@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using INADRGExporter.Properties;
@@ -49,13 +50,16 @@ namespace INADRGExporter
             reader = command.ExecuteReader();
             return base.BeginReadingRows(startPosition);
         }
+
         protected override void ReadRows(int startPosition)
         {
-            var objects = BeginReadingRows(startPosition);
+            BeginReadingRows(startPosition);
             while (reader.Read())
             {
-                reader.GetValues(objects);
-                AddRow(objects);
+                var dict = new Dictionary<string, object>();
+                for (int i = 0; i < reader.FieldCount; i++) 
+                    dict.Add(reader.GetName(i), reader.GetValue(i));
+                AddRow(dict);
             }
             EndReadingRows();
         }

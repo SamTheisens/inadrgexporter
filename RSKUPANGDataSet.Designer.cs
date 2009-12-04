@@ -1171,7 +1171,7 @@ namespace INADRGExporter {
                         int P27, 
                         int P28, 
                         int P29, 
-                        int Inadrg, 
+                        string Inadrg, 
                         double Tarif, 
                         string Deskripsi, 
                         double ALOS, 
@@ -1535,7 +1535,7 @@ namespace INADRGExporter {
                 base.Columns.Add(this.columnP28);
                 this.columnP29 = new global::System.Data.DataColumn("P29", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnP29);
-                this.columnInadrg = new global::System.Data.DataColumn("Inadrg", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnInadrg = new global::System.Data.DataColumn("Inadrg", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnInadrg);
                 this.columnTarif = new global::System.Data.DataColumn("Tarif", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTarif);
@@ -2832,10 +2832,10 @@ namespace INADRGExporter {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Inadrg {
+            public string Inadrg {
                 get {
                     try {
-                        return ((int)(this[this.tableinadrg.InadrgColumn]));
+                        return ((string)(this[this.tableinadrg.InadrgColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'Inadrg\' in table \'inadrg\' is DBNull.", e);

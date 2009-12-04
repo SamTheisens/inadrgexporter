@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using INADRGExporter;
 
@@ -24,18 +25,23 @@ namespace INADRGExporter
             }
             return errorCodes;
         }
+        public static string[] ReadHeaderFile(string fileName)
+        {
+            var file = new StreamReader(Path.Combine(Application.StartupPath, Path.Combine(@"Dictionaries\", fileName)));
+            return file.ReadLine().Split(';');
+        }
 
-        public static List<Tuple> ReadDictionary(string fileName)
+        public static List<DicField> ReadDictionary(string fileName)
         {
             var file = new StreamReader(Path.Combine(Application.StartupPath, Path.Combine(@"Dictionaries\", fileName)));
             file.ReadLine();
             string line = file.ReadLine();
-            var dic = new List<Tuple>();
+            var dic = new List<DicField>();
             int i = 0;
             while (!line.Contains("newline"))
             {
                 var columns = line.Split(':');
-                var tuple = new Tuple
+                var tuple = new DicField
                                 {
                                     number = i,
                                     name = columns[1],
@@ -70,6 +76,41 @@ namespace INADRGExporter
                 dic.Add(tuple);
             }
             return dic;
+        }
+        public static Dictionary<string, int> CreateMappingDictionary(List<Map> maps, List<DicField> dictionary)
+        {
+            var mappingDic = new Dictionary<string, int>();
+            foreach (var dicField in dictionary)
+            {
+                for (int i = 0; i < dicField.repeat; i++)
+                {
+                    if (dicField.filler)
+                        continue;
+                    var map = maps.SingleOrDefault(m => m.dicColumn == dicField.name && m.columnNumber == i + 1);
+                    if (map.dicColumn != null)
+                    {
+                        mappingDic[map.excelColumn] = dicField.number + i;
+                    }
+                }
+            }
+            return mappingDic;
+        }
+
+        public static Dictionary<string, string> JoinMapping(List<Map> maps, Dictionary<string, int> mappingDic, string[] readFields)
+        {
+            var rowSet = new Dictionary<string, string>();
+            foreach (var pair in mappingDic)
+            {
+                rowSet[pair.Key] = readFields[pair.Value];
+            }
+            var resultSet = new Dictionary<string, string>();
+            foreach (var map in maps)
+            {
+                resultSet[map.excelColumn] = rowSet.ContainsKey(map.excelColumn)
+                                                 ? rowSet[map.excelColumn]
+                                                 : string.Empty;
+            }
+            return resultSet;
         }
         public static string ToSQLDate(DateTime date)
         {

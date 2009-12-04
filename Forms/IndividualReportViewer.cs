@@ -35,7 +35,7 @@ namespace INADRGExporter
             }
             catch (Exception ex)
             {
-                
+                MessageBox.Show("Ada masalah, tolong hubungi SIMRS {0}", ex.Message);
             }
             crystalReportViewer1.ReportSource = individualReport;
 

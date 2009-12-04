@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Globalization;
-using System.IO;
+using INADRGExporter.FileReaders;
 using INADRGExporter.Properties;
-using LumenWorks.Framework.IO.Csv;
 
 namespace INADRGExporter
 {
@@ -17,88 +17,98 @@ namespace INADRGExporter
     }
     public class TextFileBindingSource : PreviewBindingSource
     {
-        private readonly CachedCsvReader csv;
+        private readonly ITextFileFieldReader reader;
         private readonly UngroupableHandlingMode ungroupableHandlingMode;
+        private readonly Dictionary<string, FromGrouperReader.Tarif> tarif;
+        private readonly Dictionary<string, string> errorCodes;
 
-        public TextFileBindingSource(DataTable table, string excelFile, DateTime from, DateTime until, UngroupableHandlingMode ungroupableHandlingMode) :
+        public TextFileBindingSource(ITextFileFieldReader reader, DataTable table, DateTime from, DateTime until, UngroupableHandlingMode ungroupableHandlingMode) :
             base(table, Int32.MaxValue, from, until)
         {
             this.ungroupableHandlingMode = ungroupableHandlingMode;
-            csv = new CachedCsvReader(new StreamReader(excelFile), true, ';');
-            csv.ReadToEnd();
-            count = csv.CurrentRecordIndex;
-            csv.MoveToStart();
-        }
-        protected override object[] BeginReadingRows(int startPosition)
-        {
-            csv.MoveTo(startPosition);
-            var objects = base.BeginReadingRows(startPosition);
-            objects[table.Columns.IndexOf("TglSampai")] = until;
-            objects[table.Columns.IndexOf("TglDari")] = from;
-            objects[table.Columns.IndexOf("NamaRs")] = Settings.Default.NamaRumahSakit;
-            objects[table.Columns.IndexOf("KdRs")] = Settings.Default.KodeRumahSakit;
-            return objects;
+            this.reader = reader;
+            errorCodes = GrouperHelper.ReadErrorCodes("errorcodes.dic");
+            tarif = FromGrouperReader.readTarifJamkesmas();
         }
 
         protected override void ReadRows(int startPosition)
         {
-            var objects = BeginReadingRows(startPosition);
-            if (stepsize == 0) stepsize = Int32.MaxValue;
-            for (int i = 0; table.Rows.Count < stepsize && csv.ReadNextRecord(); i++)
+            BeginReadingRows(startPosition);
+            for (int i = 0; table.Rows.Count < stepsize && reader.MoveNext(); i++)
             {
                 bool hasTarif = false;
-                var currentRowTglKlr = new DateTime();
-                for (int j = 0; j < csv.FieldCount; j++)
+                
+                var readerRowSet = (Dictionary<string, string>) reader.Current;
+                var rowSet = new Dictionary<string, object>();
+                foreach (var pair in readerRowSet)
                 {
-                    string currentCell = csv[j];
-                    var currentHeader = csv.GetFieldHeaders()[j];
+                    var index = table.Columns.IndexOf(pair.Key);
+                    if (index == -1)
+                        continue;
 
-                    var time = new DateTime();
-                    if (DateTime.TryParseExact(currentCell, Settings.Default.DateFormat,
-                                               CultureInfo.InvariantCulture, DateTimeStyles.None, out time))
+                    if (string.IsNullOrEmpty(pair.Value))
                     {
-                        currentCell = GrouperHelper.ToSQLDate(time);
-                        if (currentHeader == "Tglklr")
-                            currentRowTglKlr = time;
+                        rowSet[pair.Key] = DBNull.Value;
+                        continue;
                     }
-                    
-                    var columnNumber = table.Columns.IndexOf(currentHeader);
 
-                    object cell = currentCell;
-
-
-                    if (string.IsNullOrEmpty(currentCell))
-                        cell = DBNull.Value;
-                    else cell = currentCell;
-
-                    if (columnNumber != -1 )
+                    object value = pair.Value;
+                        
+                    if (table.Columns[index].DataType == typeof(double))
                     {
-                        if (!string.IsNullOrEmpty(currentCell) && table.Columns[columnNumber].DataType == typeof(double))
+                        var formatInfo = new NumberFormatInfo
                         {
-                            var formatInfo = new NumberFormatInfo {NumberDecimalSeparator = Settings.Default.DecimalSeparator};
-                            cell = double.Parse(currentCell, NumberStyles.AllowDecimalPoint, formatInfo);
-                            hasTarif = true;
-                        }
-                        objects[columnNumber] = cell;
+                            NumberDecimalSeparator = (pair.Value.Contains(",") ? "," : ".")
+                        };
+                        value = double.Parse(pair.Value, NumberStyles.AllowDecimalPoint, formatInfo); ;
                     }
+                    if (table.Columns[index].DataType == typeof(DateTime))
+                    {
+                        value = DateTime.ParseExact(pair.Value, Settings.Default.DateFormat,
+                                                       CultureInfo.InvariantCulture, DateTimeStyles.None);
+                    }
+                    rowSet[pair.Key] = value;
                 }
+
+                var currentRowTglKlr = (DateTime)rowSet["Tglklr"];
+
+                var inadrg = (string)rowSet["Inadrg"];
+                if (tarif.ContainsKey(inadrg))
+                {
+                    rowSet["Tarif"] = tarif[inadrg].Harga;
+                    rowSet["Deskripsi"] = tarif[inadrg].Deskripsi;
+                    rowSet["Alos"] = tarif[inadrg].Alos;
+                }
+                else
+                {
+                    rowSet["Tarif"] = null;
+                    if (errorCodes.ContainsKey(inadrg)) rowSet["Deskripsi"] = errorCodes[inadrg];
+                    rowSet["Alos"] = null;
+                }
+                if (rowSet["Tarif"] != null) 
+                    hasTarif = true;
+                rowSet["TglSampai"] = until;
+                rowSet["TglDari"] = from;
+                rowSet["Namars"] = Settings.Default.NamaRumahSakit;
+                rowSet["KdRs"] = Settings.Default.KodeRumahSakit;
+
                 if (currentRowTglKlr >= from && currentRowTglKlr <= until)
                 {
                     switch (ungroupableHandlingMode)
                     {
                         case (UngroupableHandlingMode.IncludeUngroupable):
-                            AddRow(objects);
+                            AddRow(rowSet);
                             break;
                         case (UngroupableHandlingMode.SkipUngroupable):
                             if (hasTarif)
-                                AddRow(objects);
+                                AddRow(rowSet);
                             break;
                         case (UngroupableHandlingMode.OnlyUngroupable):
                             if (!hasTarif)
-                                AddRow(objects);
+                                AddRow(rowSet);
                             break;
                         default:
-                            AddRow(objects);
+                            AddRow(rowSet);
                             break;
                     }
                 }

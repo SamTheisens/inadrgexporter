@@ -13,7 +13,7 @@ namespace INADRGExporter
         private readonly SqlConnection connection;
         private readonly SqlDataReader reader;
         private readonly StreamWriter writer;
-        private readonly List<Tuple> dictionary;
+        private readonly List<DicField> dictionary;
 
         public ToGrouperWriter(string outputFile, DateTime from, DateTime until, string kdCustomer)
         {
@@ -27,7 +27,7 @@ namespace INADRGExporter
                                   string.Format(SQLCodeService.Instance.SelectInadrgPredicate, ""),
                                   Settings.Default.NamaRumahSakit,
                                   Settings.Default.KodeRumahSakit,
-                                  Settings.Default.TypeRumahSakit);
+                                  Settings.Default.TypeRumahSakit + 1);
 
             connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString);
             var command = new SqlCommand(queryString, connection);
@@ -44,7 +44,7 @@ namespace INADRGExporter
             return true;
         }
 
-        private static void WriteAsLine(object[] values, IList<Tuple> dictionary, TextWriter writer)
+        private static void WriteAsLine(object[] values, IList<DicField> dictionary, TextWriter writer)
         {
             var nocolumn = 0;
             for (var i = 0; i < dictionary.Count && nocolumn < values.Length; i++)

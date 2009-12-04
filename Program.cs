@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using INADRGExporter.Forms;
 
 namespace INADRGExporter
 {
-    public struct Tuple
+    public struct DicField
     {
         public string name;
         public int characters;

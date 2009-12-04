@@ -33,7 +33,6 @@
             this.settingsPropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.rSKUPANGDataSet = new INADRGExporter.RSKUPANGDataSet();
             this.inadrgoldBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.inadrg_oldTableAdapter = new INADRGExporter.RSKUPANGDataSetTableAdapters.inadrg_oldTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.rSKUPANGDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inadrgoldBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -50,9 +49,6 @@
             // 
             this.rSKUPANGDataSet.DataSetName = "RSKUPANGDataSet";
             this.rSKUPANGDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // inadrg_oldTableAdapter
-            // 
             // 
             // SettingsWindow
             // 

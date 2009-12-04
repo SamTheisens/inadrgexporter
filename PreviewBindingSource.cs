@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using INADRGExporter.Properties;
 
 namespace INADRGExporter
 {
@@ -55,9 +55,15 @@ namespace INADRGExporter
             return objects;
         }
 
-        protected virtual void AddRow(object[] objects)
+        protected virtual void AddRow(Dictionary<string, object> rowSet)
         {
             var row = table.NewRow();
+            var objects = new object[row.ItemArray.Length];
+            foreach (var pair in rowSet)
+            {
+                var index = table.Columns.IndexOf(pair.Key);
+                objects[index] = pair.Value;
+            }
             row.ItemArray = objects;
             table.Rows.Add(row);
         }

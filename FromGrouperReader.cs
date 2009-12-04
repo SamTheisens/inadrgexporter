@@ -4,27 +4,25 @@ using System.Data.Odbc;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
+using INADRGExporter.FileReaders;
 using INADRGExporter.Properties;
-using Microsoft.VisualBasic.FileIO;
 
 namespace INADRGExporter
 {
     public class FromGrouperReader : IDisposable
     {
-        private struct Tarif
+        public struct Tarif
         {
             public string Deskripsi;
             public double Alos;
             public double Harga;
         }
 
-        private readonly StreamReader reader;
         private readonly StreamWriter writer;
-        private readonly List<Tuple> dictionary;
+        private readonly List<DicField> dictionary;
         private readonly Dictionary<string, Tarif> tarifJamkesmas;
-        private readonly TextFieldParser parser;
+        private readonly ITextFileFieldReader fieldWidthReader;
         private readonly SqlConnection connection;
 
         private readonly List<object> rows = new List<object>();
@@ -32,21 +30,25 @@ namespace INADRGExporter
         private int currentRow;
         private static int currentReadRow;
         private static string insertBuffer = "";
-        private readonly List<Map> excelColumns;
         private readonly Dictionary<string,string> errorCodes;
+        private readonly string[] headers;
+        private Dictionary<string, string> rowSet = new Dictionary<string, string>();
+        private bool endFile;
 
-        public FromGrouperReader(string inputFile, string outputFile)
+        public FromGrouperReader(string inputFile, string outputFile, bool verifikator)
         {
-            reader = new StreamReader(inputFile, true);
             writer = new StreamWriter(outputFile, false);
             dictionary = GrouperHelper.ReadDictionary("cgs_ina_out.dic");
-            excelColumns = GrouperHelper.ReadMapping("dic_excel_mapping.dic");
+            fieldWidthReader = new FieldWidthReader(inputFile, dictionary);
+
             errorCodes = GrouperHelper.ReadErrorCodes("errorcodes.dic");
+            headers = verifikator
+                          ? GrouperHelper.ReadHeaderFile("header_excel_verifikator.txt")
+                          : GrouperHelper.ReadHeaderFile("header_excel_dengan_nama.txt");
             tarifJamkesmas = readTarifJamkesmas();
-            parser = CreateTextFieldParser();
             connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString);
             connection.Open();
-            var cmd = new SqlCommand("create table #DRG (urut INT, rm VARCHAR(6), tglMasuk DATETIME)", connection);
+            var cmd = new SqlCommand("create table #DRG (urut INT, rm INT, tglMasuk DATETIME)", connection);
             cmd.ExecuteNonQuery();
         }
 
@@ -59,24 +61,20 @@ namespace INADRGExporter
         }
         public bool readNextLine()
         {
-            if (parser.EndOfData)
+            endFile = !fieldWidthReader.MoveNext();
+            if (endFile)
                 return false;
-
-            var fields = new List<string>(parser.ReadFields());
-            string drg;
-            string rm;
-            DateTime tglMasuk;
-            List<object> outputColumns;
-            ParseLine(fields, dictionary, excelColumns.Where(col => col.dicColumn != string.Empty).ToList(), out outputColumns, out drg, out rm, out tglMasuk);
-            AddTarif(outputColumns, drg, tarifJamkesmas);
-            InsertIntoTempTable(rm, tglMasuk);
-            rows.Add(outputColumns);
+            rowSet = (Dictionary<string, string>) fieldWidthReader.Current;
+            AddTarif();
+            InsertIntoTempTable(rowSet["Norm"], DateTime.ParseExact(rowSet["Tglmsk"], Settings.Default.DateFormat,
+                                                                    CultureInfo.InvariantCulture, DateTimeStyles.None));
+            rows.Add(rowSet);
 
             return true;
         }
         public bool endOfData()
         {
-            return parser.EndOfData;
+            return endFile;
         }
         public void executeQuery()
         {
@@ -94,89 +92,49 @@ namespace INADRGExporter
             if (!dataReader.Read())
                 return false;
 
-            var fields = rows[currentRow] as List<object>;
+            var fields = rows[currentRow] as Dictionary<string, string>;
+            fields["Nama"] = dataReader["Nama"].ToString();
+            fields["Dokter"] = dataReader["Dokter"].ToString();
+            fields["SKP"] = dataReader["SKP"].ToString();
 
-            fields.Add(dataReader["Nama"].ToString());
-            fields.Add(dataReader["Dokter"].ToString());
-            fields.Add(dataReader["SKP"].ToString());
-            WriteAsLine(fields, writer);
+            var row = new List<string>(); 
+            foreach (var header in headers)
+            {
+                row.Add(fields[header]);
+            }
+            if (!string.IsNullOrEmpty(fields["Tarif"]))
+                WriteAsLine(row.ToArray(), writer);
             currentRow++;
             return true;
         }
 
-        private TextFieldParser CreateTextFieldParser()
+        private void AddTarif()
         {
-            var parser = new TextFieldParser(reader) {TextFieldType = FieldType.FixedWidth};
-
-            var widths = new List<int>();
-            foreach (var tuple in dictionary)
+            var inadrg = rowSet["Inadrg"];
+            if (tarifJamkesmas.ContainsKey(inadrg))
             {
-                for(int i = 0; i < tuple.repeat; i++)
-                    widths.Add(tuple.characters);
-            }
-            parser.SetFieldWidths(widths.ToArray());
-            return parser;
-        }
-
-        private void AddTarif(ICollection<object> outputColumns, string drg, IDictionary<string, Tarif> tarifJamkesmas)
-        {
-            Tarif tarif;
-            if (tarifJamkesmas.TryGetValue(drg, out tarif))
-            {
-                outputColumns.Add(tarif.Harga.ToString());
-                outputColumns.Add(tarif.Deskripsi);
-                outputColumns.Add(tarif.Alos.ToString());
+                rowSet["Tarif"] = String.Format("{0:0.##}", tarifJamkesmas[inadrg].Harga);
+                rowSet["Deskripsi"] = tarifJamkesmas[inadrg].Deskripsi;
+                rowSet["Alos"] = String.Format("{0:0.##}", tarifJamkesmas[inadrg].Alos);
             }
             else
             {
-                outputColumns.Add(string.Empty);
-                if (errorCodes.ContainsKey(drg)) outputColumns.Add(errorCodes[drg]);
-                outputColumns.Add(string.Empty);
+                rowSet["Tarif"] = string.Empty;
+                if (errorCodes.ContainsKey(inadrg)) rowSet["Deskripsi"] = errorCodes[inadrg];
+                rowSet["Alos"] = string.Empty;
             }
-        }
-
-        private static void ParseLine(IList<string> fields, IEnumerable<Tuple> dictionary, List<Map> excelColumns, out List<object> outputColumns, out string drg, out string rm, out DateTime tglMasuk)
-        {
-            outputColumns = new List<object>();
-            if (fields == null) throw new ArgumentNullException("fields");
-            foreach (var map in excelColumns)
-            {
-                var tuple = getTuple(dictionary, map.dicColumn);
-                var cell = fields[tuple.number + map.columnNumber - 1];
-                outputColumns.Add(cell);
-            }
-
-            rm = fields[getFieldIndex(dictionary, "VISIT_ID")];
-
-            tglMasuk = DateTime.ParseExact(fields[getFieldIndex(dictionary, "IMP_ADM_DATE")], Settings.Default.DateFormat,
-                                           CultureInfo.InvariantCulture);
-            drg = fields[getFieldIndex(dictionary, "DRG")];
-        }
-
-        private static Tuple getTuple(IEnumerable<Tuple> dictionary, string tupleName)
-        {
-            return dictionary.Single(t => t.name == tupleName);
-        }
-
-
-        private static int getFieldIndex(IEnumerable<Tuple> dictionary, string tupleName)
-        {
-            return dictionary.Single(t => t.name == tupleName).number;
         }
 
         private static void InsertIntoTempTable(string rm, DateTime tglMasuk)
         {
-            insertBuffer += string.Format("INSERT INTO #DRG VALUES ({0},'{1}','{2}');", currentReadRow, rm.Replace("\'", ""),
+            insertBuffer += string.Format("INSERT INTO #DRG VALUES ({0},{1},'{2}');", currentReadRow, rm.Replace("\'", ""),
                                           GrouperHelper.ToSQLDate(tglMasuk));
             currentReadRow++;
         }
 
-        public static void WriteAsLine(List<object> values, StreamWriter writer)
+        public static void WriteAsLine(string[] values, StreamWriter writer)
         {
-            foreach (var s in values)
-            {
-                printColumn(s);
-            }
+            outputBuffer = string.Join(";", values) + ";";
             printNextLine(writer);
         }
 
@@ -186,13 +144,7 @@ namespace INADRGExporter
             outputBuffer = "";
         }
 
-        private static void printColumn(object col)
-        {
-            string output = col.ToString();
-            outputBuffer += output + ";";
-        }
-
-        private static Dictionary<string, Tarif> readTarifJamkesmas()
+        public static Dictionary<string, Tarif> readTarifJamkesmas()
         {
             var tarifJamkesmas = new Dictionary<string, Tarif>();
 
@@ -213,9 +165,8 @@ namespace INADRGExporter
                     {
                         Tarif tarif;
                         tarif.Deskripsi = reader["DESKRIPSI"].ToString();
-                        tarif.Alos = float.Parse(reader["ALOS"].ToString());
-                        tarif.Harga =
-                            float.Parse(reader[Settings.Default.RumahSakit[Settings.Default.TypeRumahSakit]].ToString());
+                        tarif.Alos = (double)reader["ALOS"];
+                        tarif.Harga = (double)reader[Settings.Default.RumahSakit[Settings.Default.TypeRumahSakit]];
                         tarifJamkesmas[reader["KODE"].ToString()] =  tarif;
                     }
                 }
@@ -237,7 +188,7 @@ namespace INADRGExporter
 
         public void writeHeaders()
         {
-            writer.WriteLine(String.Join(";", excelColumns.Select(c => c.excelColumn).ToArray()));
+            writer.WriteLine(String.Join(";", headers) + ";");
         }
     }
 }
