@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Forms;
 
-namespace INADRGExporter
+namespace InadrgExporter
 {
     public sealed class SQLCodeService
     {

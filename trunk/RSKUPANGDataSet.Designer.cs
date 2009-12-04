@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace INADRGExporter {
+namespace InadrgExporter {
     
     
     /// <summary>
@@ -3864,7 +3864,7 @@ namespace INADRGExporter {
         }
     }
 }
-namespace INADRGExporter.RSKUPANGDataSetTableAdapters {
+namespace InadrgExporter.RSKUPANGDataSetTableAdapters {
     
     
     /// <summary>
@@ -4071,7 +4071,7 @@ namespace INADRGExporter.RSKUPANGDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::INADRGExporter.Properties.Settings.Default.RSKUPANGConnectionString;
+            this._connection.ConnectionString = global::InadrgExporter.Properties.Settings.Default.RSKUPANGConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

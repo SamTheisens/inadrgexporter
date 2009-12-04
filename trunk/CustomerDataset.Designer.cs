@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace INADRGExporter {
+namespace InadrgExporter {
     
     
     /// <summary>
@@ -584,7 +584,7 @@ namespace INADRGExporter {
         }
     }
 }
-namespace INADRGExporter.CustomerDatasetTableAdapters {
+namespace InadrgExporter.CustomerDatasetTableAdapters {
     
     
     /// <summary>
@@ -737,7 +737,7 @@ SELECT KD_CUSTOMER, CUSTOMER FROM CUSTOMER WHERE (KD_CUSTOMER = @KD_CUSTOMER)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::INADRGExporter.Properties.Settings.Default.RSKUPANGConnectionString;
+            this._connection.ConnectionString = global::InadrgExporter.Properties.Settings.Default.RSKUPANGConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

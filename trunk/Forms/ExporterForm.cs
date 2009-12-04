@@ -1,13 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
-using INADRGExporter.FileReaders;
-using INADRGExporter.Forms;
-using INADRGExporter.Properties;
+using InadrgExporter.FileReaders;
+using InadrgExporter.Forms;
+using InadrgExporter.Properties;
 
-namespace INADRGExporter.Forms
+namespace InadrgExporter.Forms
 {
     struct ExporterArguments
     {
@@ -17,7 +18,7 @@ namespace INADRGExporter.Forms
         public string inputFile;
         public string outputFile;
         public bool forVerifikator;
-        public UngroupableHandlingMode ungroupableHandlingMode;
+        public UnGroupableHandlingMode unGroupableHandlingMode;
     }
 
     enum Task {ExportFromDatabase, Group, ExportToExcel}
@@ -127,7 +128,7 @@ namespace INADRGExporter.Forms
             var arguments = new ExporterArguments
             {
                 inputFile = Path.Combine(Application.StartupPath, Settings.Default.FromGrouperFileName),
-                outputFile = OpenFileDialog(""),
+                outputFile = OpenFileDialog(string.Empty),
                 forVerifikator = false
             };
             exportkeExcelWorker.RunWorkerAsync(arguments);
@@ -173,21 +174,21 @@ namespace INADRGExporter.Forms
         {
             previewMode = PreviewMode.Database;
             RefreshPreview(fromDateTimePicker.Value, untilDateTimePicker.Value,
-                           comboBoxCustomer.SelectedValue.ToString(), UngroupableHandlingMode.None);
+                           comboBoxCustomer.SelectedValue.ToString(), UnGroupableHandlingMode.None);
         }
 
         private void keExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             previewMode = PreviewMode.TextFile;
             RefreshPreview(fromDateTimePicker.Value, untilDateTimePicker.Value,
-                           comboBoxCustomer.SelectedValue.ToString(), UngroupableHandlingMode.IncludeUngroupable);
+                           comboBoxCustomer.SelectedValue.ToString(), UnGroupableHandlingMode.IncludeUngroupable);
         }
 
         private void excelYangSalahToolStripMenuItem_Click(object sender, EventArgs e)
         {
             previewMode = PreviewMode.TextFile;
             RefreshPreview(fromDateTimePicker.Value, untilDateTimePicker.Value,
-                           comboBoxCustomer.SelectedValue.ToString(), UngroupableHandlingMode.OnlyUngroupable);
+                           comboBoxCustomer.SelectedValue.ToString(), UnGroupableHandlingMode.OnlyUngroupable);
         }
 
 
@@ -211,9 +212,7 @@ namespace INADRGExporter.Forms
         private void ReportProgress(int percentage, int linesRead, int linesWritten)
         {
             exportkeExcelWorker.ReportProgress(percentage,
-                                               string.Format("Lines read: {0}. Lines written: {1}",
-                                                             linesRead,
-                                                             linesWritten));
+                                               string.Format(Resources.LinesReadWritten, linesRead, linesWritten));
         }
         #endregion ProgressHandlers
 
@@ -233,13 +232,13 @@ namespace INADRGExporter.Forms
                     new FieldWidthReader(Path.Combine(Application.StartupPath, Settings.Default.FromGrouperFileName),
                                          GrouperHelper.ReadDictionary("cgs_ina_out.dic"));
                 bindingSource = new TextFileBindingSource(reader, table, args.from, args.until,
-                                                          args.ungroupableHandlingMode);
+                                                          args.unGroupableHandlingMode);
             }
 
             bindingNavigator1.BindingSource = bindingSource;
             bindingSource.Refresh();
             dataGridView1.DataSource = table;
-            totalRecords.Text = string.Format("Jumlah baris: {0} ", table.Rows.Count);
+            totalRecords.Text = string.Format(Resources.JumlahBaris, table.Rows.Count);
 
         }
         private void exportGridKeExcelWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -282,7 +281,9 @@ namespace INADRGExporter.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message));
+                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message), Resources.ErrorTitle,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1,
+                                MessageBoxOptions.RtlReading);
             }
         }
         private void exportkeExcel_DoWork(object sender, DoWorkEventArgs e)
@@ -322,11 +323,13 @@ namespace INADRGExporter.Forms
                         reader.clearTempDB();
                     }
                 }
-                //RefreshPreview(args.from, args.until, args.kdCustomer, UngroupableHandlingMode.OnlyUngroupable);
+                //RefreshPreview(args.from, args.until, args.kdCustomer, UnGroupableHandlingMode.OnlyUngroupable);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message));
+                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message), Resources.ErrorTitle,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1,
+                                MessageBoxOptions.RtlReading);
             }
         }
         #endregion WorkerThreads
@@ -343,7 +346,7 @@ namespace INADRGExporter.Forms
             exportkeExcelWorker.RunWorkerAsync(arguments);
         }
 
-        private void RefreshPreview(DateTime from, DateTime until, string kdCustomer, UngroupableHandlingMode ungroupableHandlingMode)
+        private void RefreshPreview(DateTime from, DateTime until, string kdCustomer, UnGroupableHandlingMode unGroupableHandlingMode)
         {
             var args = new ExporterArguments {from = from, until = until, kdCustomer = kdCustomer};
             refreshPreviewWorker.RunWorkerAsync(args);
@@ -358,8 +361,13 @@ namespace INADRGExporter.Forms
                     process.StartInfo.CreateNoWindow = false;
                     process.StartInfo.FileName = Path.Combine(Settings.Default.ThreeMHISDirectory,
                                                               Settings.Default.ThreeHMISExecutable);
-                    process.StartInfo.Arguments = string.Format(" -i \"{0}\" -u \"{1}\" -p {2} -w ", Path.Combine(Application.StartupPath, Settings.Default.ToGrouperFileName),
-                                                                Path.Combine(Application.StartupPath, Settings.Default.FromGrouperFileName), Settings.Default.GroupingProfile);
+                    process.StartInfo.Arguments = string.Format(CultureInfo.InvariantCulture,
+                                                                " -i \"{0}\" -u \"{1}\" -p {2} -w ",
+                                                                Path.Combine(Application.StartupPath,
+                                                                             Settings.Default.ToGrouperFileName),
+                                                                Path.Combine(Application.StartupPath,
+                                                                             Settings.Default.FromGrouperFileName),
+                                                                Settings.Default.GroupingProfile);
                     process.Start();
                     process.WaitForExit();
                     process.Close();
@@ -367,7 +375,9 @@ namespace INADRGExporter.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message));
+                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message), Resources.ErrorTitle,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1,
+                                MessageBoxOptions.RtlReading);
             }
             ExportToExcel();
         }
@@ -425,10 +435,10 @@ namespace INADRGExporter.Forms
             var table = new RSKUPANGDataSet.inadrgDataTable();
             var reader = new CSVReader(Path.Combine(Application.StartupPath, Settings.Default.ToExcelFileName));
             var bindingSource = new TextFileBindingSource(reader, table, fromDateTimePicker.Value,
-                                                          untilDateTimePicker.Value, UngroupableHandlingMode.SkipUngroupable);
+                                                          untilDateTimePicker.Value, UnGroupableHandlingMode.SkipUngroupable);
             bindingSource.Start();
 
-            var viewer = new IndividualReportViewer { IndividualsDataset = table, ReportFileName = reportFileName };
+            var viewer = new IndividualReportViewer { IndividualsDataSet = table, ReportFileName = reportFileName };
             viewer.ShowDialog();
         }
     }

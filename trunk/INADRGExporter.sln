@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INADRGExporter", "INADRGExporter.csproj", "{36272262-C827-4657-B3F5-C683C527947F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InadrgExporter", "InadrgExporter.csproj", "{36272262-C827-4657-B3F5-C683C527947F}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupInadrgExporter", "SetupInadrgExporter.vdproj", "{4696124B-8B9A-47EE-B733-0FCC11A4BC34}"
 EndProject

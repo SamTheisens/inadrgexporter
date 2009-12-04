@@ -1,4 +1,5 @@
-﻿namespace INADRGExporter {
+﻿namespace InadrgExporter
+{
     
     
     public partial class RSKUPANGDataSet {
@@ -12,7 +13,8 @@
     }
 }
 
-namespace INADRGExporter.RSKUPANGDataSetTableAdapters {
+namespace InadrgExporter.RSKUPANGDataSetTableAdapters
+{
 
 
     public partial class inadrg_oldTableAdapter

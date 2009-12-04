@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Globalization;
-using INADRGExporter.FileReaders;
-using INADRGExporter.Properties;
+using InadrgExporter.FileReaders;
+using InadrgExporter.Properties;
 
-namespace INADRGExporter
+namespace InadrgExporter
 {
-    public enum UngroupableHandlingMode
+    public enum UnGroupableHandlingMode
     {
         None,
         SkipUngroupable,
@@ -18,14 +18,14 @@ namespace INADRGExporter
     public class TextFileBindingSource : PreviewBindingSource
     {
         private readonly ITextFileFieldReader reader;
-        private readonly UngroupableHandlingMode ungroupableHandlingMode;
-        private readonly Dictionary<string, FromGrouperReader.Tarif> tarif;
+        private readonly UnGroupableHandlingMode unGroupableHandlingMode;
+        private readonly Dictionary<string, Tarif> tarif;
         private readonly Dictionary<string, string> errorCodes;
 
-        public TextFileBindingSource(ITextFileFieldReader reader, DataTable table, DateTime from, DateTime until, UngroupableHandlingMode ungroupableHandlingMode) :
+        public TextFileBindingSource(ITextFileFieldReader reader, DataTable table, DateTime from, DateTime until, UnGroupableHandlingMode unGroupableHandlingMode) :
             base(table, Int32.MaxValue, from, until)
         {
-            this.ungroupableHandlingMode = ungroupableHandlingMode;
+            this.unGroupableHandlingMode = unGroupableHandlingMode;
             this.reader = reader;
             errorCodes = GrouperHelper.ReadErrorCodes("errorcodes.dic");
             tarif = FromGrouperReader.readTarifJamkesmas();
@@ -94,16 +94,16 @@ namespace INADRGExporter
 
                 if (currentRowTglKlr >= from && currentRowTglKlr <= until)
                 {
-                    switch (ungroupableHandlingMode)
+                    switch (unGroupableHandlingMode)
                     {
-                        case (UngroupableHandlingMode.IncludeUngroupable):
+                        case (UnGroupableHandlingMode.IncludeUngroupable):
                             AddRow(rowSet);
                             break;
-                        case (UngroupableHandlingMode.SkipUngroupable):
+                        case (UnGroupableHandlingMode.SkipUngroupable):
                             if (hasTarif)
                                 AddRow(rowSet);
                             break;
-                        case (UngroupableHandlingMode.OnlyUngroupable):
+                        case (UnGroupableHandlingMode.OnlyUngroupable):
                             if (!hasTarif)
                                 AddRow(rowSet);
                             break;

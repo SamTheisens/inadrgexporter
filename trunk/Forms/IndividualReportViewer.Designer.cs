@@ -1,4 +1,4 @@
-﻿namespace INADRGExporter.Forms
+﻿namespace InadrgExporter.Forms
 {
     partial class IndividualReportViewer
     {

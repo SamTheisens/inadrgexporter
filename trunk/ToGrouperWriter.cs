@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using INADRGExporter;
-using INADRGExporter.Properties;
+using InadrgExporter;
+using InadrgExporter.Properties;
 
-namespace INADRGExporter
+namespace InadrgExporter
 {
     public class ToGrouperWriter: IDisposable
     {
         private static string outputBuffer = "";
         private readonly StreamWriter writer;
-        private readonly List<DicField> dictionary;
+        private readonly List<DictionaryField> dictionary;
         private readonly DatabaseBindingSource bindingSource;
         private int currentRow;
 
@@ -40,18 +40,18 @@ namespace INADRGExporter
             return true;
         }
 
-        private static void WriteAsLine(object[] values, IList<DicField> dictionary, TextWriter writer)
+        private static void WriteAsLine(object[] values, IList<DictionaryField> dictionary, TextWriter writer)
         {
             var nocolumn = 0;
             for (var i = 0; i < dictionary.Count && nocolumn < values.Length; i++)
             {
-                for (var j = 0; j < dictionary[i].repeat; j++)
+                for (var j = 0; j < dictionary[i].Repeat; j++)
                 {
-                    if (dictionary[i].filler)
-                        printColumn("", dictionary[i].characters);
+                    if (dictionary[i].Filler)
+                        printColumn("", dictionary[i].Characters);
                     else
                     {
-                        printColumn(values[nocolumn], dictionary[i].characters);
+                        printColumn(values[nocolumn], dictionary[i].Characters);
                         nocolumn++;
                     }
                 }

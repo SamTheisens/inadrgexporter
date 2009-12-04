@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
-namespace INADRGExporter.FileReaders
+namespace InadrgExporter.FileReaders
 {
-    public interface ITextFileFieldReader : IEnumerable, IEnumerator
+    public interface ITextFileFieldReader : IEnumerable, IEnumerator, IDisposable
     {
         long Rows { get; }
         void MoveToRow(int rowNumber);

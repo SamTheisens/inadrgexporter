@@ -4,14 +4,14 @@ using System.IO;
 using System.Linq;
 using LumenWorks.Framework.IO.Csv;
 
-namespace INADRGExporter.FileReaders
+namespace InadrgExporter.FileReaders
 {
-    class CSVReader : ITextFileFieldReader
+    public sealed class CSVReader : ITextFileFieldReader
     {
         private readonly long rows;
         private readonly CachedCsvReader reader;
         private readonly Dictionary<string, string> currentFields = new Dictionary<string, string>();
-        private readonly List<Map> excelMapping;
+        private readonly List<FieldMapping> excelMapping;
 
         public CSVReader(string fileName)
         {
@@ -64,11 +64,16 @@ namespace INADRGExporter.FileReaders
             {
                 foreach (var map in excelMapping)
                 {
-                    var colName = map.excelColumn;
+                    var colName = map.ExcelColumn;
                     currentFields[colName] = Headers.Contains(colName) ? reader[colName] : string.Empty;
                 }
                 return currentFields;
             }
+        }
+
+        public void Dispose()
+        {
+            reader.Dispose();
         }
     }
 }

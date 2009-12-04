@@ -1,4 +1,4 @@
-﻿namespace INADRGExporter.Forms
+﻿namespace InadrgExporter.Forms
 {
     partial class SettingsWindow
     {
@@ -31,10 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsWindow));
             this.settingsPropertyGrid = new System.Windows.Forms.PropertyGrid();
-            this.rSKUPANGDataSet = new INADRGExporter.RSKUPANGDataSet();
-            this.inadrgoldBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.rSKUPANGDataSet = new InadrgExporter.RSKUPANGDataSet();
             ((System.ComponentModel.ISupportInitialize)(this.rSKUPANGDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.inadrgoldBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // settingsPropertyGrid
@@ -59,8 +57,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsWindow";
             this.Text = "Configuration";
+            this.Load += new System.EventHandler(this.SettingsWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.rSKUPANGDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.inadrgoldBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -68,8 +66,6 @@
         #endregion
 
         private RSKUPANGDataSet rSKUPANGDataSet;
-        private System.Windows.Forms.BindingSource inadrgoldBindingSource;
-        private INADRGExporter.RSKUPANGDataSetTableAdapters.inadrg_oldTableAdapter inadrg_oldTableAdapter;
-        public System.Windows.Forms.PropertyGrid settingsPropertyGrid;
+        private System.Windows.Forms.PropertyGrid settingsPropertyGrid;
     }
 }
