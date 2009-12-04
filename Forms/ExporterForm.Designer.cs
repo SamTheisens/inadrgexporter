@@ -32,11 +32,11 @@ namespace INADRGExporter.Forms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExporterForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.inadrgBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.rSKUPANGDataSet = new INADRGExporter.RSKUPANGDataSet();
@@ -121,11 +121,12 @@ namespace INADRGExporter.Forms
             this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.exporterFormBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.totalRecords = new System.Windows.Forms.ToolStripStatusLabel();
             this.exportGridKeExcelProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.totalRecords = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.exporterFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.exportFromDatabaseWorker = new System.ComponentModel.BackgroundWorker();
+            this.refreshPreviewWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.inadrgBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rSKUPANGDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cUSTOMERBindingSource)).BeginInit();
@@ -175,8 +176,8 @@ namespace INADRGExporter.Forms
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                                                                                        this.toolStripMenuItemEdit,
-                                                                                        this.helpToolStripMenuItem});
+            this.toolStripMenuItemEdit,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Margin = new System.Windows.Forms.Padding(5);
             this.menuStrip1.Name = "menuStrip1";
@@ -187,8 +188,8 @@ namespace INADRGExporter.Forms
             // toolStripMenuItemEdit
             // 
             this.toolStripMenuItemEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                                                                                                           this.toolStripMenuItem2,
-                                                                                                           this.settingsToolStripMenuItem});
+            this.toolStripMenuItem2,
+            this.settingsToolStripMenuItem});
             this.toolStripMenuItemEdit.Name = "toolStripMenuItemEdit";
             this.toolStripMenuItemEdit.Size = new System.Drawing.Size(58, 20);
             this.toolStripMenuItemEdit.Text = "S&ettings";
@@ -210,7 +211,7 @@ namespace INADRGExporter.Forms
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                                                                                                           this.aboutINADRGExporterToolStripMenuItem});
+            this.aboutINADRGExporterToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.helpToolStripMenuItem.Text = "&Help";
@@ -278,10 +279,10 @@ namespace INADRGExporter.Forms
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                                                                                        this.toolStripDropDownButton2,
-                                                                                        this.toolStripDropDownButton1,
-                                                                                        this.toolStripSeparator2,
-                                                                                        this.toolStripButton1});
+            this.toolStripDropDownButton2,
+            this.toolStripDropDownButton1,
+            this.toolStripSeparator2,
+            this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(6, 6);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(803, 25);
@@ -292,9 +293,9 @@ namespace INADRGExporter.Forms
             // 
             this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                                                                                                              this.databaseToolStripMenuItem,
-                                                                                                              this.keExcelToolStripMenuItem,
-                                                                                                              this.excelYangSalahToolStripMenuItem});
+            this.databaseToolStripMenuItem,
+            this.keExcelToolStripMenuItem,
+            this.excelYangSalahToolStripMenuItem});
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
@@ -329,10 +330,10 @@ namespace INADRGExporter.Forms
             // 
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                                                                                                              this.reportIndividualToolStripMenuItem,
-                                                                                                              this.reportRekapitulasiToolStripMenuItem,
-                                                                                                              this.textfileUntukExcelToolStripMenuItem,
-                                                                                                              this.exportWithDemographics});
+            this.reportIndividualToolStripMenuItem,
+            this.reportRekapitulasiToolStripMenuItem,
+            this.textfileUntukExcelToolStripMenuItem,
+            this.exportWithDemographics});
             this.toolStripDropDownButton1.Image = global::INADRGExporter.Properties.Resources.excel;
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -399,74 +400,74 @@ namespace INADRGExporter.Forms
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView1.AutoGenerateColumns = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-                                                                                                  this.kdrsDataGridViewTextBoxColumn,
-                                                                                                  this.klsrsDataGridViewTextBoxColumn,
-                                                                                                  this.klsrawatDataGridViewTextBoxColumn,
-                                                                                                  this.biayaDataGridViewTextBoxColumn,
-                                                                                                  this.recidDataGridViewTextBoxColumn,
-                                                                                                  this.Tarif,
-                                                                                                  this.Inadrg,
-                                                                                                  this.Deskripsi,
-                                                                                                  this.normDataGridViewTextBoxColumn,
-                                                                                                  this.jnsrawatDataGridViewTextBoxColumn,
-                                                                                                  this.tglmskDataGridViewTextBoxColumn,
-                                                                                                  this.tglklrDataGridViewTextBoxColumn,
-                                                                                                  this.losDataGridViewTextBoxColumn,
-                                                                                                  this.tgllhrDataGridViewTextBoxColumn,
-                                                                                                  this.umurThnDataGridViewTextBoxColumn,
-                                                                                                  this.umurHariDataGridViewTextBoxColumn,
-                                                                                                  this.jKDataGridViewTextBoxColumn,
-                                                                                                  this.caraPlgDataGridViewTextBoxColumn,
-                                                                                                  this.beratDataGridViewTextBoxColumn,
-                                                                                                  this.dutamaDataGridViewTextBoxColumn,
-                                                                                                  this.d1DataGridViewTextBoxColumn,
-                                                                                                  this.d2DataGridViewTextBoxColumn,
-                                                                                                  this.d3DataGridViewTextBoxColumn,
-                                                                                                  this.d4DataGridViewTextBoxColumn,
-                                                                                                  this.p1DataGridViewTextBoxColumn,
-                                                                                                  this.p2DataGridViewTextBoxColumn,
-                                                                                                  this.p3DataGridViewTextBoxColumn,
-                                                                                                  this.p4DataGridViewTextBoxColumn,
-                                                                                                  this.p5DataGridViewTextBoxColumn,
-                                                                                                  this.ALOS,
-                                                                                                  this.Nama,
-                                                                                                  this.Dokter,
-                                                                                                  this.SKP});
+            this.kdrsDataGridViewTextBoxColumn,
+            this.klsrsDataGridViewTextBoxColumn,
+            this.klsrawatDataGridViewTextBoxColumn,
+            this.biayaDataGridViewTextBoxColumn,
+            this.recidDataGridViewTextBoxColumn,
+            this.Tarif,
+            this.Inadrg,
+            this.Deskripsi,
+            this.normDataGridViewTextBoxColumn,
+            this.jnsrawatDataGridViewTextBoxColumn,
+            this.tglmskDataGridViewTextBoxColumn,
+            this.tglklrDataGridViewTextBoxColumn,
+            this.losDataGridViewTextBoxColumn,
+            this.tgllhrDataGridViewTextBoxColumn,
+            this.umurThnDataGridViewTextBoxColumn,
+            this.umurHariDataGridViewTextBoxColumn,
+            this.jKDataGridViewTextBoxColumn,
+            this.caraPlgDataGridViewTextBoxColumn,
+            this.beratDataGridViewTextBoxColumn,
+            this.dutamaDataGridViewTextBoxColumn,
+            this.d1DataGridViewTextBoxColumn,
+            this.d2DataGridViewTextBoxColumn,
+            this.d3DataGridViewTextBoxColumn,
+            this.d4DataGridViewTextBoxColumn,
+            this.p1DataGridViewTextBoxColumn,
+            this.p2DataGridViewTextBoxColumn,
+            this.p3DataGridViewTextBoxColumn,
+            this.p4DataGridViewTextBoxColumn,
+            this.p5DataGridViewTextBoxColumn,
+            this.ALOS,
+            this.Nama,
+            this.Dokter,
+            this.SKP});
             this.tableLayoutPanel1.SetColumnSpan(this.dataGridView1, 3);
             this.dataGridView1.DataSource = this.inadrgBindingSource;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(9, 70);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridView1.RowHeadersWidth = 30;
             this.dataGridView1.RowTemplate.ErrorText = "Error";
             this.dataGridView1.ShowEditingIcon = false;
@@ -522,9 +523,9 @@ namespace INADRGExporter.Forms
             // 
             this.Tarif.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Tarif.DataPropertyName = "Tarif";
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = "0.- IRD";
-            this.Tarif.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Format = "N2";
+            dataGridViewCellStyle8.NullValue = "0.- IRD";
+            this.Tarif.DefaultCellStyle = dataGridViewCellStyle8;
             this.Tarif.HeaderText = "Tarif";
             this.Tarif.Name = "Tarif";
             this.Tarif.ReadOnly = true;
@@ -790,15 +791,15 @@ namespace INADRGExporter.Forms
             this.bindingNavigator1.CountItem = this.bindingNavigatorCountItem;
             this.bindingNavigator1.DeleteItem = null;
             this.bindingNavigator1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                                                                                               this.bindingNavigatorMoveFirstItem,
-                                                                                               this.bindingNavigatorMovePreviousItem,
-                                                                                               this.bindingNavigatorSeparator,
-                                                                                               this.bindingNavigatorPositionItem,
-                                                                                               this.bindingNavigatorCountItem,
-                                                                                               this.bindingNavigatorSeparator1,
-                                                                                               this.bindingNavigatorMoveNextItem,
-                                                                                               this.bindingNavigatorMoveLastItem,
-                                                                                               this.bindingNavigatorSeparator2});
+            this.bindingNavigatorMoveFirstItem,
+            this.bindingNavigatorMovePreviousItem,
+            this.bindingNavigatorSeparator,
+            this.bindingNavigatorPositionItem,
+            this.bindingNavigatorCountItem,
+            this.bindingNavigatorSeparator1,
+            this.bindingNavigatorMoveNextItem,
+            this.bindingNavigatorMoveLastItem,
+            this.bindingNavigatorSeparator2});
             this.bindingNavigator1.Location = new System.Drawing.Point(0, 0);
             this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -957,16 +958,15 @@ namespace INADRGExporter.Forms
             // 
             // exporterFormBindingSource1
             // 
-            this.exporterFormBindingSource1.DataSource = typeof(ExporterForm);
+            this.exporterFormBindingSource1.DataSource = typeof(INADRGExporter.Forms.ExporterForm);
             // 
             // statusStrip1
             // 
             this.statusStrip1.AutoSize = false;
-            this.statusStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                                                                                          this.toolStripStatusLabel,
-                                                                                          this.totalRecords,
-                                                                                          this.exportGridKeExcelProgressBar});
+            this.exportGridKeExcelProgressBar,
+            this.totalRecords,
+            this.toolStripStatusLabel});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.statusStrip1.Location = new System.Drawing.Point(0, 486);
             this.statusStrip1.Margin = new System.Windows.Forms.Padding(1);
@@ -979,6 +979,18 @@ namespace INADRGExporter.Forms
             this.statusStrip1.TabStop = true;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // exportGridKeExcelProgressBar
+            // 
+            this.exportGridKeExcelProgressBar.Enabled = false;
+            this.exportGridKeExcelProgressBar.Name = "exportGridKeExcelProgressBar";
+            this.exportGridKeExcelProgressBar.Size = new System.Drawing.Size(100, 16);
+            this.exportGridKeExcelProgressBar.Visible = false;
+            // 
+            // totalRecords
+            // 
+            this.totalRecords.Name = "totalRecords";
+            this.totalRecords.Size = new System.Drawing.Size(0, 0);
+            // 
             // toolStripStatusLabel
             // 
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
@@ -986,20 +998,9 @@ namespace INADRGExporter.Forms
             this.toolStripStatusLabel.Size = new System.Drawing.Size(205, 13);
             this.toolStripStatusLabel.Text = "Untuk berubah pengaturan, click Settings";
             // 
-            // totalRecords
-            // 
-            this.totalRecords.Name = "totalRecords";
-            this.totalRecords.Size = new System.Drawing.Size(0, 0);
-            // 
-            // exportGridKeExcelProgressBar
-            // 
-            this.exportGridKeExcelProgressBar.Name = "exportGridKeExcelProgressBar";
-            this.exportGridKeExcelProgressBar.Size = new System.Drawing.Size(100, 16);
-            this.exportGridKeExcelProgressBar.Visible = false;
-            // 
             // exporterFormBindingSource
             // 
-            this.exporterFormBindingSource.DataSource = typeof(ExporterForm);
+            this.exporterFormBindingSource.DataSource = typeof(INADRGExporter.Forms.ExporterForm);
             // 
             // exportFromDatabaseWorker
             // 
@@ -1008,6 +1009,10 @@ namespace INADRGExporter.Forms
             this.exportFromDatabaseWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.exportFromDatabaseWorker_DoWork);
             this.exportFromDatabaseWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.exportWorker_RunWorkerCompleted);
             this.exportFromDatabaseWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.exportWorker_ProgressChanged);
+            // 
+            // refreshPreviewWorker
+            // 
+            this.refreshPreviewWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.refreshPreviewWorker_DoWork);
             // 
             // ExporterForm
             // 
@@ -1145,5 +1150,6 @@ namespace INADRGExporter.Forms
         private System.ComponentModel.BackgroundWorker exportFromDatabaseWorker;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.ComponentModel.BackgroundWorker refreshPreviewWorker;
     }
 }

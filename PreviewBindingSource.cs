@@ -28,6 +28,10 @@ namespace INADRGExporter
         {
             get { return ((int)count / stepsize) + 1; }
         }
+        public long Length
+        {
+            get { return count; }
+        }
 
         public override bool IsReadOnly
         {

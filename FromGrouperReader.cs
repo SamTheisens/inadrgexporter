@@ -51,6 +51,13 @@ namespace INADRGExporter
             var cmd = new SqlCommand("create table #DRG (urut INT, rm INT, tglMasuk DATETIME)", connection);
             cmd.ExecuteNonQuery();
         }
+        public long Length
+        {
+            get
+            {
+                return fieldWidthReader.Rows;
+            }
+        }
 
         private static string outputBuffer = "";
         public void clearTempDB()

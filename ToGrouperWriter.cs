@@ -23,6 +23,13 @@ namespace INADRGExporter
             bindingSource.Start();
 
         }
+        public long Length
+        {
+            get
+            {
+                return bindingSource.Length;
+            }
+        }
         public bool NextLine()
         {
             if (currentRow >= bindingSource.Table.Rows.Count)
