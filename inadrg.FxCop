@@ -32,25 +32,191 @@
       <Namespace Name="" Analyze="True" AnalyzeAllChildren="True" />
       <Namespace Name="InadrgExporter" Analyze="True" AnalyzeAllChildren="False">
        <Types AnalyzeAllChildren="False">
-        <Type Name="DatabaseBindingSource" Analyze="True" AnalyzeAllChildren="True" />
-        <Type Name="DicField" Analyze="True" AnalyzeAllChildren="True" />
-        <Type Name="FromGrouperReader" Analyze="True" AnalyzeAllChildren="True" />
-        <Type Name="FromGrouperReader+Tarif" Analyze="True" AnalyzeAllChildren="True" />
+        <Type Name="DictionaryField" Analyze="True" AnalyzeAllChildren="True" />
+        <Type Name="FieldMapping" Analyze="True" AnalyzeAllChildren="False">
+         <Members AnalyzeAllChildren="False">
+          <Member Name="#&lt;ColumnNumber&gt;k__BackingField" Analyze="True" />
+          <Member Name="#&lt;DictionaryColumn&gt;k__BackingField" Analyze="True" />
+          <Member Name="#&lt;ExcelColumn&gt;k__BackingField" Analyze="True" />
+          <Member Name="#&lt;Number&gt;k__BackingField" Analyze="True" />
+          <Member Name="#ColumnNumber" Analyze="True" AnalyzeAllChildren="True" />
+          <Member Name="#DictionaryColumn" Analyze="True" AnalyzeAllChildren="True" />
+          <Member Name="#ExcelColumn" Analyze="True" AnalyzeAllChildren="True" />
+          <Member Name="#Number" Analyze="True" AnalyzeAllChildren="True" />
+         </Members>
+        </Type>
+        <Type Name="FromGrouperReader" Analyze="True" AnalyzeAllChildren="False">
+         <Members AnalyzeAllChildren="False">
+          <Member Name="#.cctor()" Analyze="True" />
+          <Member Name="#connection" Analyze="True" />
+          <Member Name="#currentReadRow" Analyze="True" />
+          <Member Name="#currentRow" Analyze="True" />
+          <Member Name="#dataReader" Analyze="True" />
+          <Member Name="#Dispose()" Analyze="True" />
+          <Member Name="#endFile" Analyze="True" />
+          <Member Name="#headers" Analyze="True" />
+          <Member Name="#insertBuffer" Analyze="True" />
+          <Member Name="#InsertIntoTempTable(System.String,System.DateTime)" Analyze="True" />
+          <Member Name="#Length" Analyze="True" AnalyzeAllChildren="True" />
+          <Member Name="#outputBuffer" Analyze="True" />
+          <Member Name="#rows" Analyze="True" />
+          <Member Name="#rowSet" Analyze="True" />
+          <Member Name="#writer" Analyze="True" />
+         </Members>
+        </Type>
         <Type Name="GrouperHelper" Analyze="True" AnalyzeAllChildren="True" />
         <Type Name="GrouperHelper+&lt;&gt;c__DisplayClass3" Analyze="True" AnalyzeAllChildren="True" />
         <Type Name="GrouperHelper+&lt;&gt;c__DisplayClass6" Analyze="True" AnalyzeAllChildren="True" />
-        <Type Name="Map" Analyze="True" AnalyzeAllChildren="True" />
-        <Type Name="PreviewBindingSource" Analyze="True" AnalyzeAllChildren="True" />
+        <Type Name="PreviewBindingSource" Analyze="True" AnalyzeAllChildren="False">
+         <Members AnalyzeAllChildren="False">
+          <Member Name="#Count" Analyze="True" AnalyzeAllChildren="True" />
+          <Member Name="#EndReadingRows()" Analyze="True" />
+          <Member Name="#IsReadOnly" Analyze="True" AnalyzeAllChildren="True" />
+          <Member Name="#Item[System.Int32]" Analyze="True" AnalyzeAllChildren="True" />
+          <Member Name="#Length" Analyze="True" AnalyzeAllChildren="True" />
+          <Member Name="#OnPositionChanged(System.EventArgs)" Analyze="True" />
+          <Member Name="#ReadRows(System.Int32)" Analyze="True" />
+          <Member Name="#Refresh()" Analyze="True" />
+         </Members>
+        </Type>
         <Type Name="Program" Analyze="True" AnalyzeAllChildren="True" />
-        <Type Name="SQLCodeService" Analyze="True" AnalyzeAllChildren="True" />
-        <Type Name="TextFileBindingSource" Analyze="True" AnalyzeAllChildren="True" />
-        <Type Name="ToExcelExporter" Analyze="True" AnalyzeAllChildren="True" />
+        <Type Name="SqlCodeService" Analyze="True" AnalyzeAllChildren="True" />
+        <Type Name="Tariff" Analyze="True" AnalyzeAllChildren="True" />
         <Type Name="ToGrouperWriter" Analyze="True" AnalyzeAllChildren="True" />
-        <Type Name="UngroupableHandlingMode" Analyze="True" AnalyzeAllChildren="True" />
        </Types>
       </Namespace>
-      <Namespace Name="InadrgExporter.FileReaders" Analyze="True" AnalyzeAllChildren="True" />
-      <Namespace Name="InadrgExporter.Forms" Analyze="True" AnalyzeAllChildren="True" />
+      <Namespace Name="InadrgExporter.Forms" Analyze="True" AnalyzeAllChildren="False">
+       <Types AnalyzeAllChildren="False">
+        <Type Name="AboutBox" Analyze="True" AnalyzeAllChildren="True" />
+        <Type Name="ExporterArguments" Analyze="True" AnalyzeAllChildren="False">
+         <Members AnalyzeAllChildren="False" />
+        </Type>
+        <Type Name="ExporterForm" Analyze="True" AnalyzeAllChildren="False">
+         <Members AnalyzeAllChildren="False">
+          <Member Name="#.ctor()" Analyze="True" />
+          <Member Name="#&lt;ShowFailedGroupingsOnly&gt;k__BackingField" Analyze="True" />
+          <Member Name="#aboutINADRGExporterToolStripMenuItem" Analyze="True" />
+          <Member Name="#aboutINADRGExporterToolStripMenuItem_Click(System.Object,System.EventArgs)" Analyze="True" />
+          <Member Name="#beratDataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#bindingNavigator1" Analyze="True" />
+          <Member Name="#bindingNavigatorCountItem" Analyze="True" />
+          <Member Name="#bindingNavigatorMoveFirstItem" Analyze="True" />
+          <Member Name="#bindingNavigatorMoveLastItem" Analyze="True" />
+          <Member Name="#bindingNavigatorMoveNextItem" Analyze="True" />
+          <Member Name="#bindingNavigatorMovePreviousItem" Analyze="True" />
+          <Member Name="#bindingNavigatorPositionItem" Analyze="True" />
+          <Member Name="#bindingNavigatorSeparator" Analyze="True" />
+          <Member Name="#bindingNavigatorSeparator1" Analyze="True" />
+          <Member Name="#bindingNavigatorSeparator2" Analyze="True" />
+          <Member Name="#caraPlgDataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#comboBoxCustomer" Analyze="True" />
+          <Member Name="#components" Analyze="True" />
+          <Member Name="#cUSTOMERBindingSource" Analyze="True" />
+          <Member Name="#customerDataset" Analyze="True" />
+          <Member Name="#cUSTOMERTableAdapter" Analyze="True" />
+          <Member Name="#d1DataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#d2DataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#d3DataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#d4DataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#databaseToolStripMenuItem" Analyze="True" />
+          <Member Name="#databaseToolStripMenuItem_Click(System.Object,System.EventArgs)" Analyze="True" />
+          <Member Name="#dataGridView1" Analyze="True" />
+          <Member Name="#Deskripsi" Analyze="True" />
+          <Member Name="#Dispose(System.Boolean)" Analyze="True" />
+          <Member Name="#Dokter" Analyze="True" />
+          <Member Name="#dutamaDataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#excelYangSalahToolStripMenuItem" Analyze="True" />
+          <Member Name="#excelYangSalahToolStripMenuItem_Click(System.Object,System.EventArgs)" Analyze="True" />
+          <Member Name="#ExporterForm_FormClosing(System.Object,System.Windows.Forms.FormClosingEventArgs)" Analyze="True" />
+          <Member Name="#exporterFormBindingSource" Analyze="True" />
+          <Member Name="#exporterFormBindingSource1" Analyze="True" />
+          <Member Name="#exportForVerifikator_Click(System.Object,System.EventArgs)" Analyze="True" />
+          <Member Name="#exportFromDatabaseWorker" Analyze="True" />
+          <Member Name="#exportFromDatabaseWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)" Analyze="True" />
+          <Member Name="#exportGridKeExcelProgressBar" Analyze="True" />
+          <Member Name="#exportGridKeExcelWorker" Analyze="True" />
+          <Member Name="#exportGridKeExcelWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)" Analyze="True" />
+          <Member Name="#exportGridKeExcelWorker_ProgressChanged(System.Object,System.ComponentModel.ProgressChangedEventArgs)" Analyze="True" />
+          <Member Name="#exportGridKeExcelWorker_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)" Analyze="True" />
+          <Member Name="#exportkeExcel_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)" Analyze="True" />
+          <Member Name="#exportkeExcelWorker" Analyze="True" />
+          <Member Name="#exportWithDemographics" Analyze="True" />
+          <Member Name="#exportWithDemographics_Click(System.Object,System.EventArgs)" Analyze="True" />
+          <Member Name="#exportWorker_ProgressChanged(System.Object,System.ComponentModel.ProgressChangedEventArgs)" Analyze="True" />
+          <Member Name="#exportWorker_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)" Analyze="True" />
+          <Member Name="#Form1_Load(System.Object,System.EventArgs)" Analyze="True" />
+          <Member Name="#fromDateTimePicker" Analyze="True" />
+          <Member Name="#fromDateTimePicker_ValueChanged(System.Object,System.EventArgs)" Analyze="True" />
+          <Member Name="#helpToolStripMenuItem" Analyze="True" />
+          <Member Name="#Inadrg" Analyze="True" />
+          <Member Name="#inadrgBindingSource" Analyze="True" />
+          <Member Name="#inadrgTableAdapter" Analyze="True" />
+          <Member Name="#InitializeComponent()" Analyze="True" />
+          <Member Name="#jKDataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#jnsrawatDataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#keExcelToolStripMenuItem" Analyze="True" />
+          <Member Name="#keExcelToolStripMenuItem_Click(System.Object,System.EventArgs)" Analyze="True" />
+          <Member Name="#label1" Analyze="True" />
+          <Member Name="#label2" Analyze="True" />
+          <Member Name="#label6" Analyze="True" />
+          <Member Name="#label7" Analyze="True" />
+          <Member Name="#losDataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#menuStrip1" Analyze="True" />
+          <Member Name="#Nama" Analyze="True" />
+          <Member Name="#normDataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#OpenFileDialog(System.String)" Analyze="True" />
+          <Member Name="#openFileDialog1" Analyze="True" />
+          <Member Name="#OpenReportViewer(System.String)" Analyze="True" />
+          <Member Name="#p1DataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#p2DataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#p3DataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#p4DataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#p5DataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#panel3" Analyze="True" />
+          <Member Name="#panel6" Analyze="True" />
+          <Member Name="#panel7" Analyze="True" />
+          <Member Name="#previewMode" Analyze="True" />
+          <Member Name="#PromptForConnectionString(System.String)" Analyze="True" />
+          <Member Name="#recidDataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#refreshButton_Click(System.Object,System.EventArgs)" Analyze="True" />
+          <Member Name="#refreshPreviewWorker" Analyze="True" />
+          <Member Name="#refreshPreviewWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)" Analyze="True" />
+          <Member Name="#reportIndividualToolStripMenuItem" Analyze="True" />
+          <Member Name="#reportIndividualToolStripMenuItem_Click(System.Object,System.EventArgs)" Analyze="True" />
+          <Member Name="#ReportProgress(System.Int32,System.Int32,System.Int32)" Analyze="True" />
+          <Member Name="#reportRekapitulasiToolStripMenuItem" Analyze="True" />
+          <Member Name="#reportRekapitulasiToolStripMenuItem_Click(System.Object,System.EventArgs)" Analyze="True" />
+          <Member Name="#rSKUPANGDataSet" Analyze="True" />
+          <Member Name="#settingsToolStripMenuItem" Analyze="True" />
+          <Member Name="#settingsToolStripMenuItem_Click(System.Object,System.EventArgs)" Analyze="True" />
+          <Member Name="#ShowFailedGroupingsOnly" Analyze="True" AnalyzeAllChildren="True" />
+          <Member Name="#SKP" Analyze="True" />
+          <Member Name="#statusStrip1" Analyze="True" />
+          <Member Name="#tableLayoutPanel1" Analyze="True" />
+          <Member Name="#Tarif" Analyze="True" />
+          <Member Name="#textfileUntukExcelToolStripMenuItem" Analyze="True" />
+          <Member Name="#tglklrDataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#tgllhrDataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#tglmskDataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#toolStrip1" Analyze="True" />
+          <Member Name="#toolStripMenuItem2" Analyze="True" />
+          <Member Name="#toolStripMenuItemChangeConnectionstring_Click(System.Object,System.EventArgs)" Analyze="True" />
+          <Member Name="#toolStripMenuItemEdit" Analyze="True" />
+          <Member Name="#toolStripSeparator2" Analyze="True" />
+          <Member Name="#toolStripStatusLabel" Analyze="True" />
+          <Member Name="#totalRecords" Analyze="True" />
+          <Member Name="#umurHariDataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#umurThnDataGridViewTextBoxColumn" Analyze="True" />
+          <Member Name="#untilDateTimePicker" Analyze="True" />
+          <Member Name="#untilDateTimePicker_ValueChanged(System.Object,System.EventArgs)" Analyze="True" />
+         </Members>
+        </Type>
+        <Type Name="IndividualReportViewer" Analyze="True" AnalyzeAllChildren="True" />
+        <Type Name="PreviewMode" Analyze="True" AnalyzeAllChildren="True" />
+        <Type Name="SettingsWindow" Analyze="True" AnalyzeAllChildren="True" />
+        <Type Name="Task" Analyze="True" AnalyzeAllChildren="True" />
+       </Types>
+      </Namespace>
      </Namespaces>
      <Resources AnalyzeAllChildren="False" />
     </Module>
@@ -73,38 +239,6 @@
   <Settings />
  </Rules>
  <FxCopReport Version="1.36">
-  <Namespaces>
-   <Namespace Name="InadrgExporter">
-    <Messages>
-     <Message Id="Inadrg" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-      <Issue Name="Namespace">
-       <Item>Inadrg</Item>
-       <Item>InadrgExporter</Item>
-      </Issue>
-     </Message>
-    </Messages>
-   </Namespace>
-   <Namespace Name="InadrgExporter.FileReaders">
-    <Messages>
-     <Message Id="Inadrg" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-      <Issue Name="Namespace">
-       <Item>Inadrg</Item>
-       <Item>InadrgExporter.FileReaders</Item>
-      </Issue>
-     </Message>
-    </Messages>
-   </Namespace>
-   <Namespace Name="InadrgExporter.Forms">
-    <Messages>
-     <Message Id="Inadrg" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-      <Issue Name="Namespace">
-       <Item>Inadrg</Item>
-       <Item>InadrgExporter.Forms</Item>
-      </Issue>
-     </Message>
-    </Messages>
-   </Namespace>
-  </Namespaces>
   <Targets>
    <Target Name="$(ProjectDir)/bin/Debug/INADRGExporter.exe">
     <Modules>
@@ -115,12 +249,6 @@
          <Item>'version'</Item>
          <Item>1.0.*</Item>
          <Item>System.Version</Item>
-        </Issue>
-       </Message>
-       <Message Id="Inadrg" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-        <Issue Name="Assembly">
-         <Item>Inadrg</Item>
-         <Item>'INADRGExporter.exe'</Item>
         </Issue>
        </Message>
        <Message TypeName="MarkAssembliesWithNeutralResourcesLanguage" Category="Microsoft.Performance" CheckId="CA1824" Created="2009-12-04 07:53:23Z">
@@ -137,331 +265,32 @@
       <Namespaces>
        <Namespace Name="InadrgExporter">
         <Types>
-         <Type Name="DicField">
+         <Type Name="DictionaryField">
           <Messages>
-           <Message Id="Dic" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-            <Issue Name="Type">
-             <Item>Dic</Item>
-             <Item>'DicField'</Item>
-            </Issue>
-           </Message>
-           <Message TypeName="OverrideEqualsAndOperatorEqualsOnValueTypes" Category="Microsoft.Performance" CheckId="CA1815" Created="2009-12-04 08:11:10Z">
-            <Issue Name="Equals">
-             <Item>'DicField'</Item>
-            </Issue>
+           <Message TypeName="OverrideEqualsAndOperatorEqualsOnValueTypes" Category="Microsoft.Performance" CheckId="CA1815" Created="2009-12-04 13:18:05Z">
             <Issue Name="op_Equality">
-             <Item>'DicField'</Item>
+             <Item>'DictionaryField'</Item>
             </Issue>
            </Message>
           </Messages>
-          <Members>
-           <Member Name="#characters">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'DicField.characters'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#filler">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'DicField.filler'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#name">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'DicField.name'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#number">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'DicField.number'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#repeat">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'DicField.repeat'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
          </Type>
-         <Type Name="FromGrouperReader">
+         <Type Name="FieldMapping">
           <Messages>
-           <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Created="2009-12-04 08:11:10Z">
-            <Issue Name="ProvideDisposeBool">
-             <Item>'FromGrouperReader'</Item>
-            </Issue>
-           </Message>
-          </Messages>
-          <Members>
-           <Member Name="#.ctor(System.String,System.String,System.Boolean)">
-            <Messages>
-             <Message Id="verifikator" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="MemberParameter">
-               <Item>'FromGrouperReader.New(String, String, Boolean)'</Item>
-               <Item>verifikator</Item>
-               <Item>'verifikator'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#AddTarif()">
-            <Messages>
-             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'String.Format(String, Object)'</Item>
-               <Item>'FromGrouperReader.AddTarif()'</Item>
-               <Item>'String.Format(IFormatProvider, String, ParamArray Object())'</Item>
-              </Issue>
-              <Issue>
-               <Item>'String.Format(String, Object)'</Item>
-               <Item>'FromGrouperReader.AddTarif()'</Item>
-               <Item>'String.Format(IFormatProvider, String, ParamArray Object())'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#clearTempDB()">
-            <Messages>
-             <Message Id="clear" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>clear</Item>
-               <Item>'FromGrouperReader.clearTempDB()'</Item>
-               <Item>Clear</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#Dispose()">
-            <Messages>
-             <Message TypeName="CallGCSuppressFinalizeCorrectly" Category="Microsoft.Usage" CheckId="CA1816" Created="2009-12-04 08:11:10Z">
-              <Issue Name="NotCalled">
-               <Item>'FromGrouperReader.Dispose()'</Item>
-               <Item>'GC.SuppressFinalize(Object)'</Item>
-              </Issue>
-             </Message>
-             <Message Id="fieldWidthReader" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'FromGrouperReader'</Item>
-               <Item>'FromGrouperReader.fieldWidthReader'</Item>
-               <Item>'ITextFileFieldReader'</Item>
-              </Issue>
-             </Message>
-             <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Created="2009-12-04 08:11:10Z">
-              <Issue Name="DisposeImplementation">
-               <Item>'FromGrouperReader.Dispose()'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#endOfData()">
-            <Messages>
-             <Message Id="end" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>end</Item>
-               <Item>'FromGrouperReader.endOfData()'</Item>
-               <Item>End</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#executeQuery()">
-            <Messages>
-             <Message Id="execute" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>execute</Item>
-               <Item>'FromGrouperReader.executeQuery()'</Item>
-               <Item>Execute</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#readNextLine()">
-            <Messages>
-             <Message Id="read" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>read</Item>
-               <Item>'FromGrouperReader.readNextLine()'</Item>
-               <Item>Read</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#readTarifJamkesmas()">
-            <Messages>
-             <Message Id="read" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>read</Item>
-               <Item>'FromGrouperReader.readTarifJamkesmas()'</Item>
-               <Item>Read</Item>
-              </Issue>
-             </Message>
-             <Message Id="Jamkesmas" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>Jamkesmas</Item>
-               <Item>'FromGrouperReader.readTarifJamkesmas()'</Item>
-              </Issue>
-             </Message>
-             <Message Id="Tarif" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>Tarif</Item>
-               <Item>'FromGrouperReader.readTarifJamkesmas()'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#WriteAsLine(System.String[],System.IO.StreamWriter)">
-            <Messages>
-             <Message TypeName="ConsiderPassingBaseTypesAsParameters" Category="Microsoft.Design" CheckId="CA1011" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'writer'</Item>
-               <Item>'FromGrouperReader.WriteAsLine(String(), StreamWriter)'</Item>
-               <Item>'StreamWriter'</Item>
-               <Item>'TextWriter'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#writeHeaders()">
-            <Messages>
-             <Message Id="write" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>write</Item>
-               <Item>'FromGrouperReader.writeHeaders()'</Item>
-               <Item>Write</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#writeLine()">
-            <Messages>
-             <Message Id="write" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>write</Item>
-               <Item>'FromGrouperReader.writeLine()'</Item>
-               <Item>Write</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
-         <Type Name="FromGrouperReader+Tarif">
-          <Messages>
-           <Message Id="Tarif" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-            <Issue Name="Type">
-             <Item>Tarif</Item>
-             <Item>'FromGrouperReader.Tarif'</Item>
-            </Issue>
-           </Message>
-           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2009-12-04 08:11:10Z">
-            <Issue>
-             <Item>'FromGrouperReader.Tarif'</Item>
-            </Issue>
-           </Message>
-           <Message TypeName="OverrideEqualsAndOperatorEqualsOnValueTypes" Category="Microsoft.Performance" CheckId="CA1815" Created="2009-12-04 08:11:10Z">
-            <Issue Name="Equals">
-             <Item>'FromGrouperReader.Tarif'</Item>
-            </Issue>
+           <Message TypeName="OverrideEqualsAndOperatorEqualsOnValueTypes" Category="Microsoft.Performance" CheckId="CA1815" Created="2009-12-04 13:18:05Z">
             <Issue Name="op_Equality">
-             <Item>'FromGrouperReader.Tarif'</Item>
+             <Item>'FieldMapping'</Item>
             </Issue>
            </Message>
           </Messages>
-          <Members>
-           <Member Name="#Alos">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'FromGrouperReader.Tarif.Alos'</Item>
-              </Issue>
-             </Message>
-             <Message Id="Alos" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>Alos</Item>
-               <Item>'FromGrouperReader.Tarif.Alos'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#Deskripsi">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'FromGrouperReader.Tarif.Deskripsi'</Item>
-              </Issue>
-             </Message>
-             <Message Id="Deskripsi" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>Deskripsi</Item>
-               <Item>'FromGrouperReader.Tarif.Deskripsi'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#Harga">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'FromGrouperReader.Tarif.Harga'</Item>
-              </Issue>
-             </Message>
-             <Message Id="Harga" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>Harga</Item>
-               <Item>'FromGrouperReader.Tarif.Harga'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
          </Type>
          <Type Name="GrouperHelper">
           <Members>
-           <Member Name="#CreateMappingDictionary(System.Collections.Generic.List`1&lt;InadrgExporter.Map&gt;,System.Collections.Generic.List`1&lt;InadrgExporter.DicField&gt;)">
+           <Member Name="#CreateMappingDictionary(System.Collections.ObjectModel.Collection`1&lt;InadrgExporter.FieldMapping&gt;,System.Collections.Generic.List`1&lt;InadrgExporter.DictionaryField&gt;)">
             <Messages>
-             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2009-12-04 08:11:10Z">
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2009-12-04 13:18:05Z">
               <Issue>
-               <Item>'List(Of DicField)'</Item>
-               <Item>'GrouperHelper.CreateMappingDictionary(List(Of Map), List(Of DicField))'</Item>
-              </Issue>
-              <Issue>
-               <Item>'List(Of Map)'</Item>
-               <Item>'GrouperHelper.CreateMappingDictionary(List(Of Map), List(Of DicField))'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#JoinMapping(System.Collections.Generic.List`1&lt;InadrgExporter.Map&gt;,System.Collections.Generic.Dictionary`2&lt;System.String,System.Int32&gt;,System.String[])">
-            <Messages>
-             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'List(Of Map)'</Item>
-               <Item>'GrouperHelper.JoinMapping(List(Of Map), Dictionary(Of String, Integer), String())'</Item>
-              </Issue>
-             </Message>
-             <Message Id="Dic" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="MemberParameter">
-               <Item>'GrouperHelper.JoinMapping(List(Of Map), Dictionary(Of String, Integer), String())'</Item>
-               <Item>Dic</Item>
-               <Item>'mappingDic'</Item>
+               <Item>'List(Of DictionaryField)'</Item>
+               <Item>'GrouperHelper.CreateMappingDictionary(Collection(Of FieldMapping), List(Of DictionaryField))'</Item>
               </Issue>
              </Message>
             </Messages>
@@ -470,104 +299,35 @@
             <Messages>
              <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2009-12-04 08:11:10Z">
               <Issue>
-               <Item>'List(Of DicField)'</Item>
+               <Item>'List(Of DictionaryField)'</Item>
                <Item>'GrouperHelper.ReadDictionary(String)'</Item>
-              </Issue>
-             </Message>
-             <Message Id="System.Int32.Parse(System.String)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'Integer.Parse(String)'</Item>
-               <Item>'GrouperHelper.ReadDictionary(String)'</Item>
-               <Item>'Integer.Parse(String, IFormatProvider)'</Item>
-              </Issue>
-              <Issue>
-               <Item>'Integer.Parse(String)'</Item>
-               <Item>'GrouperHelper.ReadDictionary(String)'</Item>
-               <Item>'Integer.Parse(String, IFormatProvider)'</Item>
               </Issue>
              </Message>
             </Messages>
            </Member>
-           <Member Name="#ReadMapping(System.String)">
+           <Member Name="#ReadTarifJamkesmas()">
             <Messages>
-             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'List(Of Map)'</Item>
-               <Item>'GrouperHelper.ReadMapping(String)'</Item>
-              </Issue>
-             </Message>
-             <Message Id="System.Int32.Parse(System.String)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'Integer.Parse(String)'</Item>
-               <Item>'GrouperHelper.ReadMapping(String)'</Item>
-               <Item>'Integer.Parse(String, IFormatProvider)'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#ToSQLDate(System.DateTime)">
-            <Messages>
-             <Message Id="SQL" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2009-12-04 08:11:10Z">
+             <Message Id="Jamkesmas" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-06 12:41:29Z">
               <Issue Name="Member">
-               <Item>SQL</Item>
-               <Item>'GrouperHelper.ToSQLDate(Date)'</Item>
-               <Item>Sql</Item>
+               <Item>Jamkesmas</Item>
+               <Item>'GrouperHelper.ReadTarifJamkesmas()'</Item>
               </Issue>
              </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
-         <Type Name="Map">
-          <Messages>
-           <Message TypeName="OverrideEqualsAndOperatorEqualsOnValueTypes" Category="Microsoft.Performance" CheckId="CA1815" Created="2009-12-04 08:11:10Z">
-            <Issue Name="Equals">
-             <Item>'Map'</Item>
-            </Issue>
-            <Issue Name="op_Equality">
-             <Item>'Map'</Item>
-            </Issue>
-           </Message>
-          </Messages>
-          <Members>
-           <Member Name="#columnNumber">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'Map.columnNumber'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#dicColumn">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'Map.dicColumn'</Item>
-              </Issue>
-             </Message>
-             <Message Id="dic" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
+             <Message Id="Tarif" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-06 12:41:29Z">
               <Issue Name="Member">
-               <Item>dic</Item>
-               <Item>'Map.dicColumn'</Item>
+               <Item>Tarif</Item>
+               <Item>'GrouperHelper.ReadTarifJamkesmas()'</Item>
               </Issue>
              </Message>
             </Messages>
            </Member>
-           <Member Name="#excelColumn">
+           <Member Name="#ToString(System.Object)">
             <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'Map.excelColumn'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#number">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'Map.number'</Item>
+             <Message Id="obj" TypeName="IdentifiersShouldNotContainTypeNames" Category="Microsoft.Naming" CheckId="CA1720" Created="2009-12-06 12:41:29Z">
+              <Issue Name="LanguageIndependentMemberParameter">
+               <Item>'GrouperHelper.ToString(Object)'</Item>
+               <Item>obj</Item>
+               <Item>'obj'</Item>
               </Issue>
              </Message>
             </Messages>
@@ -581,12 +341,6 @@
              <Item>'PreviewBindingSource'</Item>
             </Issue>
            </Message>
-           <Message TypeName="IdentifiersShouldDifferByMoreThanCase" Category="Microsoft.Naming" CheckId="CA1708" Created="2009-12-04 08:11:10Z">
-            <Issue Name="Member">
-             <Item>'count'</Item>
-             <Item>Count</Item>
-            </Issue>
-           </Message>
            <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2009-12-04 08:11:10Z">
             <Issue>
              <Item>'PreviewBindingSource'</Item>
@@ -620,397 +374,94 @@
             </Issue>
            </Message>
           </Messages>
-          <Members>
-           <Member Name="#.ctor(System.Data.DataTable,System.Int32,System.DateTime,System.DateTime)">
-            <Messages>
-             <Message Id="stepsize" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="MemberParameter">
-               <Item>'PreviewBindingSource.New(DataTable, Integer, Date, Date)'</Item>
-               <Item>stepsize</Item>
-               <Item>'stepsize'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#count">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'PreviewBindingSource.count'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#from">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'PreviewBindingSource.from'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#rowsTriedAdding">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'PreviewBindingSource.rowsTriedAdding'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#stepsize">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'PreviewBindingSource.stepsize'</Item>
-              </Issue>
-             </Message>
-             <Message Id="stepsize" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>stepsize</Item>
-               <Item>'PreviewBindingSource.stepsize'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#table">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'PreviewBindingSource.table'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#until">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'PreviewBindingSource.until'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
          </Type>
-         <Type Name="SQLCodeService">
-          <Messages>
-           <Message Id="SQL" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2009-12-04 08:11:10Z">
-            <Issue Name="Type">
-             <Item>SQL</Item>
-             <Item>'SQLCodeService'</Item>
-             <Item>Sql</Item>
-            </Issue>
-           </Message>
-          </Messages>
+         <Type Name="SqlCodeService">
           <Members>
            <Member Name="#.cctor()">
             <Messages>
-             <Message TypeName="InitializeReferenceTypeStaticFieldsInline" Category="Microsoft.Performance" CheckId="CA1810" Created="2009-12-04 08:11:10Z">
+             <Message TypeName="InitializeReferenceTypeStaticFieldsInline" Category="Microsoft.Performance" CheckId="CA1810" Created="2009-12-04 13:18:05Z">
               <Issue>
-               <Item>'SQLCodeService'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#CountInadrgPredicate">
-            <Messages>
-             <Message Id="Inadrg" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>Inadrg</Item>
-               <Item>'SQLCodeService.CountInadrgPredicate()'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#InadrgQuery">
-            <Messages>
-             <Message Id="Inadrg" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>Inadrg</Item>
-               <Item>'SQLCodeService.InadrgQuery()'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#SelectInadrgPredicate">
-            <Messages>
-             <Message Id="Inadrg" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>Inadrg</Item>
-               <Item>'SQLCodeService.SelectInadrgPredicate()'</Item>
+               <Item>'SqlCodeService'</Item>
               </Issue>
              </Message>
             </Messages>
            </Member>
           </Members>
          </Type>
-         <Type Name="TextFileBindingSource">
+         <Type Name="Tariff">
           <Messages>
-           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2009-12-04 08:11:10Z">
-            <Issue>
-             <Item>'TextFileBindingSource'</Item>
+           <Message TypeName="OverrideEqualsAndOperatorEqualsOnValueTypes" Category="Microsoft.Performance" CheckId="CA1815" Created="2009-12-04 13:28:06Z">
+            <Issue Name="Equals">
+             <Item>'Tariff'</Item>
             </Issue>
-           </Message>
-           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2009-12-04 08:11:10Z">
-            <Issue>
-             <Item>'TextFileBindingSource'</Item>
-             <Item>Collection</Item>
-            </Issue>
-           </Message>
-           <Message TypeName="ListsAreStronglyTyped" Category="Microsoft.Design" CheckId="CA1039" Created="2009-12-04 08:11:10Z">
-            <Issue>
-             <Item>'TextFileBindingSource'</Item>
-             <Item>Add</Item>
-            </Issue>
-            <Issue>
-             <Item>'TextFileBindingSource'</Item>
-             <Item>Contains</Item>
-            </Issue>
-            <Issue>
-             <Item>'TextFileBindingSource'</Item>
-             <Item>IndexOf</Item>
-            </Issue>
-            <Issue>
-             <Item>'TextFileBindingSource'</Item>
-             <Item>Insert</Item>
-            </Issue>
-            <Issue>
-             <Item>'TextFileBindingSource'</Item>
-             <Item>Item</Item>
-            </Issue>
-            <Issue>
-             <Item>'TextFileBindingSource'</Item>
-             <Item>Remove</Item>
+            <Issue Name="op_Equality">
+             <Item>'Tariff'</Item>
             </Issue>
            </Message>
           </Messages>
           <Members>
-           <Member Name="#.ctor(InadrgExporter.FileReaders.ITextFileFieldReader,System.Data.DataTable,System.DateTime,System.DateTime,InadrgExporter.UngroupableHandlingMode)">
+           <Member Name="#Alos">
             <Messages>
-             <Message Id="ungroupable" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="MemberParameter">
-               <Item>'TextFileBindingSource.New(ITextFileFieldReader, DataTable, Date, Date, UngroupableHandlingMode)'</Item>
-               <Item>ungroupable</Item>
-               <Item>'ungroupableHandlingMode'</Item>
+             <Message Id="Alos" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-12-04 13:28:06Z">
+              <Issue Name="Member">
+               <Item>Alos</Item>
+               <Item>'Tariff.Alos()'</Item>
               </Issue>
+              <Notes>
+               <User Name="Sam Theisens">
+                <Note Id="0" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
-          </Members>
-         </Type>
-         <Type Name="ToExcelExporter">
-          <Messages>
-           <Message TypeName="AvoidUninstantiatedInternalClasses" Category="Microsoft.Performance" CheckId="CA1812" Created="2009-12-04 08:11:10Z">
-            <Issue>
-             <Item>'ToExcelExporter'</Item>
-            </Issue>
-           </Message>
-          </Messages>
-          <Members>
-           <Member Name="#WriteToExcelSpreadsheet(System.String,System.Data.DataTable,System.ComponentModel.BackgroundWorker)">
+           <Member Name="#Deskripsi">
             <Messages>
-             <Message Id="dt" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2009-12-04 08:11:10Z" FixCategory="NonBreaking">
-              <Issue>
-               <Item>'dt'</Item>
-               <Item>'ToExcelExporter.WriteToExcelSpreadsheet(String, DataTable, BackgroundWorker)'</Item>
+             <Message Id="Deskripsi" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-12-04 13:28:06Z">
+              <Issue Name="Member">
+               <Item>Deskripsi</Item>
+               <Item>'Tariff.Deskripsi()'</Item>
               </Issue>
+              <Notes>
+               <User Name="Sam Theisens">
+                <Note Id="0" />
+               </User>
+              </Notes>
              </Message>
-             <Message Id="fileName" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2009-12-04 08:11:10Z" FixCategory="NonBreaking">
-              <Issue>
-               <Item>'fileName'</Item>
-               <Item>'ToExcelExporter.WriteToExcelSpreadsheet(String, DataTable, BackgroundWorker)'</Item>
+            </Messages>
+           </Member>
+           <Member Name="#Harga">
+            <Messages>
+             <Message Id="Harga" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-12-04 13:28:06Z">
+              <Issue Name="Member">
+               <Item>Harga</Item>
+               <Item>'Tariff.Harga()'</Item>
               </Issue>
-             </Message>
-             <Message Id="worker" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2009-12-04 08:11:10Z" FixCategory="NonBreaking">
-              <Issue>
-               <Item>'worker'</Item>
-               <Item>'ToExcelExporter.WriteToExcelSpreadsheet(String, DataTable, BackgroundWorker)'</Item>
-              </Issue>
+              <Notes>
+               <User Name="Sam Theisens">
+                <Note Id="0" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
           </Members>
          </Type>
          <Type Name="ToGrouperWriter">
-          <Messages>
-           <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Created="2009-12-04 08:11:10Z">
-            <Issue Name="ProvideDisposeBool">
-             <Item>'ToGrouperWriter'</Item>
-            </Issue>
-           </Message>
-          </Messages>
           <Members>
            <Member Name="#.ctor(System.String,System.DateTime,System.DateTime,System.String)">
             <Messages>
-             <Message Id="kd" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
+             <Message Id="kd" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-12-04 08:11:10Z">
               <Issue Name="MemberParameter">
                <Item>'ToGrouperWriter.New(String, Date, Date, String)'</Item>
                <Item>kd</Item>
                <Item>'kdCustomer'</Item>
               </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#Dispose()">
-            <Messages>
-             <Message TypeName="CallGCSuppressFinalizeCorrectly" Category="Microsoft.Usage" CheckId="CA1816" Created="2009-12-04 08:11:10Z">
-              <Issue Name="NotCalled">
-               <Item>'ToGrouperWriter.Dispose()'</Item>
-               <Item>'GC.SuppressFinalize(Object)'</Item>
-              </Issue>
-             </Message>
-             <Message Id="bindingSource" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'ToGrouperWriter'</Item>
-               <Item>'ToGrouperWriter.bindingSource'</Item>
-               <Item>'DatabaseBindingSource'</Item>
-              </Issue>
-             </Message>
-             <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Created="2009-12-04 08:11:10Z">
-              <Issue Name="DisposeImplementation">
-               <Item>'ToGrouperWriter.Dispose()'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#printColumn(System.Object,System.Int32)">
-            <Messages>
-             <Message Id="System.DateTime.ToString(System.String)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'Date.ToString(String)'</Item>
-               <Item>'ToGrouperWriter.printColumn(Object, Integer)'</Item>
-               <Item>'Date.ToString(String, IFormatProvider)'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
-         <Type Name="UngroupableHandlingMode">
-          <Messages>
-           <Message Id="Ungroupable" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-            <Issue Name="Type">
-             <Item>Ungroupable</Item>
-             <Item>'UngroupableHandlingMode'</Item>
-            </Issue>
-           </Message>
-          </Messages>
-          <Members>
-           <Member Name="#IncludeUngroupable">
-            <Messages>
-             <Message Id="Ungroupable" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>Ungroupable</Item>
-               <Item>'UngroupableHandlingMode.IncludeUngroupable'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#OnlyUngroupable">
-            <Messages>
-             <Message Id="Ungroupable" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>Ungroupable</Item>
-               <Item>'UngroupableHandlingMode.OnlyUngroupable'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#SkipUngroupable">
-            <Messages>
-             <Message Id="Ungroupable" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2009-12-04 08:11:10Z">
-              <Issue Name="Member">
-               <Item>Ungroupable</Item>
-               <Item>'UngroupableHandlingMode.SkipUngroupable'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
-        </Types>
-       </Namespace>
-       <Namespace Name="InadrgExporter.FileReaders">
-        <Types>
-         <Type Name="CSVReader">
-          <Messages>
-           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2009-12-04 08:11:10Z">
-            <Issue Certainty="60">
-             <Item>'CSVReader'</Item>
-             <Item>IEnumerable</Item>
-            </Issue>
-           </Message>
-           <Message TypeName="EnumeratorsShouldBeStronglyTyped" Category="Microsoft.Design" CheckId="CA1038" Created="2009-12-04 08:11:10Z">
-            <Issue>
-             <Item>'CSVReader'</Item>
-            </Issue>
-           </Message>
-           <Message Id="CSV" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2009-12-04 08:11:10Z">
-            <Issue Name="Type">
-             <Item>CSV</Item>
-             <Item>'CSVReader'</Item>
-             <Item>Csv</Item>
-            </Issue>
-           </Message>
-           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2009-12-04 08:11:10Z">
-            <Issue>
-             <Item>'CSVReader'</Item>
-             <Item>Collection</Item>
-            </Issue>
-           </Message>
-          </Messages>
-         </Type>
-         <Type Name="FieldWidthReader">
-          <Messages>
-           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2009-12-04 08:11:10Z">
-            <Issue Certainty="60">
-             <Item>'FieldWidthReader'</Item>
-             <Item>IEnumerable</Item>
-            </Issue>
-           </Message>
-           <Message TypeName="EnumeratorsShouldBeStronglyTyped" Category="Microsoft.Design" CheckId="CA1038" Created="2009-12-04 08:11:10Z">
-            <Issue>
-             <Item>'FieldWidthReader'</Item>
-            </Issue>
-           </Message>
-           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2009-12-04 08:11:10Z">
-            <Issue>
-             <Item>'FieldWidthReader'</Item>
-             <Item>Collection</Item>
-            </Issue>
-           </Message>
-          </Messages>
-          <Members>
-           <Member Name="#.ctor(System.String,System.Collections.Generic.List`1&lt;InadrgExporter.DicField&gt;)">
-            <Messages>
-             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'List(Of DicField)'</Item>
-               <Item>'FieldWidthReader.New(String, List(Of DicField))'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
-         <Type Name="ITextFileFieldReader">
-          <Messages>
-           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2009-12-04 08:11:10Z">
-            <Issue>
-             <Item>'ITextFileFieldReader'</Item>
-             <Item>Collection</Item>
-            </Issue>
-           </Message>
-          </Messages>
-          <Members>
-           <Member Name="#Headers">
-            <Messages>
-             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'ITextFileFieldReader.Headers()'</Item>
-              </Issue>
+              <Notes>
+               <User Name="Sam Theisens">
+                <Note Id="1" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -1020,6 +471,18 @@
        </Namespace>
        <Namespace Name="InadrgExporter.Forms">
         <Types>
+         <Type Name="ExporterArguments">
+          <Messages>
+           <Message TypeName="OverrideEqualsAndOperatorEqualsOnValueTypes" Category="Microsoft.Performance" CheckId="CA1815" Created="2009-12-06 12:41:29Z">
+            <Issue Name="Equals">
+             <Item>'ExporterArguments'</Item>
+            </Issue>
+            <Issue Name="op_Equality">
+             <Item>'ExporterArguments'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
          <Type Name="ExporterForm">
           <Members>
            <Member Name="#exportFromDatabaseWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
@@ -1028,13 +491,6 @@
               <Issue>
                <Item>'ExporterForm.exportFromDatabaseWorker_DoWork(Object, DoWorkEventArgs)'</Item>
                <Item>'Exception'</Item>
-              </Issue>
-             </Message>
-             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'String.Format(String, Object)'</Item>
-               <Item>'ExporterForm.exportFromDatabaseWorker_DoWork(Object, DoWorkEventArgs)'</Item>
-               <Item>'String.Format(IFormatProvider, String, ParamArray Object())'</Item>
               </Issue>
              </Message>
             </Messages>
@@ -1047,79 +503,13 @@
                <Item>'Exception'</Item>
               </Issue>
              </Message>
-             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'String.Format(String, Object)'</Item>
-               <Item>'ExporterForm.exportkeExcel_DoWork(Object, DoWorkEventArgs)'</Item>
-               <Item>'String.Format(IFormatProvider, String, ParamArray Object())'</Item>
-              </Issue>
-             </Message>
             </Messages>
            </Member>
-           <Member Name="#GroupDiagnoses()">
+           <Member Name="#Tarif">
             <Messages>
-             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2009-12-04 08:11:10Z">
+             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2009-12-06 12:41:29Z">
               <Issue>
-               <Item>'ExporterForm.GroupDiagnoses()'</Item>
-               <Item>'Exception'</Item>
-              </Issue>
-             </Message>
-             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'String.Format(String, Object)'</Item>
-               <Item>'ExporterForm.GroupDiagnoses()'</Item>
-               <Item>'String.Format(IFormatProvider, String, ParamArray Object())'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#PromptForConnectionString(System.String)">
-            <Messages>
-             <Message TypeName="TestForEmptyStringsUsingStringLength" Category="Microsoft.Performance" CheckId="CA1820" Created="2009-12-04 08:11:10Z">
-              <Issue Name="IsNullOrEmpty">
-               <Item>'String.Operator =(String, String)'</Item>
-               <Item>'ExporterForm.PromptForConnectionString(String)'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#RefreshPreview(System.DateTime,System.DateTime,System.String,InadrgExporter.UngroupableHandlingMode)">
-            <Messages>
-             <Message Id="ungroupableHandlingMode" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2009-12-04 08:11:10Z" FixCategory="NonBreaking">
-              <Issue>
-               <Item>'ungroupableHandlingMode'</Item>
-               <Item>'ExporterForm.RefreshPreview(Date, Date, String, UngroupableHandlingMode)'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#refreshPreviewWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
-            <Messages>
-             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'String.Format(String, Object)'</Item>
-               <Item>'ExporterForm.refreshPreviewWorker_DoWork(Object, DoWorkEventArgs)'</Item>
-               <Item>'String.Format(IFormatProvider, String, ParamArray Object())'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#ReportProgress(System.Int32,System.Int32,System.Int32)">
-            <Messages>
-             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'String.Format(String, Object, Object)'</Item>
-               <Item>'ExporterForm.ReportProgress(Integer, Integer, Integer)'</Item>
-               <Item>'String.Format(IFormatProvider, String, ParamArray Object())'</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="#toolStripContainer1">
-            <Messages>
-             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2009-12-04 08:11:10Z">
-              <Issue>
-               <Item>'ExporterForm.toolStripContainer1'</Item>
+               <Item>'ExporterForm.Tarif'</Item>
               </Issue>
              </Message>
             </Messages>
@@ -1136,13 +526,6 @@
                <Item>'Exception'</Item>
               </Issue>
              </Message>
-             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2009-12-04 08:27:35Z">
-              <Issue>
-               <Item>'String.Format(String, Object)'</Item>
-               <Item>'IndividualReportViewer.IndividualReportViewer_Load(Object, EventArgs)'</Item>
-               <Item>'String.Format(IFormatProvider, String, ParamArray Object())'</Item>
-              </Issue>
-             </Message>
             </Messages>
            </Member>
           </Members>
@@ -1154,6 +537,12 @@
     </Modules>
    </Target>
   </Targets>
+  <Notes>
+   <User Name="Sam Theisens">
+    <Note Id="0" Modified="2009-12-04 13:30:46Z">Indonesia</Note>
+    <Note Id="1" Modified="2009-12-04 13:31:06Z">Indonesia</Note>
+   </User>
+  </Notes>
   <Rules>
    <Rule TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210">
     <Resolution Name="NoStrongName">Sign {0} with a strong name key.</Resolution>
@@ -1161,59 +550,27 @@
    <Rule TypeName="AttributeStringLiteralsShouldParseCorrectly" Category="Microsoft.Usage" CheckId="CA2243">
     <Resolution Name="Default">Change the value of argument '{0}', which is currently "{1}", to something that can be correctly parsed as {2}.</Resolution>
    </Rule>
-   <Rule TypeName="AvoidUninstantiatedInternalClasses" Category="Microsoft.Performance" CheckId="CA1812">
-    <Resolution Name="Default">{0} is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.</Resolution>
-   </Rule>
    <Rule TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823">
     <Resolution Name="Default">It appears that field {0} is never used or is only ever assigned to. Use this field or remove it.</Resolution>
-   </Rule>
-   <Rule TypeName="CallGCSuppressFinalizeCorrectly" Category="Microsoft.Usage" CheckId="CA1816">
-    <Resolution Name="NotCalled">Change {0} to call {1}. This will prevent unnecessary finalization of the object once it has been disposed and it has fallen out of scope.</Resolution>
-   </Rule>
-   <Rule TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010">
-    <Resolution Name="Default">{0} appears to be a non-generic, strongly typed collection. Add an implementation to the instance of {1}&lt;T&gt; where T is the underlying element type of {0}.</Resolution>
-   </Rule>
-   <Rule TypeName="ConsiderPassingBaseTypesAsParameters" Category="Microsoft.Design" CheckId="CA1011">
-    <Resolution Name="Default">Consider changing the type of parameter {0} in {1} from {2} to its base type {3}. This method appears to only require base class members in its implementation. Suppress this violation if there is a compelling reason to require the more derived type in the method signature.</Resolution>
-   </Rule>
-   <Rule TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213">
-    <Resolution Name="Default">{0} contains field {1} that is of IDisposable type: {2}. Change the Dispose method on {0} to call Dispose or Close on this field.</Resolution>
    </Rule>
    <Rule TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031">
     <Resolution Name="Default">Modify {0} to catch a more specific exception than {1} or rethrow the exception.</Resolution>
    </Rule>
-   <Rule TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051">
-    <Resolution Name="Default">Because field {0} is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Resolution>
-   </Rule>
    <Rule TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002">
     <Resolution Name="Default">Change {0} in {1} to use Collection&lt;T&gt;, ReadOnlyCollection&lt;T&gt; or KeyedCollection&lt;K,V&gt;</Resolution>
-   </Rule>
-   <Rule TypeName="EnumeratorsShouldBeStronglyTyped" Category="Microsoft.Design" CheckId="CA1038">
-    <Resolution Name="Default">{0} should provide a strongly typed implementation of IEnumerator.Current.</Resolution>
    </Rule>
    <Rule TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035">
     <Resolution Name="Default">{0} should provide a strongly typed implementation of ICollection.CopyTo.</Resolution>
    </Rule>
-   <Rule TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709">
-    <Resolution Name="Member">Correct the casing of '{0}' in member name {1} by changing it to '{2}'.</Resolution>
-    <Resolution Name="Type">Correct the casing of '{0}' in type name {1} by changing it to '{2}'.</Resolution>
-   </Rule>
    <Rule TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704">
-    <Resolution Name="Assembly">Correct the spelling of '{0}' in assembly name {1}.</Resolution>
     <Resolution Name="Member">Correct the spelling of '{0}' in member name {1} or remove it entirely if it represents any sort of Hungarian notation.</Resolution>
     <Resolution Name="MemberParameter">In method {0}, correct the spelling of '{1}' in parameter name {2} or remove it entirely if it represents any sort of Hungarian notation.</Resolution>
-    <Resolution Name="Namespace">Correct the spelling of '{0}' in namespace name '{1}'.</Resolution>
-    <Resolution Name="Type">Correct the spelling of '{0}' in type name {1}.</Resolution>
-   </Rule>
-   <Rule TypeName="IdentifiersShouldDifferByMoreThanCase" Category="Microsoft.Naming" CheckId="CA1708">
-    <Resolution Name="Member">Change member names {0} and '{1}' so that they differ by more than case.</Resolution>
    </Rule>
    <Rule TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710">
     <Resolution Name="Default">Rename {0} to end in '{1}'.</Resolution>
    </Rule>
-   <Rule TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063">
-    <Resolution Name="DisposeImplementation">Modify {0} so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.</Resolution>
-    <Resolution Name="ProvideDisposeBool">Provide an overridable implementation of Dispose(bool) on {0} or mark the type as sealed. A call to Dispose(false) should only clean up native resources. A call to Dispose(true) should clean up both managed and native resources.</Resolution>
+   <Rule TypeName="IdentifiersShouldNotContainTypeNames" Category="Microsoft.Naming" CheckId="CA1720">
+    <Resolution Name="LanguageIndependentMemberParameter">In member {0}, consider replacing the data type identifier '{1}' in parameter name {2} with a more generic term, such as 'value'.</Resolution>
    </Rule>
    <Rule TypeName="InitializeReferenceTypeStaticFieldsInline" Category="Microsoft.Performance" CheckId="CA1810">
     <Resolution Name="Default">Initialize all static fields in {0} when those fields are declared and remove the explicit static constructor.</Resolution>
@@ -1224,24 +581,9 @@
    <Rule TypeName="MarkAssembliesWithNeutralResourcesLanguage" Category="Microsoft.Performance" CheckId="CA1824">
     <Resolution Name="Default">Because assembly {0} contains a ResX-based resource file, mark it with the NeutralResourcesLanguage attribute, specifying the language of the resources within the assembly. This could improve lookup performance the first time a resource is retrieved.</Resolution>
    </Rule>
-   <Rule TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034">
-    <Resolution Name="Default">Do not nest type {0}. Alternatively, change its accessibility so that it is not externally visible.</Resolution>
-   </Rule>
    <Rule TypeName="OverrideEqualsAndOperatorEqualsOnValueTypes" Category="Microsoft.Performance" CheckId="CA1815">
     <Resolution Name="Equals">{0} should override Equals.</Resolution>
     <Resolution Name="op_Equality">{0} should override the equality (==) and inequality (!=) operators.</Resolution>
-   </Rule>
-   <Rule TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819">
-    <Resolution Name="Default">Change {0} to return a collection or make it a method.</Resolution>
-   </Rule>
-   <Rule TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801">
-    <Resolution Name="Default">Parameter {0} of {1} is never used. Remove the parameter or use it in the method body.</Resolution>
-   </Rule>
-   <Rule TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305">
-    <Resolution Name="Default">Because the behavior of {0} could vary based on the current user's locale settings, replace this call in {1} with a call to {2}. If the result of {2} will be displayed to the user, specify 'CultureInfo.CurrentCulture' as the 'IFormatProvider' parameter. Otherwise, if the result will be stored and accessed by software, such as when it is persisted to disk or to a database, specify 'CultureInfo.InvariantCulture'.</Resolution>
-   </Rule>
-   <Rule TypeName="TestForEmptyStringsUsingStringLength" Category="Microsoft.Performance" CheckId="CA1820">
-    <Resolution Name="IsNullOrEmpty">Replace the call to {0} in {1} with a call to 'String.IsNullOrEmpty'.</Resolution>
    </Rule>
   </Rules>
  </FxCopReport>

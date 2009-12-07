@@ -55,14 +55,14 @@ namespace InadrgExporter
             //        Range range = ExlApp.Cells.get_Range(ExlApp.Cells[iRow + 2, 1],
             //                                                ExlApp.Cells[iRow + 2, dt.Rows[iRow].ItemArray.Length
             //                                                    ]);
-            //        var rowToString = new List<object>();
+            //        var rowToString = new Collection<object>();
 
                     
             //        foreach (object o in dt.Rows[iRow].ItemArray)
             //        {
             //            if (o is DateTime)
             //            {
-            //                rowToString.Add(GrouperHelper.ToSQLDate((DateTime) o));
+            //                rowToString.Add(GrouperHelper.ToSqlDate((DateTime) o));
             //            }
             //            else if (o is int)
             //            {

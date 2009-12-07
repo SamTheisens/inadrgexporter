@@ -141,11 +141,47 @@ namespace InadrgExporter.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Re-group memerlukan.
+        /// </summary>
+        internal static string RegroupNeededToolTip {
+            get {
+                return ResourceManager.GetString("RegroupNeededToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Re-group.
+        /// </summary>
+        internal static string RegroupToolTip {
+            get {
+                return ResourceManager.GetString("RegroupToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version {0}.
         /// </summary>
         internal static string Version {
             get {
                 return ResourceManager.GetString("Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to untuk_import_ke_excel.txt.
+        /// </summary>
+        internal static string WithDemographicsFileName {
+            get {
+                return ResourceManager.GetString("WithDemographicsFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to untuk_verifikator.txt.
+        /// </summary>
+        internal static string WithoutDemographicsFileName {
+            get {
+                return ResourceManager.GetString("WithoutDemographicsFileName", resourceCulture);
             }
         }
     }

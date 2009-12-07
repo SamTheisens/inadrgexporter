@@ -1,202 +1,152 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Odbc;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
-using System.Windows.Forms;
-using InadrgExporter.FileReaders;
+using System.Linq;
+using InadrgExporter.DataSources;
 using InadrgExporter.Properties;
 
 namespace InadrgExporter
 {
-    public struct Tarif
+    public struct Tariff
     {
         public string Deskripsi { get; set; }
         public double Alos { get; set; }
         public double Harga { get; set; }
     }
 
-    public class FromGrouperReader : IDisposable
+    public sealed class FromGrouperReader : IDisposable
     {
         private readonly StreamWriter writer;
-        private readonly List<DictionaryField> dictionary;
-        private readonly Dictionary<string, Tarif> tarifJamkesmas;
-        private readonly ITextFileFieldReader fieldWidthReader;
+        private readonly IDataSource grouperSource;
         private readonly SqlConnection connection;
 
-        private readonly List<object> rows = new List<object>();
+        private readonly Collection<object> rows = new Collection<object>();
         private SqlDataReader dataReader;
         private int currentRow;
         private static int currentReadRow;
         private static string insertBuffer = "";
-        private readonly Dictionary<string,string> errorCodes;
+        private static string outputBuffer = "";
         private readonly string[] headers;
-        private Dictionary<string, string> rowSet = new Dictionary<string, string>();
+        private Dictionary<string, object> rowSet = new Dictionary<string, object>();
         private bool endFile;
+        private readonly UngroupableHandlingMode ungroupableHandlingMode;
 
-        public FromGrouperReader(string inputFile, string outputFile, bool verifikator)
+        public FromGrouperReader(IDataSource grouperSource, string outputFile, bool verifikator, UngroupableHandlingMode ungroupableHandlingMode)
         {
-            writer = new StreamWriter(outputFile, false);
-            dictionary = GrouperHelper.ReadDictionary("cgs_ina_out.dic");
-            fieldWidthReader = new FieldWidthReader(inputFile, dictionary);
+            this.ungroupableHandlingMode = ungroupableHandlingMode;
+            this.grouperSource = grouperSource;
 
-            errorCodes = GrouperHelper.ReadErrorCodes("errorcodes.dic");
+            writer = new StreamWriter(outputFile, false);
+
             headers = verifikator
                           ? GrouperHelper.ReadHeaderFile("header_excel_verifikator.txt")
                           : GrouperHelper.ReadHeaderFile("header_excel_dengan_nama.txt");
-            tarifJamkesmas = readTarifJamkesmas();
+
             connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString);
             connection.Open();
-            var cmd = new SqlCommand("create table #DRG (urut INT, rm INT, tglMasuk DATETIME)", connection);
-            cmd.ExecuteNonQuery();
+
+            var sqlCommand = new SqlCommand("create table #DRG (urut INT, rm INT, tglMasuk DATETIME)", connection);
+            sqlCommand.ExecuteNonQuery();
         }
         public long Length
         {
-            get
-            {
-                return fieldWidthReader.Rows;
-            }
+            get { return grouperSource.Length; }
         }
 
-        private static string outputBuffer = "";
-        public void clearTempDB()
+        public void ClearTempDB()
         {
             dataReader.Close();
-            var clearDB = new SqlCommand("delete from #DRG", connection);
+            var clearDB = new SqlCommand("delete From #DRG", connection);
             clearDB.ExecuteNonQuery();
         }
-        public bool readNextLine()
+        public bool ReadNextLine()
         {
-            endFile = !fieldWidthReader.MoveNext();
-            if (endFile)
+            endFile = grouperSource.MoveNext();
+            if (!endFile)
                 return false;
-            rowSet = (Dictionary<string, string>) fieldWidthReader.Current;
-            AddTarif();
-            InsertIntoTempTable(rowSet["Norm"], DateTime.ParseExact(rowSet["Tglmsk"], Settings.Default.DateFormat,
-                                                                    CultureInfo.InvariantCulture, DateTimeStyles.None));
+            rowSet = grouperSource.Current;
+            
+            InsertIntoTempTable((string)rowSet["Norm"], (DateTime)rowSet["Tglmsk"]);
             rows.Add(rowSet);
-
             return true;
         }
-        public bool endOfData()
+        public bool EndOfData()
         {
-            return endFile;
+            return currentRow >= grouperSource.Length -1;
         }
-        public void executeQuery()
+        public void ExecuteQuery()
         {
             var insertCommand = new SqlCommand(insertBuffer, connection);
             insertCommand.ExecuteNonQuery();
             insertBuffer = string.Empty;
             currentReadRow = 0;
 
-            var command = new SqlCommand(SQLCodeService.Instance.PatientDetailsQuery, connection);
+            var command = new SqlCommand(SqlCodeService.Instance.PatientDetailsQuery, connection);
 
             dataReader = command.ExecuteReader();
         }
-        public bool writeLine()
+        public bool WriteLine()
         {
             if (!dataReader.Read())
                 return false;
 
-            var fields = rows[currentRow] as Dictionary<string, string>;
+            var fields = rows[currentRow] as Dictionary<string, object>;
             fields["Nama"] = dataReader["Nama"].ToString();
             fields["Dokter"] = dataReader["Dokter"].ToString();
             fields["SKP"] = dataReader["SKP"].ToString();
 
-            var row = new List<string>(); 
+            var row = new Collection<string>(); 
             foreach (var header in headers)
             {
-                row.Add(fields[header]);
+                if (fields.ContainsKey(header))
+                    row.Add(GrouperHelper.ToString(fields[header]));
+                else
+                    row.Add(string.Empty);
             }
-            if (!string.IsNullOrEmpty(fields["Tarif"]))
+            if (ungroupableHandlingMode == UngroupableHandlingMode.IncludeUngroupable ||
+                (ungroupableHandlingMode == UngroupableHandlingMode.SkipUngroupable &&
+                fields["Tarif"] != null))
                 WriteAsLine(row.ToArray(), writer);
             currentRow++;
             return true;
         }
 
-        private void AddTarif()
-        {
-            var inadrg = rowSet["Inadrg"];
-            if (tarifJamkesmas.ContainsKey(inadrg))
-            {
-                rowSet["Tarif"] = String.Format("{0:0.##}", tarifJamkesmas[inadrg].Harga);
-                rowSet["Deskripsi"] = tarifJamkesmas[inadrg].Deskripsi;
-                rowSet["Alos"] = String.Format("{0:0.##}", tarifJamkesmas[inadrg].Alos);
-            }
-            else
-            {
-                rowSet["Tarif"] = string.Empty;
-                if (errorCodes.ContainsKey(inadrg)) rowSet["Deskripsi"] = errorCodes[inadrg];
-                rowSet["Alos"] = string.Empty;
-            }
-        }
 
         private static void InsertIntoTempTable(string rm, DateTime tglMasuk)
         {
             insertBuffer += string.Format(CultureInfo.InvariantCulture, "INSERT INTO #DRG VALUES ({0},{1},'{2}');", currentReadRow, rm.Replace("\'", ""),
-                                          GrouperHelper.ToSQLDate(tglMasuk));
+                                          GrouperHelper.ToSqlDate(tglMasuk));
             currentReadRow++;
         }
 
-        public static void WriteAsLine(string[] values, StreamWriter writer)
+        public static void WriteAsLine(string[] values, TextWriter writer)
         {
             outputBuffer = string.Join(";", values) + ";";
-            printNextLine(writer);
+            PrintNextLine(writer);
         }
 
-        private static void printNextLine(TextWriter writer)
+        private static void PrintNextLine(TextWriter writer)
         {
             writer.WriteLine(outputBuffer);
             outputBuffer = "";
         }
 
-        public static Dictionary<string, Tarif> readTarifJamkesmas()
+        public void WriteHeaders()
         {
-            var tarifJamkesmas = new Dictionary<string, Tarif>();
-
-            if (!File.Exists(Path.Combine(Application.StartupPath, "tarif.dbf")))
-                throw new FileNotFoundException(string.Format(CultureInfo.InvariantCulture, "tarif.dbf not found in {0}", Application.StartupPath));
-            var connectionString = "Driver={Microsoft dBASE Driver (*.dbf)};DriverID=277;Dbq=" +
-                                   Application.StartupPath;
-
-            using (var connection = new OdbcConnection(connectionString))
-            {
-                var command = new OdbcCommand(
-                    "Select * From tarif.dbf", connection);
-                connection.Open();
-                var reader = command.ExecuteReader();
-                try
-                {
-                    while (reader.Read())
-                    {
-                        var tarif = new Tarif();
-                        tarif.Deskripsi = reader["DESKRIPSI"].ToString();
-                        tarif.Alos = ((double) reader["ALOS"]);
-                        tarif.Harga = ((double)
-                                       reader[Settings.Default.RumahSakit[Settings.Default.TypeRumahSakit]]);
-                        tarifJamkesmas[reader["KODE"].ToString()] =  tarif;
-                    }
-                }
-                finally
-                {
-                    reader.Close();
-                }
-            }
-            return tarifJamkesmas;
+            writer.WriteLine(String.Join(";", headers) + ";");
         }
-
+        
         public void Dispose()
         {
+            grouperSource.Dispose();
             dataReader.Close();
             writer.Flush();
             writer.Close();
             connection.Close();
         }
 
-        public void writeHeaders()
-        {
-            writer.WriteLine(String.Join(";", headers) + ";");
-        }
     }
 }

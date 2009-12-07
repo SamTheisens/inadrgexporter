@@ -1,24 +1,26 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
-using InadrgExporter.FileReaders;
+using InadrgExporter.DataSources;
+using InadrgExporter.FileReaderCollections;
 using InadrgExporter.Forms;
 using InadrgExporter.Properties;
 
 namespace InadrgExporter.Forms
 {
-    struct ExporterArguments
+    public struct ExporterArguments
     {
-        public DateTime from;
-        public DateTime until;
-        public string kdCustomer;
-        public string inputFile;
-        public string outputFile;
-        public bool forVerifikator;
-        public UnGroupableHandlingMode unGroupableHandlingMode;
+        public DateTime From { get; set; }
+        public DateTime Until { get; set; }
+        public string KdCustomer { get; set; }
+        public string InputFile { get; set; }
+        public string OutputFile { get; set; }
+        public bool ForVerifikator { get; set; }
+        public UngroupableHandlingMode UngroupableHandlingMode { get; set; }
     }
 
     enum Task {ExportFromDatabase, Group, ExportToExcel}
@@ -28,6 +30,8 @@ namespace InadrgExporter.Forms
     public partial class ExporterForm : Form
     {
         private PreviewMode previewMode = PreviewMode.Database;
+        private DateTime groupedFrom, groupedUntil;
+        private PreviewBindingSource currentBindingSource;
 
         public bool ShowFailedGroupingsOnly { get; set; }
 
@@ -68,7 +72,7 @@ namespace InadrgExporter.Forms
             ADODB.Connection dialogConnection;
             string generatedConnectionString = string.Empty;
 
-            if (currentConnectionString == String.Empty)
+            if (currentConnectionString.Length == 0)
             {                dialogConnection = (ADODB.Connection)dataLinks.PromptNew();
                 generatedConnectionString = dialogConnection.ConnectionString;
             }
@@ -115,21 +119,28 @@ namespace InadrgExporter.Forms
         {
             var arguments = new ExporterArguments
                                 {
-                                    from = fromDateTimePicker.Value,
-                                    until = untilDateTimePicker.Value,
-                                    kdCustomer = comboBoxCustomer.SelectedValue.ToString(),
-                                    inputFile = Path.Combine(Application.StartupPath, Settings.Default.ToGrouperFileName)
+                                    From = fromDateTimePicker.Value,
+                                    Until = untilDateTimePicker.Value,
+                                    KdCustomer = comboBoxCustomer.SelectedValue.ToString(),
+                                    OutputFile =
+                                        Path.Combine(Application.StartupPath, Settings.Default.ToGrouperFileName),
+                                    ForVerifikator = false
                                 };
+            groupedFrom = arguments.From;
+            groupedUntil = arguments.Until;
             exportFromDatabaseWorker.RunWorkerAsync(arguments);
         }
 
         private void exportWithDemographics_Click(object sender, EventArgs e)
         {
+            var outputFileName = OpenFileDialog(Resources.WithDemographicsFileName);
+            if (outputFileName.Length == 0)
+                return;
             var arguments = new ExporterArguments
             {
-                inputFile = Path.Combine(Application.StartupPath, Settings.Default.FromGrouperFileName),
-                outputFile = OpenFileDialog(string.Empty),
-                forVerifikator = false
+                InputFile = Path.Combine(Application.StartupPath, Settings.Default.FromGrouperFileName),
+                OutputFile = outputFileName,
+                ForVerifikator = false
             };
             exportkeExcelWorker.RunWorkerAsync(arguments);
         }
@@ -138,60 +149,64 @@ namespace InadrgExporter.Forms
         {
             PromptForConnectionString(Settings.Default.RSKUPANGConnectionString);
         }
-
+        
         private void aboutINADRGExporterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new AboutBox().ShowDialog();
         }
-
+        
         private void exportForVerifikator_Click(object sender, EventArgs e)
         {
+            var outputFileName = OpenFileDialog(Resources.WithoutDemographicsFileName);
+            if (outputFileName.Length == 0)
+                return;
+
             var arguments = new ExporterArguments
             {
-                inputFile = Path.Combine(Application.StartupPath, Settings.Default.FromGrouperFileName),
-                outputFile = OpenFileDialog(""),
-                forVerifikator = true
+                InputFile = Path.Combine(Application.StartupPath, Settings.Default.FromGrouperFileName),
+                OutputFile = outputFileName,
+                ForVerifikator = true
             };
 
             exportkeExcelWorker.RunWorkerAsync(arguments);
         }
-
+        
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new SettingsWindow().Show();
         }
-
+        
         private void reportRekapitulasiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenReportViewer("rpt_rekapitulasi.rpt");
         }
-
+        
         private void reportIndividualToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenReportViewer("rpt_individual.rpt");
         }
+        
         private void databaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             previewMode = PreviewMode.Database;
             RefreshPreview(fromDateTimePicker.Value, untilDateTimePicker.Value,
-                           comboBoxCustomer.SelectedValue.ToString(), UnGroupableHandlingMode.None);
+                           comboBoxCustomer.SelectedValue.ToString(), UngroupableHandlingMode.None);
         }
-
+        
         private void keExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             previewMode = PreviewMode.TextFile;
             RefreshPreview(fromDateTimePicker.Value, untilDateTimePicker.Value,
-                           comboBoxCustomer.SelectedValue.ToString(), UnGroupableHandlingMode.IncludeUngroupable);
+                           comboBoxCustomer.SelectedValue.ToString(), UngroupableHandlingMode.IncludeUngroupable);
         }
-
+        
         private void excelYangSalahToolStripMenuItem_Click(object sender, EventArgs e)
         {
             previewMode = PreviewMode.TextFile;
             RefreshPreview(fromDateTimePicker.Value, untilDateTimePicker.Value,
-                           comboBoxCustomer.SelectedValue.ToString(), UnGroupableHandlingMode.OnlyUngroupable);
+                           comboBoxCustomer.SelectedValue.ToString(), UngroupableHandlingMode.OnlyUngroupable);
         }
-
-
+        
         #endregion ButtonEventHandlers
 
         #region ProgressHandlers
@@ -209,38 +224,39 @@ namespace InadrgExporter.Forms
             exportGridKeExcelProgressBar.Value = e.ProgressPercentage;
         }
 
-        private void ReportProgress(int percentage, int linesRead, int linesWritten)
+        private static void ReportProgress(BackgroundWorker backgroundWorker, int percentage, int linesRead, int linesWritten)
         {
-            exportkeExcelWorker.ReportProgress(percentage,
-                                               string.Format(Resources.LinesReadWritten, linesRead, linesWritten));
+            backgroundWorker.ReportProgress(percentage,
+                                               string.Format(CultureInfo.CurrentCulture, Resources.LinesReadWritten, linesRead, linesWritten));
         }
         #endregion ProgressHandlers
 
         #region WorkerThreads
         private void refreshPreviewWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var args = (ExporterArguments)e.Argument;
+            var arguments = (ExporterArguments)e.Argument;
             var table = new RSKUPANGDataSet.inadrgDataTable();
-
-            PreviewBindingSource bindingSource;
+            int stepSize;
+            IDataSource datasource;
             if (previewMode == PreviewMode.Database)
-                bindingSource = new DatabaseBindingSource(table, Settings.Default.PreviewSize, args.from, args.until,
-                                                          args.kdCustomer);
+            {
+                datasource = new DatabaseDataSource(arguments.From, arguments.Until, arguments.KdCustomer,
+                                                    new RSKUPANGDataSet.inadrgDataTable());
+                stepSize = Settings.Default.PreviewSize;
+            }
             else
             {
                 var reader =
-                    new FieldWidthReader(Path.Combine(Application.StartupPath, Settings.Default.FromGrouperFileName),
-                                         GrouperHelper.ReadDictionary("cgs_ina_out.dic"));
-                bindingSource = new TextFileBindingSource(reader, table, args.from, args.until,
-                                                          args.unGroupableHandlingMode);
+                    new CsvReaderCollection(Path.Combine(Application.StartupPath, arguments.InputFile));
+                datasource = new TextFileDataSource(reader, arguments.UngroupableHandlingMode, table);
+                stepSize = Int32.MaxValue;
+
             }
-
-            bindingNavigator1.BindingSource = bindingSource;
+            var bindingSource = new PreviewBindingSource(datasource, table, arguments.From, arguments.Until, stepSize);
             bindingSource.Refresh();
-            dataGridView1.DataSource = table;
-            totalRecords.Text = string.Format(Resources.JumlahBaris, table.Rows.Count);
-
+            currentBindingSource = bindingSource;
         }
+        
         private void exportGridKeExcelWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             //var args = (ExporterArguments)e.Argument;
@@ -248,8 +264,8 @@ namespace InadrgExporter.Forms
             //using (var connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString))
             //{
             //    connection.Open();
-            //    var selectCommand = string.Format("", GrouperHelper.ToSQLDate(args.from),
-            //                                      GrouperHelper.ToSQLDate(args.until), args.kdCustomer
+            //    var selectCommand = string.Format("", GrouperHelper.ToSqlDate(args.From),
+            //                                      GrouperHelper.ToSqlDate(args.Until), args.KdCustomer
             //                                      , string.Empty);
             //    inadrgTableAdapter.Adapter.SelectCommand = new SqlCommand(selectCommand, connection);
             //    dataTable = new RSKUPANGDataSet.inadrgDataTable();
@@ -258,17 +274,17 @@ namespace InadrgExporter.Forms
 
             //ToExcelExporter.WriteToExcelSpreadsheet(@"c:\hoi.xls", dataTable, sender as BackgroundWorker);
         }
-
-
+        
         private void exportFromDatabaseWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            var arguments = (ExporterArguments)e.Argument;
+            var backgroundWorker = (BackgroundWorker) sender;
             try
             {
                 exportFromDatabaseWorker.ReportProgress(0, "Sabar. Sedang baca database. . . ");
-                var arguments = (ExporterArguments)e.Argument;
                 using (
-                    var writer = new ToGrouperWriter(arguments.inputFile, arguments.from, arguments.until,
-                                                     arguments.kdCustomer))
+                    var writer = new ToGrouperWriter(arguments.OutputFile, arguments.From, arguments.Until,
+                                                     arguments.KdCustomer))
                 {
                     var line = 1;
                     while (writer.NextLine())
@@ -281,78 +297,95 @@ namespace InadrgExporter.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message), Resources.ErrorTitle,
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Resources.ErrorMessage, ex.Message), Resources.ErrorTitle,
                                 MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1,
                                 MessageBoxOptions.RtlReading);
             }
+            arguments.InputFile = Path.Combine(Application.StartupPath, Settings.Default.ToGrouperFileName);
+            arguments.OutputFile = Path.Combine(Application.StartupPath, Settings.Default.FromGrouperFileName);
+            GroupDiagnoses(backgroundWorker, arguments);
         }
+        
         private void exportkeExcel_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-                var args = (ExporterArguments)e.Argument;
-                using (var reader = new FromGrouperReader(args.inputFile, args.outputFile, args.forVerifikator))
+                var arguments = (ExporterArguments)e.Argument;
+                var backgroundWorker = (BackgroundWorker) sender;
+
+                var idatasource = new TextFileDataSource(new FieldWidthReaderCollection(arguments.InputFile,
+                                                                                           GrouperHelper.ReadDictionary(
+                                                                                               "cgs_ina_out.dic")),
+                                                            arguments.UngroupableHandlingMode, new RSKUPANGDataSet.inadrgDataTable());
+                using (var reader = new FromGrouperReader(idatasource, arguments.OutputFile, arguments.ForVerifikator, arguments.UngroupableHandlingMode))
                 {
                     var linesRead = 0;
                     var linesWritten = 0;
                     var linesReadLastTime = -1;
-                    const int stepsize = 200;
+                    const int stepSize = 200;
 
-                    reader.writeHeaders();
+                    reader.WriteHeaders();
 
-                    while (linesRead > linesReadLastTime && !reader.endOfData())
+                    while (linesRead > linesReadLastTime && !reader.EndOfData())
                     {
                         linesReadLastTime = linesRead;
 
-                        while (reader.readNextLine())
+                        while (reader.ReadNextLine())
                         {
                             linesRead++;
-                            if (linesRead % stepsize == 0)
+                            if (linesRead % stepSize == 0)
                                 break;
-                            ReportProgress((int)(((double)linesWritten / reader.Length) * 100.0), linesRead, linesWritten);
+                            ReportProgress(backgroundWorker, (int)(((double)linesWritten / reader.Length) * 100.0), linesRead, linesWritten);
                         }
 
-                        reader.executeQuery();
-                        while (reader.writeLine())
+                        reader.ExecuteQuery();
+                        while (reader.WriteLine())
                         {
                             linesWritten++;
-                            if (linesWritten % stepsize == 0)
+                            if (linesWritten % stepSize == 0)
                                 break;
-                            ReportProgress((int)(((double)linesWritten / reader.Length) * 100.0), linesRead, linesWritten);
+                            ReportProgress(backgroundWorker, (int)(((double)linesWritten / reader.Length) * 100.0), linesRead, linesWritten);
                         }
-                        reader.clearTempDB();
+                        reader.ClearTempDB();
                     }
                 }
-                //RefreshPreview(args.from, args.until, args.kdCustomer, UnGroupableHandlingMode.OnlyUngroupable);
+                idatasource.Dispose();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message), Resources.ErrorTitle,
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Resources.ErrorMessage, ex.Message), Resources.ErrorTitle,
                                 MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.RtlReading);
+                                MessageBoxOptions.DefaultDesktopOnly);
             }
+
         }
+        
         #endregion WorkerThreads
 
         #region Commands
-        private void ExportToExcel()
+        private void ExportToExcel(BackgroundWorker backgroundWorker, ExporterArguments arguments)
         {
-            var arguments = new ExporterArguments
-                                {
-                                    inputFile = Path.Combine(Application.StartupPath,Settings.Default.FromGrouperFileName),
-                                    outputFile = Path.Combine(Application.StartupPath,Settings.Default.ToExcelFileName),
-                                    forVerifikator = false
-                                };
-            exportkeExcelWorker.RunWorkerAsync(arguments);
+            arguments.UngroupableHandlingMode = UngroupableHandlingMode.IncludeUngroupable;
+            exportkeExcel_DoWork(backgroundWorker, new DoWorkEventArgs(arguments));
         }
 
-        private void RefreshPreview(DateTime from, DateTime until, string kdCustomer, UnGroupableHandlingMode unGroupableHandlingMode)
+        private void RefreshPreview(DateTime from, DateTime until, string kdCustomer, UngroupableHandlingMode ungroupableHandlingMode)
         {
-            var args = new ExporterArguments {from = from, until = until, kdCustomer = kdCustomer};
+            bindingNavigator1.Enabled = previewMode != PreviewMode.TextFile;
+
+            var args = new ExporterArguments
+                           {
+                               From = from,
+                               Until = until,
+                               KdCustomer = kdCustomer,
+                               UngroupableHandlingMode = ungroupableHandlingMode,
+                               ForVerifikator = false,
+                               InputFile = Settings.Default.ToExcelFileName
+                           };
             refreshPreviewWorker.RunWorkerAsync(args);
         }
 
-        private void GroupDiagnoses()
+        private void GroupDiagnoses(BackgroundWorker backgroundWorker, ExporterArguments arguments)
         {
             try
             {
@@ -362,11 +395,11 @@ namespace InadrgExporter.Forms
                     process.StartInfo.FileName = Path.Combine(Settings.Default.ThreeMHISDirectory,
                                                               Settings.Default.ThreeHMISExecutable);
                     process.StartInfo.Arguments = string.Format(CultureInfo.InvariantCulture,
-                                                                " -i \"{0}\" -u \"{1}\" -p {2} -w ",
+                                                                " -i \"{0}\" -u \"{1}\" -p {2} -w -e",
                                                                 Path.Combine(Application.StartupPath,
-                                                                             Settings.Default.ToGrouperFileName),
+                                                                             arguments.InputFile),
                                                                 Path.Combine(Application.StartupPath,
-                                                                             Settings.Default.FromGrouperFileName),
+                                                                             arguments.OutputFile),
                                                                 Settings.Default.GroupingProfile);
                     process.Start();
                     process.WaitForExit();
@@ -375,11 +408,13 @@ namespace InadrgExporter.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message), Resources.ErrorTitle,
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Resources.ErrorMessage, ex.Message), Resources.ErrorTitle,
                                 MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1,
                                 MessageBoxOptions.RtlReading);
             }
-            ExportToExcel();
+            arguments.InputFile = Path.Combine(Application.StartupPath, Settings.Default.FromGrouperFileName);
+            arguments.OutputFile = Path.Combine(Application.StartupPath, Settings.Default.ToExcelFileName);
+            ExportToExcel(backgroundWorker, arguments);
         }
         #endregion Commands
 
@@ -388,12 +423,14 @@ namespace InadrgExporter.Forms
         {
             if (fromDateTimePicker.Value > untilDateTimePicker.Value)
                 untilDateTimePicker.Value = fromDateTimePicker.Value;
+            CheckGroupedRange();
         }
 
         private void untilDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             if (untilDateTimePicker.Value < fromDateTimePicker.Value)
                 fromDateTimePicker.Value = untilDateTimePicker.Value;
+            CheckGroupedRange();
         }
 
         private void ExporterForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -407,9 +444,9 @@ namespace InadrgExporter.Forms
         //    exportGridKeExcelProgressBar.Visible = true;
         //    var args = new ExporterArguments
         //                   {
-        //                       from = fromDateTimePicker.Value,
-        //                       until = untilDateTimePicker.Value,
-        //                       kdCustomer = comboBoxCustomer.SelectedValue.ToString()
+        //                       From = fromDateTimePicker.Value,
+        //                       Until = untilDateTimePicker.Value,
+        //                       KdCustomer = comboBoxCustomer.SelectedValue.ToString()
         //                   };
         //    exportGridKeExcelWorker.RunWorkerAsync(args);
         //}
@@ -420,26 +457,85 @@ namespace InadrgExporter.Forms
         {
             exportGridKeExcelProgressBar.Visible = false;
             Cursor = Cursors.Arrow;
+            CheckGroupedRange();
         }
 
         private void exportWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             exportGridKeExcelProgressBar.Visible = false;
             Cursor = Cursors.Arrow;
-            GroupDiagnoses();
+            CheckGroupedRange();
         }
         #endregion CompletedHandlers
 
         private void OpenReportViewer(string reportFileName)
         {
             var table = new RSKUPANGDataSet.inadrgDataTable();
-            var reader = new CSVReader(Path.Combine(Application.StartupPath, Settings.Default.ToExcelFileName));
-            var bindingSource = new TextFileBindingSource(reader, table, fromDateTimePicker.Value,
-                                                          untilDateTimePicker.Value, UnGroupableHandlingMode.SkipUngroupable);
-            bindingSource.Start();
+            var idatasource =
+                new TextFileDataSource(
+                    new CsvReaderCollection(Path.Combine(Application.StartupPath, Settings.Default.ToExcelFileName)),
+                    UngroupableHandlingMode.SkipUngroupable, table);
+            var bindingSource = new PreviewBindingSource(idatasource, table, fromDateTimePicker.Value,
+                                                          untilDateTimePicker.Value, Int32.MaxValue);
+            bindingSource.Refresh();
 
             var viewer = new IndividualReportViewer { IndividualsDataSet = table, ReportFileName = reportFileName };
             viewer.ShowDialog();
+        }
+        private void CheckGroupedRange()
+        {
+            if (fromDateTimePicker.Value < groupedFrom || untilDateTimePicker.Value > groupedUntil)
+            {
+                refreshButton.BackColor = Color.Red;
+                refreshButton.ToolTipText = Resources.RegroupNeededToolTip;
+                keExcelToolStripMenuItem.Enabled = false;
+                excelYangSalahToolStripMenuItem.Enabled = false;
+                exportDropDownButton.Enabled = false;
+            }
+            else
+            {
+                refreshButton.BackColor = Color.Transparent;
+                refreshButton.ToolTipText = Resources.RegroupToolTip;
+                keExcelToolStripMenuItem.Enabled = true;
+                excelYangSalahToolStripMenuItem.Enabled = true;
+                exportDropDownButton.Enabled = true;
+            }
+        }
+
+        private void refreshPreviewWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            bindingNavigator1.BindingSource = currentBindingSource;
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = currentBindingSource.DataSource;
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == -1)
+                return;
+
+            var view = (DataGridView) sender;
+
+            var currentColumn = view.Columns[e.ColumnIndex];
+            var cell = view[e.ColumnIndex, e.RowIndex];
+            switch (currentColumn.DataPropertyName)
+            {
+                case "JK":
+                    cell.Style.BackColor = (int)cell.Value == 1 ? Color.LightBlue : Color.LightPink;
+                    break;
+                case "Jnsrawat":
+                    cell.Style.BackColor = (int) cell.Value == 1 ? Color.PaleGreen : Color.Moccasin;
+                    break;
+                case "UmurThn":
+                    if (cell.Value != DBNull.Value && (int)cell.Value < 0) cell.Style.BackColor = Color.Red;
+                    break;
+                case "UmurHari":
+                    if (cell.Value != DBNull.Value && (int)cell.Value < 0) cell.Style.BackColor = Color.Red;
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }

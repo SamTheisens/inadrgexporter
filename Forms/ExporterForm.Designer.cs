@@ -49,30 +49,25 @@ namespace InadrgExporter.Forms
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutINADRGExporterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportkeExcelWorker = new System.ComponentModel.BackgroundWorker();
             this.cUSTOMERTableAdapter = new InadrgExporter.CustomerDatasetTableAdapters.CUSTOMERTableAdapter();
             this.exportGridKeExcelWorker = new System.ComponentModel.BackgroundWorker();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.verificationDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excelYangSalahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.exportDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.reportIndividualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportRekapitulasiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textfileUntukExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportWithDemographics = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.refreshButton = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.kdrsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.klsrsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.klsrawatDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.biayaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.recidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tarif = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tariff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Inadrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Deskripsi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.normDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -96,7 +91,6 @@ namespace InadrgExporter.Forms
             this.p3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.p4DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.p5DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ALOS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nama = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Dokter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SKP = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -127,6 +121,7 @@ namespace InadrgExporter.Forms
             this.exporterFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.exportFromDatabaseWorker = new System.ComponentModel.BackgroundWorker();
             this.refreshPreviewWorker = new System.ComponentModel.BackgroundWorker();
+            this.exportkeExcelWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.inadrgBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rSKUPANGDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cUSTOMERBindingSource)).BeginInit();
@@ -223,14 +218,6 @@ namespace InadrgExporter.Forms
             this.aboutINADRGExporterToolStripMenuItem.Text = "&About INADRG Exporter";
             this.aboutINADRGExporterToolStripMenuItem.Click += new System.EventHandler(this.aboutINADRGExporterToolStripMenuItem_Click);
             // 
-            // exportkeExcelWorker
-            // 
-            this.exportkeExcelWorker.WorkerReportsProgress = true;
-            this.exportkeExcelWorker.WorkerSupportsCancellation = true;
-            this.exportkeExcelWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.exportkeExcel_DoWork);
-            this.exportkeExcelWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.exportGridKeExcelWorker_RunWorkerCompleted);
-            this.exportkeExcelWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.exportWorker_ProgressChanged);
-            // 
             // cUSTOMERTableAdapter
             // 
             this.cUSTOMERTableAdapter.ClearBeforeFill = true;
@@ -279,28 +266,28 @@ namespace InadrgExporter.Forms
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripDropDownButton2,
-            this.toolStripDropDownButton1,
+            this.verificationDropDownButton,
+            this.exportDropDownButton,
             this.toolStripSeparator2,
-            this.toolStripButton1});
+            this.refreshButton});
             this.toolStrip1.Location = new System.Drawing.Point(6, 6);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(803, 25);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripDropDownButton2
+            // verificationDropDownButton
             // 
-            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.verificationDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.verificationDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.databaseToolStripMenuItem,
             this.keExcelToolStripMenuItem,
             this.excelYangSalahToolStripMenuItem});
-            this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
-            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            this.toolStripDropDownButton2.Size = new System.Drawing.Size(62, 22);
-            this.toolStripDropDownButton2.Text = "Verifikasi";
+            this.verificationDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("verificationDropDownButton.Image")));
+            this.verificationDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.verificationDropDownButton.Name = "verificationDropDownButton";
+            this.verificationDropDownButton.Size = new System.Drawing.Size(62, 22);
+            this.verificationDropDownButton.Text = "Verifikasi";
             // 
             // databaseToolStripMenuItem
             // 
@@ -326,19 +313,16 @@ namespace InadrgExporter.Forms
             this.excelYangSalahToolStripMenuItem.Text = "Grouper Yang S&alah";
             this.excelYangSalahToolStripMenuItem.Click += new System.EventHandler(this.excelYangSalahToolStripMenuItem_Click);
             // 
-            // toolStripDropDownButton1
+            // exportDropDownButton
             // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reportIndividualToolStripMenuItem,
             this.reportRekapitulasiToolStripMenuItem,
             this.textfileUntukExcelToolStripMenuItem,
             this.exportWithDemographics});
-            this.toolStripDropDownButton1.Image = global::InadrgExporter.Properties.Resources.excel;
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(52, 22);
-            this.toolStripDropDownButton1.Text = "Export";
+            this.exportDropDownButton.Name = "exportDropDownButton";
+            this.exportDropDownButton.Size = new System.Drawing.Size(52, 22);
+            this.exportDropDownButton.Text = "Export";
             // 
             // reportIndividualToolStripMenuItem
             // 
@@ -377,15 +361,17 @@ namespace InadrgExporter.Forms
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripButton1
+            // refreshButton
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "Re-group";
-            this.toolStripButton1.Click += new System.EventHandler(this.refreshButton_Click);
+            this.refreshButton.BackColor = System.Drawing.Color.Transparent;
+            this.refreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.refreshButton.Image = ((System.Drawing.Image)(resources.GetObject("refreshButton.Image")));
+            this.refreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(23, 22);
+            this.refreshButton.Text = "Re-group";
+            this.refreshButton.ToolTipText = "Resources.RegroupToolTip";
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // label1
             // 
@@ -413,12 +399,8 @@ namespace InadrgExporter.Forms
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.kdrsDataGridViewTextBoxColumn,
-            this.klsrsDataGridViewTextBoxColumn,
-            this.klsrawatDataGridViewTextBoxColumn,
-            this.biayaDataGridViewTextBoxColumn,
             this.recidDataGridViewTextBoxColumn,
-            this.Tarif,
+            this.Tariff,
             this.Inadrg,
             this.Deskripsi,
             this.normDataGridViewTextBoxColumn,
@@ -442,7 +424,6 @@ namespace InadrgExporter.Forms
             this.p3DataGridViewTextBoxColumn,
             this.p4DataGridViewTextBoxColumn,
             this.p5DataGridViewTextBoxColumn,
-            this.ALOS,
             this.Nama,
             this.Dokter,
             this.SKP});
@@ -473,42 +454,7 @@ namespace InadrgExporter.Forms
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(797, 355);
             this.dataGridView1.TabIndex = 8;
-            // 
-            // kdrsDataGridViewTextBoxColumn
-            // 
-            this.kdrsDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.kdrsDataGridViewTextBoxColumn.DataPropertyName = "Kdrs";
-            this.kdrsDataGridViewTextBoxColumn.HeaderText = "Kdrs";
-            this.kdrsDataGridViewTextBoxColumn.Name = "kdrsDataGridViewTextBoxColumn";
-            this.kdrsDataGridViewTextBoxColumn.ReadOnly = true;
-            this.kdrsDataGridViewTextBoxColumn.Width = 53;
-            // 
-            // klsrsDataGridViewTextBoxColumn
-            // 
-            this.klsrsDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.klsrsDataGridViewTextBoxColumn.DataPropertyName = "Klsrs";
-            this.klsrsDataGridViewTextBoxColumn.HeaderText = "Klsrs";
-            this.klsrsDataGridViewTextBoxColumn.Name = "klsrsDataGridViewTextBoxColumn";
-            this.klsrsDataGridViewTextBoxColumn.ReadOnly = true;
-            this.klsrsDataGridViewTextBoxColumn.Width = 54;
-            // 
-            // klsrawatDataGridViewTextBoxColumn
-            // 
-            this.klsrawatDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.klsrawatDataGridViewTextBoxColumn.DataPropertyName = "Klsrawat";
-            this.klsrawatDataGridViewTextBoxColumn.HeaderText = "Klsrawat";
-            this.klsrawatDataGridViewTextBoxColumn.Name = "klsrawatDataGridViewTextBoxColumn";
-            this.klsrawatDataGridViewTextBoxColumn.ReadOnly = true;
-            this.klsrawatDataGridViewTextBoxColumn.Width = 72;
-            // 
-            // biayaDataGridViewTextBoxColumn
-            // 
-            this.biayaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.biayaDataGridViewTextBoxColumn.DataPropertyName = "Biaya";
-            this.biayaDataGridViewTextBoxColumn.HeaderText = "Biaya";
-            this.biayaDataGridViewTextBoxColumn.Name = "biayaDataGridViewTextBoxColumn";
-            this.biayaDataGridViewTextBoxColumn.ReadOnly = true;
-            this.biayaDataGridViewTextBoxColumn.Width = 58;
+            this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             // 
             // recidDataGridViewTextBoxColumn
             // 
@@ -519,17 +465,17 @@ namespace InadrgExporter.Forms
             this.recidDataGridViewTextBoxColumn.ReadOnly = true;
             this.recidDataGridViewTextBoxColumn.Width = 60;
             // 
-            // Tarif
+            // Tariff
             // 
-            this.Tarif.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Tarif.DataPropertyName = "Tarif";
+            this.Tariff.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Tariff.DataPropertyName = "Tarif";
             dataGridViewCellStyle3.Format = "N2";
             dataGridViewCellStyle3.NullValue = "0.- IRD";
-            this.Tarif.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Tarif.HeaderText = "Tarif";
-            this.Tarif.Name = "Tarif";
-            this.Tarif.ReadOnly = true;
-            this.Tarif.Width = 53;
+            this.Tariff.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Tariff.HeaderText = "Tarif";
+            this.Tariff.Name = "Tariff";
+            this.Tariff.ReadOnly = true;
+            this.Tariff.Width = 53;
             // 
             // Inadrg
             // 
@@ -542,7 +488,7 @@ namespace InadrgExporter.Forms
             // 
             // Deskripsi
             // 
-            this.Deskripsi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Deskripsi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Deskripsi.DataPropertyName = "Deskripsi";
             this.Deskripsi.HeaderText = "Deskripsi";
             this.Deskripsi.Name = "Deskripsi";
@@ -562,28 +508,28 @@ namespace InadrgExporter.Forms
             // 
             this.jnsrawatDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.jnsrawatDataGridViewTextBoxColumn.DataPropertyName = "Jnsrawat";
-            this.jnsrawatDataGridViewTextBoxColumn.HeaderText = "Jnsrawat";
+            this.jnsrawatDataGridViewTextBoxColumn.HeaderText = "Jenis Rawat";
             this.jnsrawatDataGridViewTextBoxColumn.Name = "jnsrawatDataGridViewTextBoxColumn";
             this.jnsrawatDataGridViewTextBoxColumn.ReadOnly = true;
-            this.jnsrawatDataGridViewTextBoxColumn.Width = 74;
+            this.jnsrawatDataGridViewTextBoxColumn.Width = 90;
             // 
             // tglmskDataGridViewTextBoxColumn
             // 
             this.tglmskDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.tglmskDataGridViewTextBoxColumn.DataPropertyName = "Tglmsk";
-            this.tglmskDataGridViewTextBoxColumn.HeaderText = "Tglmsk";
+            this.tglmskDataGridViewTextBoxColumn.HeaderText = "Tgl Masuk";
             this.tglmskDataGridViewTextBoxColumn.Name = "tglmskDataGridViewTextBoxColumn";
             this.tglmskDataGridViewTextBoxColumn.ReadOnly = true;
-            this.tglmskDataGridViewTextBoxColumn.Width = 66;
+            this.tglmskDataGridViewTextBoxColumn.Width = 82;
             // 
             // tglklrDataGridViewTextBoxColumn
             // 
             this.tglklrDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.tglklrDataGridViewTextBoxColumn.DataPropertyName = "Tglklr";
-            this.tglklrDataGridViewTextBoxColumn.HeaderText = "Tglklr";
+            this.tglklrDataGridViewTextBoxColumn.HeaderText = "Tgl Keluar";
             this.tglklrDataGridViewTextBoxColumn.Name = "tglklrDataGridViewTextBoxColumn";
             this.tglklrDataGridViewTextBoxColumn.ReadOnly = true;
-            this.tglklrDataGridViewTextBoxColumn.Width = 58;
+            this.tglklrDataGridViewTextBoxColumn.Width = 80;
             // 
             // losDataGridViewTextBoxColumn
             // 
@@ -598,28 +544,28 @@ namespace InadrgExporter.Forms
             // 
             this.tgllhrDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.tgllhrDataGridViewTextBoxColumn.DataPropertyName = "Tgllhr";
-            this.tgllhrDataGridViewTextBoxColumn.HeaderText = "Tgllhr";
+            this.tgllhrDataGridViewTextBoxColumn.HeaderText = "Tgl Lahir";
             this.tgllhrDataGridViewTextBoxColumn.Name = "tgllhrDataGridViewTextBoxColumn";
             this.tgllhrDataGridViewTextBoxColumn.ReadOnly = true;
-            this.tgllhrDataGridViewTextBoxColumn.Width = 58;
+            this.tgllhrDataGridViewTextBoxColumn.Width = 73;
             // 
             // umurThnDataGridViewTextBoxColumn
             // 
             this.umurThnDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.umurThnDataGridViewTextBoxColumn.DataPropertyName = "UmurThn";
-            this.umurThnDataGridViewTextBoxColumn.HeaderText = "UmurThn";
+            this.umurThnDataGridViewTextBoxColumn.HeaderText = "Umur Thn";
             this.umurThnDataGridViewTextBoxColumn.Name = "umurThnDataGridViewTextBoxColumn";
             this.umurThnDataGridViewTextBoxColumn.ReadOnly = true;
-            this.umurThnDataGridViewTextBoxColumn.Width = 76;
+            this.umurThnDataGridViewTextBoxColumn.Width = 79;
             // 
             // umurHariDataGridViewTextBoxColumn
             // 
             this.umurHariDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.umurHariDataGridViewTextBoxColumn.DataPropertyName = "UmurHari";
-            this.umurHariDataGridViewTextBoxColumn.HeaderText = "UmurHari";
+            this.umurHariDataGridViewTextBoxColumn.HeaderText = "Umur Hari";
             this.umurHariDataGridViewTextBoxColumn.Name = "umurHariDataGridViewTextBoxColumn";
             this.umurHariDataGridViewTextBoxColumn.ReadOnly = true;
-            this.umurHariDataGridViewTextBoxColumn.Width = 76;
+            this.umurHariDataGridViewTextBoxColumn.Width = 79;
             // 
             // jKDataGridViewTextBoxColumn
             // 
@@ -634,10 +580,10 @@ namespace InadrgExporter.Forms
             // 
             this.caraPlgDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.caraPlgDataGridViewTextBoxColumn.DataPropertyName = "CaraPlg";
-            this.caraPlgDataGridViewTextBoxColumn.HeaderText = "CaraPlg";
+            this.caraPlgDataGridViewTextBoxColumn.HeaderText = "Cara Pulang";
             this.caraPlgDataGridViewTextBoxColumn.Name = "caraPlgDataGridViewTextBoxColumn";
             this.caraPlgDataGridViewTextBoxColumn.ReadOnly = true;
-            this.caraPlgDataGridViewTextBoxColumn.Width = 69;
+            this.caraPlgDataGridViewTextBoxColumn.Width = 90;
             // 
             // beratDataGridViewTextBoxColumn
             // 
@@ -737,15 +683,6 @@ namespace InadrgExporter.Forms
             this.p5DataGridViewTextBoxColumn.Name = "p5DataGridViewTextBoxColumn";
             this.p5DataGridViewTextBoxColumn.ReadOnly = true;
             this.p5DataGridViewTextBoxColumn.Width = 45;
-            // 
-            // ALOS
-            // 
-            this.ALOS.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.ALOS.DataPropertyName = "ALOS";
-            this.ALOS.HeaderText = "ALOS";
-            this.ALOS.Name = "ALOS";
-            this.ALOS.ReadOnly = true;
-            this.ALOS.Width = 60;
             // 
             // Nama
             // 
@@ -1013,6 +950,15 @@ namespace InadrgExporter.Forms
             // refreshPreviewWorker
             // 
             this.refreshPreviewWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.refreshPreviewWorker_DoWork);
+            this.refreshPreviewWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.refreshPreviewWorker_RunWorkerCompleted);
+            // 
+            // exportkeExcelWorker
+            // 
+            this.exportkeExcelWorker.WorkerReportsProgress = true;
+            this.exportkeExcelWorker.WorkerSupportsCancellation = true;
+            this.exportkeExcelWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.exportkeExcel_DoWork);
+            this.exportkeExcelWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.exportGridKeExcelWorker_RunWorkerCompleted);
+            this.exportkeExcelWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.exportWorker_ProgressChanged);
             // 
             // ExporterForm
             // 
@@ -1067,7 +1013,6 @@ namespace InadrgExporter.Forms
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEdit;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.ComponentModel.BackgroundWorker exportkeExcelWorker;
         private CustomerDataset customerDataset;
         private System.Windows.Forms.BindingSource cUSTOMERBindingSource;
         private CustomerDatasetTableAdapters.CUSTOMERTableAdapter cUSTOMERTableAdapter;
@@ -1099,12 +1044,10 @@ namespace InadrgExporter.Forms
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.ToolStripMenuItem reportIndividualToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportRekapitulasiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem textfileUntukExcelToolStripMenuItem;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
+        private System.Windows.Forms.ToolStripDropDownButton verificationDropDownButton;
         private System.Windows.Forms.ToolStripMenuItem databaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem keExcelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excelYangSalahToolStripMenuItem;
@@ -1113,12 +1056,16 @@ namespace InadrgExporter.Forms
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ToolStripStatusLabel totalRecords;
         private System.Windows.Forms.ToolStripMenuItem exportWithDemographics;
-        private System.Windows.Forms.DataGridViewTextBoxColumn kdrsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn klsrsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn klsrawatDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn biayaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn recidDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tarif;
+        private System.ComponentModel.BackgroundWorker exportFromDatabaseWorker;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton refreshButton;
+        private System.ComponentModel.BackgroundWorker refreshPreviewWorker;
+        private System.ComponentModel.BackgroundWorker exportGridKeExcelWorker;
+        private System.ComponentModel.BackgroundWorker exportkeExcelWorker;
+        private System.Windows.Forms.ToolStripDropDownButton exportDropDownButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn recidDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tariff;
         private System.Windows.Forms.DataGridViewTextBoxColumn Inadrg;
         private System.Windows.Forms.DataGridViewTextBoxColumn Deskripsi;
         private System.Windows.Forms.DataGridViewTextBoxColumn normDataGridViewTextBoxColumn;
@@ -1142,14 +1089,8 @@ namespace InadrgExporter.Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn p3DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn p4DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn p5DataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ALOS;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nama;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dokter;
         private System.Windows.Forms.DataGridViewTextBoxColumn SKP;
-        private System.ComponentModel.BackgroundWorker exportFromDatabaseWorker;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.ComponentModel.BackgroundWorker refreshPreviewWorker;
-        private System.ComponentModel.BackgroundWorker exportGridKeExcelWorker;
     }
 }
