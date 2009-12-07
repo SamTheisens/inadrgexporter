@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using CrystalDecisions.CrystalReports.Engine;
@@ -31,7 +32,7 @@ namespace InadrgExporter.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format(Resources.ErrorMessage, ex.Message), Resources.ErrorTitle,
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Resources.ErrorMessage, ex.Message), Resources.ErrorTitle,
                                 MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1,
                                 MessageBoxOptions.RtlReading);
             }

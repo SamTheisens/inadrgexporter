@@ -151,4 +151,16 @@
   <data name="Version" xml:space="preserve">
     <value>Version {0}</value>
   </data>
+  <data name="WithDemographicsFileName" xml:space="preserve">
+    <value>untuk_import_ke_excel.txt</value>
+  </data>
+  <data name="WithoutDemographicsFileName" xml:space="preserve">
+    <value>untuk_verifikator.txt</value>
+  </data>
+  <data name="RegroupNeededToolTip" xml:space="preserve">
+    <value>Re-group memerlukan</value>
+  </data>
+  <data name="RegroupToolTip" xml:space="preserve">
+    <value>Re-group</value>
+  </data>
 </root>

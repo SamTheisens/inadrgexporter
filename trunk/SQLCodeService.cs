@@ -3,15 +3,15 @@ using System.Windows.Forms;
 
 namespace InadrgExporter
 {
-    public sealed class SQLCodeService
+    public sealed class SqlCodeService
     {
-        private static SQLCodeService instance;
+        private static SqlCodeService instance;
 
-        static SQLCodeService()
+        static SqlCodeService()
         {
         }
 
-        SQLCodeService()
+        SqlCodeService()
         {
             using (var reader = new StreamReader(Path.Combine(Application.StartupPath, @"SQLCode\SelectInadrg.sql")))
                 InadrgQuery = reader.ReadToEnd();
@@ -30,12 +30,12 @@ namespace InadrgExporter
 
         public string PatientDetailsQuery { get; private set; }
 
-        public static SQLCodeService Instance
+        public static SqlCodeService Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new SQLCodeService();
+                    instance = new SqlCodeService();
                 return instance;
             }
         }

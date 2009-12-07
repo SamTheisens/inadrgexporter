@@ -117,14 +117,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseBindingSource.cs">
-      <SubType>Component</SubType>
+    <Compile Include="DataSources\DatabaseDataSource.cs">
     </Compile>
-    <Compile Include="FileReaders\CSVReader.cs" />
-    <Compile Include="FileReaders\FieldWidthReader.cs" />
-    <Compile Include="FileReaders\ITextFileFieldReader.cs" />
-    <Compile Include="TextFileBindingSource.cs">
-      <SubType>Component</SubType>
+    <Compile Include="DictionaryField.cs" />
+    <Compile Include="FieldMapping.cs" />
+    <Compile Include="FileReaderCollections\CsvReaderCollection.cs" />
+    <Compile Include="FileReaderCollections\FieldWidthReaderCollection.cs" />
+    <Compile Include="FileReaderCollections\ITextFileFieldReaderCollection.cs" />
+    <Compile Include="DataSources\IDataSource.cs" />
+    <Compile Include="DataSources\TextFileDataSource.cs">
     </Compile>
     <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
@@ -236,8 +237,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RSKUPANGDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="SQLCodeService.cs" />
-    <Compile Include="ToExcelExporter.cs" />
+    <Compile Include="SqlCodeService.cs" />
     <Compile Include="ToGrouperWriter.cs" />
   </ItemGroup>
   <ItemGroup>

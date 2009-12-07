@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
 using InadrgExporter.Properties;
@@ -10,9 +11,9 @@ namespace InadrgExporter.Forms
         public AboutBox()
         {
             InitializeComponent();
-            Text = String.Format(Resources.About, AssemblyTitle);
+            Text = String.Format(CultureInfo.CurrentCulture, Resources.About, AssemblyTitle);
             labelProductName.Text = AssemblyProduct;
-            labelVersion.Text = String.Format(Resources.Version, AssemblyVersion);
+            labelVersion.Text = String.Format(CultureInfo.CurrentCulture, Resources.Version, AssemblyVersion);
             labelCopyright.Text = AssemblyCopyright;
             labelCompanyName.Text = AssemblyCompany;
             textBoxDescription.Text = AssemblyDescription;
@@ -20,15 +21,15 @@ namespace InadrgExporter.Forms
 
         #region Assembly Attribute Accessors
 
-        public string AssemblyTitle
+        private static string AssemblyTitle
         {
             get
             {
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
                 if (attributes.Length > 0)
                 {
-                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                    if (titleAttribute.Title != "")
+                    var titleAttribute = (AssemblyTitleAttribute)attributes[0];
+                    if (titleAttribute.Title.Length != 0)
                     {
                         return titleAttribute.Title;
                     }
@@ -37,7 +38,7 @@ namespace InadrgExporter.Forms
             }
         }
 
-        public string AssemblyVersion
+        private static string AssemblyVersion
         {
             get
             {
@@ -45,53 +46,53 @@ namespace InadrgExporter.Forms
             }
         }
 
-        public string AssemblyDescription
+        private static string AssemblyDescription
         {
             get
             {
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
                 return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
         }
 
-        public string AssemblyProduct
+        private static string AssemblyProduct
         {
             get
             {
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
                 return ((AssemblyProductAttribute)attributes[0]).Product;
             }
         }
 
-        public string AssemblyCopyright
+        private static string AssemblyCopyright
         {
             get
             {
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
                 return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             }
         }
 
-        public string AssemblyCompany
+        private static string AssemblyCompany
         {
             get
             {
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }

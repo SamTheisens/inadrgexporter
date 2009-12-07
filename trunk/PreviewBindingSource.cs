@@ -1,38 +1,45 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
+using InadrgExporter.DataSources;
 
 namespace InadrgExporter
 {
-    public class PreviewBindingSource : BindingSource
+    public sealed class PreviewBindingSource : BindingSource
     {
-        public DataTable table;
-        protected long count;
-        protected DateTime from;
-        protected DateTime until;
-        protected int stepsize = 100;
-        protected int rowsTriedAdding;
+        public DataTable Table { get; set; }
 
-        public PreviewBindingSource(DataTable table, int stepsize, DateTime from, DateTime until)
-            : base(table, "")
+        private DateTime From { get; set; }
+        private DateTime Until { get; set; }
+        private int stepSize = 100;
+        private int previousPosition;
+        private readonly IEnumerator enumerator;
+        private readonly IDataSource datasource;
+
+        private int StepSize
         {
-            this.table = table;
-            this.stepsize = stepsize;
-            this.from = from;
-            this.until = until;
+            get { return stepSize; }
+            set { stepSize = value; }
+        }
+
+        public PreviewBindingSource(IDataSource datasource, DataTable table, DateTime from, DateTime until, int stepSize)
+            : base(table, string.Empty)
+        {
+            Table = table;
+            StepSize = stepSize;
+            From = from;
+            Until = until;
             DataMember = table.TableName;
+            enumerator = Table.Rows.GetEnumerator();
+            this.datasource = datasource;
         }
         
         public override int Count
         {
-            get { return ((int)count / stepsize) + 1; }
+            get { return (int)Length + 1; }
         }
-        public long Length
-        {
-            get { return count; }
-        }
-
         public override bool IsReadOnly
         {
             get { return true; }
@@ -45,46 +52,72 @@ namespace InadrgExporter
 
         protected override void OnPositionChanged(EventArgs e)
         {
-            ReadRows((Position < 0 ? 0 : Position) * stepsize - 1);
-        }
-
-        protected virtual void ReadRows(int startPosition) {}
-
-        protected virtual object[] BeginReadingRows(int startPosition)
-        {
-            table.Rows.Clear();
-            table.BeginLoadData();
-            
-            var objects = new object[table.Columns.Count];
-            return objects;
-        }
-
-        protected virtual void AddRow(Dictionary<string, object> rowSet)
-        {
-            var row = table.NewRow();
-            var objects = new object[row.ItemArray.Length];
-            foreach (var pair in rowSet)
+            if (Position != previousPosition)
             {
-                var index = table.Columns.IndexOf(pair.Key);
-                objects[index] = pair.Value;
+                int positionPlusStepSize;
+                if (Position > previousPosition)
+                {
+                    positionPlusStepSize = previousPosition + StepSize - (Position < StepSize ? 1 : 0);
+                    if (positionPlusStepSize > Count)
+                    {
+                        Position = previousPosition;
+                        return;
+                    }
+                }
+                else
+                {
+                    positionPlusStepSize = previousPosition - StepSize + (Position < StepSize ? 1 : 0);
+                }
+
+                previousPosition = positionPlusStepSize;
+                Position = positionPlusStepSize;
+                ReadRows(positionPlusStepSize);
             }
-            row.ItemArray = objects;
-            table.Rows.Add(row);
+            if (Position == 0)
+            {
+                ReadRows(0);
+            }
+            
         }
 
-        protected virtual void EndReadingRows()
+        public long Length { get; private set; }
+
+        public void ReadRows(int startPosition)
+        {
+            BeginReadingRows();
+            datasource.ReadRows(From, Until, startPosition, StepSize);
+            while (datasource.MoveNext())
+            {
+                GrouperHelper.AddRow(Table, datasource.Current);
+            }
+            EndReadingRows();
+            Length = datasource.Length;
+            OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, 0));
+        }
+
+        private void BeginReadingRows()
+        {
+            Table.Rows.Clear();
+            Table.BeginLoadData();
+        }
+
+        private void EndReadingRows()
         {
             try
             {
-                table.EndLoadData();
+                Table.EndLoadData();
             }
-            catch (ConstraintException)
-            {
-            }
+            catch (ConstraintException) {}
         }
+
         public void Refresh()
         {
             OnPositionChanged(new EventArgs());
+        }
+
+        public new bool MoveNext()
+        {
+            return enumerator.MoveNext();
         }
     }
 }
