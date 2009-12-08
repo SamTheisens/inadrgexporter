@@ -84,6 +84,15 @@ namespace InadrgExporter.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 3M CGS tidak ada di: {0}.
+        /// </summary>
+        internal static string ErrorGrouperMissing {
+            get {
+                return ResourceManager.GetString("ErrorGrouperMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error, tolong hubungi SIMRS dan berlapor ini: {0}.
         /// </summary>
         internal static string ErrorMessage {
