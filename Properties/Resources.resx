@@ -163,4 +163,8 @@
   <data name="RegroupToolTip" xml:space="preserve">
     <value>Re-group</value>
   </data>
+  <data name="ErrorGrouperMissing" xml:space="preserve">
+    <value>3M CGS tidak ada di: {0}</value>
+    <comment>ErrorMessage</comment>
+  </data>
 </root>
