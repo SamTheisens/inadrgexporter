@@ -55,6 +55,7 @@ namespace InadrgExporter.Forms
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.verificationDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.membandingkanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excelYangSalahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
@@ -66,6 +67,7 @@ namespace InadrgExporter.Forms
             this.refreshButton = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Perubahan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.recidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tariff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Inadrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -107,6 +109,7 @@ namespace InadrgExporter.Forms
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBoxCustomer = new System.Windows.Forms.ComboBox();
             this.untilDateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -115,9 +118,9 @@ namespace InadrgExporter.Forms
             this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.exporterFormBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.exportGridKeExcelProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.totalRecords = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.exportGridKeExcelProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.exporterFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.exportFromDatabaseWorker = new System.ComponentModel.BackgroundWorker();
             this.refreshPreviewWorker = new System.ComponentModel.BackgroundWorker();
@@ -281,6 +284,7 @@ namespace InadrgExporter.Forms
             this.verificationDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.verificationDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.databaseToolStripMenuItem,
+            this.membandingkanToolStripMenuItem,
             this.keExcelToolStripMenuItem,
             this.excelYangSalahToolStripMenuItem});
             this.verificationDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("verificationDropDownButton.Image")));
@@ -291,25 +295,37 @@ namespace InadrgExporter.Forms
             // 
             // databaseToolStripMenuItem
             // 
-            this.databaseToolStripMenuItem.Image = global::InadrgExporter.Properties.Resources.kasirrwj;
+            this.databaseToolStripMenuItem.Image = global::InadrgExporter.Properties.Resources.medismart;
+            this.databaseToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(242, 38);
             this.databaseToolStripMenuItem.Text = "&Database";
             this.databaseToolStripMenuItem.Click += new System.EventHandler(this.databaseToolStripMenuItem_Click);
             // 
+            // membandingkanToolStripMenuItem
+            // 
+            this.membandingkanToolStripMenuItem.Image = global::InadrgExporter.Properties.Resources.compareOld;
+            this.membandingkanToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.membandingkanToolStripMenuItem.Name = "membandingkanToolStripMenuItem";
+            this.membandingkanToolStripMenuItem.Size = new System.Drawing.Size(242, 38);
+            this.membandingkanToolStripMenuItem.Text = "&Membandingkan dengan lama";
+            this.membandingkanToolStripMenuItem.Click += new System.EventHandler(this.compareOldFileToolStripMenuItem_Click);
+            // 
             // keExcelToolStripMenuItem
             // 
-            this.keExcelToolStripMenuItem.Image = global::InadrgExporter.Properties.Resources._3M;
+            this.keExcelToolStripMenuItem.Image = global::InadrgExporter.Properties.Resources.ThreeM;
+            this.keExcelToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.keExcelToolStripMenuItem.Name = "keExcelToolStripMenuItem";
-            this.keExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.keExcelToolStripMenuItem.Size = new System.Drawing.Size(242, 38);
             this.keExcelToolStripMenuItem.Text = "Grouper S&emuah";
             this.keExcelToolStripMenuItem.Click += new System.EventHandler(this.keExcelToolStripMenuItem_Click);
             // 
             // excelYangSalahToolStripMenuItem
             // 
-            this.excelYangSalahToolStripMenuItem.Image = global::InadrgExporter.Properties.Resources._3M;
+            this.excelYangSalahToolStripMenuItem.Image = global::InadrgExporter.Properties.Resources.ThreeMError;
+            this.excelYangSalahToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.excelYangSalahToolStripMenuItem.Name = "excelYangSalahToolStripMenuItem";
-            this.excelYangSalahToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.excelYangSalahToolStripMenuItem.Size = new System.Drawing.Size(242, 38);
             this.excelYangSalahToolStripMenuItem.Text = "Grouper Yang S&alah";
             this.excelYangSalahToolStripMenuItem.Click += new System.EventHandler(this.excelYangSalahToolStripMenuItem_Click);
             // 
@@ -326,33 +342,37 @@ namespace InadrgExporter.Forms
             // 
             // reportIndividualToolStripMenuItem
             // 
-            this.reportIndividualToolStripMenuItem.Image = global::InadrgExporter.Properties.Resources.crystal;
+            this.reportIndividualToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("reportIndividualToolStripMenuItem.Image")));
+            this.reportIndividualToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.reportIndividualToolStripMenuItem.Name = "reportIndividualToolStripMenuItem";
-            this.reportIndividualToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.reportIndividualToolStripMenuItem.Size = new System.Drawing.Size(219, 38);
             this.reportIndividualToolStripMenuItem.Text = "Report &Individual";
             this.reportIndividualToolStripMenuItem.Click += new System.EventHandler(this.reportIndividualToolStripMenuItem_Click);
             // 
             // reportRekapitulasiToolStripMenuItem
             // 
-            this.reportRekapitulasiToolStripMenuItem.Image = global::InadrgExporter.Properties.Resources.crystal;
+            this.reportRekapitulasiToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("reportRekapitulasiToolStripMenuItem.Image")));
+            this.reportRekapitulasiToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.reportRekapitulasiToolStripMenuItem.Name = "reportRekapitulasiToolStripMenuItem";
-            this.reportRekapitulasiToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.reportRekapitulasiToolStripMenuItem.Size = new System.Drawing.Size(219, 38);
             this.reportRekapitulasiToolStripMenuItem.Text = "Report &Rekapitulasi";
             this.reportRekapitulasiToolStripMenuItem.Click += new System.EventHandler(this.reportRekapitulasiToolStripMenuItem_Click);
             // 
             // textfileUntukExcelToolStripMenuItem
             // 
-            this.textfileUntukExcelToolStripMenuItem.Image = global::InadrgExporter.Properties.Resources.excel;
+            this.textfileUntukExcelToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("textfileUntukExcelToolStripMenuItem.Image")));
+            this.textfileUntukExcelToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.textfileUntukExcelToolStripMenuItem.Name = "textfileUntukExcelToolStripMenuItem";
-            this.textfileUntukExcelToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.textfileUntukExcelToolStripMenuItem.Size = new System.Drawing.Size(219, 38);
             this.textfileUntukExcelToolStripMenuItem.Text = "Textfile untuk E&xcel";
             this.textfileUntukExcelToolStripMenuItem.Click += new System.EventHandler(this.exportWithDemographics_Click);
             // 
             // exportWithDemographics
             // 
-            this.exportWithDemographics.Image = global::InadrgExporter.Properties.Resources.excel;
+            this.exportWithDemographics.Image = global::InadrgExporter.Properties.Resources.NotepadVerificator;
+            this.exportWithDemographics.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.exportWithDemographics.Name = "exportWithDemographics";
-            this.exportWithDemographics.Size = new System.Drawing.Size(203, 22);
+            this.exportWithDemographics.Size = new System.Drawing.Size(219, 38);
             this.exportWithDemographics.Text = "Textfile untuk V&erifikator";
             this.exportWithDemographics.Click += new System.EventHandler(this.exportForVerifikator_Click);
             // 
@@ -399,6 +419,7 @@ namespace InadrgExporter.Forms
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Perubahan,
             this.recidDataGridViewTextBoxColumn,
             this.Tariff,
             this.Inadrg,
@@ -455,6 +476,14 @@ namespace InadrgExporter.Forms
             this.dataGridView1.Size = new System.Drawing.Size(797, 355);
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
+            // 
+            // Perubahan
+            // 
+            this.Perubahan.DataPropertyName = "Perubahan";
+            this.Perubahan.HeaderText = "Perubahan";
+            this.Perubahan.Name = "Perubahan";
+            this.Perubahan.ReadOnly = true;
+            this.Perubahan.Visible = false;
             // 
             // recidDataGridViewTextBoxColumn
             // 
@@ -826,18 +855,29 @@ namespace InadrgExporter.Forms
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.label7);
             this.panel3.Controls.Add(this.comboBoxCustomer);
             this.panel3.Controls.Add(this.untilDateTimePicker);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(336, 34);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(416, 30);
+            this.panel3.Size = new System.Drawing.Size(470, 30);
             this.panel3.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(257, 7);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Kelompok Pasien";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 3);
+            this.label7.Location = new System.Drawing.Point(4, 7);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(42, 13);
             this.label7.TabIndex = 9;
@@ -848,7 +888,7 @@ namespace InadrgExporter.Forms
             this.comboBoxCustomer.DataSource = this.cUSTOMERBindingSource;
             this.comboBoxCustomer.DisplayMember = "CUSTOMER";
             this.comboBoxCustomer.FormattingEnabled = true;
-            this.comboBoxCustomer.Location = new System.Drawing.Point(290, 3);
+            this.comboBoxCustomer.Location = new System.Drawing.Point(346, 2);
             this.comboBoxCustomer.Name = "comboBoxCustomer";
             this.comboBoxCustomer.Size = new System.Drawing.Size(121, 21);
             this.comboBoxCustomer.TabIndex = 8;
@@ -861,7 +901,7 @@ namespace InadrgExporter.Forms
             this.untilDateTimePicker.Name = "untilDateTimePicker";
             this.untilDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.untilDateTimePicker.TabIndex = 0;
-            this.untilDateTimePicker.Value = new System.DateTime(2009, 6, 30, 0, 0, 0, 0);
+            this.untilDateTimePicker.Value = new System.DateTime(2009, 6, 1, 0, 0, 0, 0);
             this.untilDateTimePicker.ValueChanged += new System.EventHandler(this.untilDateTimePicker_ValueChanged);
             // 
             // panel6
@@ -877,7 +917,7 @@ namespace InadrgExporter.Forms
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 3);
+            this.label2.Location = new System.Drawing.Point(3, 7);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 13);
             this.label2.TabIndex = 2;
@@ -901,10 +941,10 @@ namespace InadrgExporter.Forms
             // 
             this.statusStrip1.AutoSize = false;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportGridKeExcelProgressBar,
             this.totalRecords,
-            this.toolStripStatusLabel});
-            this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.toolStripStatusLabel,
+            this.exportGridKeExcelProgressBar});
+            this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.statusStrip1.Location = new System.Drawing.Point(0, 486);
             this.statusStrip1.Margin = new System.Windows.Forms.Padding(1);
             this.statusStrip1.Name = "statusStrip1";
@@ -916,24 +956,27 @@ namespace InadrgExporter.Forms
             this.statusStrip1.TabStop = true;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // exportGridKeExcelProgressBar
-            // 
-            this.exportGridKeExcelProgressBar.Enabled = false;
-            this.exportGridKeExcelProgressBar.Name = "exportGridKeExcelProgressBar";
-            this.exportGridKeExcelProgressBar.Size = new System.Drawing.Size(100, 16);
-            this.exportGridKeExcelProgressBar.Visible = false;
-            // 
             // totalRecords
             // 
             this.totalRecords.Name = "totalRecords";
-            this.totalRecords.Size = new System.Drawing.Size(0, 0);
+            this.totalRecords.Size = new System.Drawing.Size(0, 17);
             // 
             // toolStripStatusLabel
             // 
+            this.toolStripStatusLabel.AutoSize = false;
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(205, 13);
-            this.toolStripStatusLabel.Text = "Untuk berubah pengaturan, click Settings";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(300, 17);
+            this.toolStripStatusLabel.Text = "Ready";
+            this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // exportGridKeExcelProgressBar
+            // 
+            this.exportGridKeExcelProgressBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.exportGridKeExcelProgressBar.Enabled = false;
+            this.exportGridKeExcelProgressBar.Name = "exportGridKeExcelProgressBar";
+            this.exportGridKeExcelProgressBar.Size = new System.Drawing.Size(400, 16);
+            this.exportGridKeExcelProgressBar.Visible = false;
             // 
             // exporterFormBindingSource
             // 
@@ -1027,8 +1070,6 @@ namespace InadrgExporter.Forms
         private System.Windows.Forms.ToolStripMenuItem aboutINADRGExporterToolStripMenuItem;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripProgressBar exportGridKeExcelProgressBar;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.BindingSource exporterFormBindingSource;
         private System.Windows.Forms.BindingSource exporterFormBindingSource1;
@@ -1064,6 +1105,7 @@ namespace InadrgExporter.Forms
         private System.ComponentModel.BackgroundWorker exportGridKeExcelWorker;
         private System.ComponentModel.BackgroundWorker exportkeExcelWorker;
         private System.Windows.Forms.ToolStripDropDownButton exportDropDownButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Perubahan;
         private System.Windows.Forms.DataGridViewTextBoxColumn recidDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tariff;
         private System.Windows.Forms.DataGridViewTextBoxColumn Inadrg;
@@ -1092,5 +1134,9 @@ namespace InadrgExporter.Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn Nama;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dokter;
         private System.Windows.Forms.DataGridViewTextBoxColumn SKP;
+        private System.Windows.Forms.ToolStripMenuItem membandingkanToolStripMenuItem;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ToolStripProgressBar exportGridKeExcelProgressBar;
+        public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
     }
 }

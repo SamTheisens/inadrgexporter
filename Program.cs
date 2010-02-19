@@ -21,8 +21,8 @@ namespace InadrgExporter
         }
         private static string CheckPrerequisites()
         {
-            string missing = string.Empty;
-            string grouperPath = Path.Combine(Settings.Default.ThreeMHISDirectory, Settings.Default.ThreeHMISExecutable);
+            var missing = string.Empty;
+            var grouperPath = Path.Combine(Settings.Default.ThreeMHISDirectory, Settings.Default.ThreeHMISExecutable);
             if (!File.Exists(grouperPath))
                 missing = string.Format(Resources.ErrorGrouperMissing, grouperPath);
             return missing;

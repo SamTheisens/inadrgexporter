@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
@@ -33,11 +34,13 @@ namespace InadrgExporter
         private Dictionary<string, object> rowSet = new Dictionary<string, object>();
         private bool endFile;
         private readonly UngroupableHandlingMode ungroupableHandlingMode;
+        private readonly DataTable table;
 
-        public FromGrouperReader(IDataSource grouperSource, string outputFile, bool verifikator, UngroupableHandlingMode ungroupableHandlingMode)
+        public FromGrouperReader(DataTable table, IDataSource grouperSource, string outputFile, bool verifikator, UngroupableHandlingMode ungroupableHandlingMode)
         {
             this.ungroupableHandlingMode = ungroupableHandlingMode;
             this.grouperSource = grouperSource;
+            this.table = table;
 
             writer = new StreamWriter(outputFile, false);
 
@@ -48,7 +51,7 @@ namespace InadrgExporter
             connection = new SqlConnection(Settings.Default.RSKUPANGConnectionString);
             connection.Open();
 
-            var sqlCommand = new SqlCommand("create table #DRG (urut INT, rm INT, tglMasuk DATETIME)", connection);
+            var sqlCommand = new SqlCommand("create table #DRG (urut INT, rm INT, tglMasuk DATETIME, kdUnit VARCHAR(5), urutMasuk INT)", connection);
             sqlCommand.ExecuteNonQuery();
         }
         public long Length
@@ -68,35 +71,49 @@ namespace InadrgExporter
             if (!endFile)
                 return false;
             rowSet = grouperSource.Current;
-            
-            InsertIntoTempTable((string)rowSet["Norm"], (DateTime)rowSet["Tglmsk"]);
+            var recId = long.Parse((string)rowSet["Recid"]);
+            var tableRow = FindRow(recId);
+
+            InsertIntoTempTable(tableRow["Norm"].ToString(), (DateTime) tableRow["Tglmsk"],
+                                tableRow["KdUnit"].ToString(), tableRow["UrutMasuk"].ToString());
             rows.Add(rowSet);
             return true;
         }
+
+        private DataRow FindRow(long recId)
+        {
+            foreach (DataRow row in table.Rows)
+            {
+                if ((long)row["Recid"] == recId)
+                    return row;
+            }
+            return null;
+        }
+
         public bool EndOfData()
         {
             return currentRow >= grouperSource.Length -1;
         }
         public void ExecuteQuery()
         {
+            if (insertBuffer.Length == 0)
+                return;
             var insertCommand = new SqlCommand(insertBuffer, connection);
             insertCommand.ExecuteNonQuery();
             insertBuffer = string.Empty;
             currentReadRow = 0;
 
             var command = new SqlCommand(SqlCodeService.Instance.PatientDetailsQuery, connection);
-
             dataReader = command.ExecuteReader();
+
         }
         public bool WriteLine()
         {
-            if (!dataReader.Read())
+            if (dataReader.IsClosed || !dataReader.Read())
                 return false;
 
             var fields = rows[currentRow] as Dictionary<string, object>;
-            fields["Nama"] = dataReader["Nama"].ToString();
-            fields["Dokter"] = dataReader["Dokter"].ToString();
-            fields["SKP"] = dataReader["SKP"].ToString();
+            InsertQueriedFields(fields);
 
             var row = new Collection<string>(); 
             foreach (var header in headers)
@@ -114,11 +131,24 @@ namespace InadrgExporter
             return true;
         }
 
-
-        private static void InsertIntoTempTable(string rm, DateTime tglMasuk)
+        private void InsertQueriedFields(IDictionary<string, object> fields)
         {
-            insertBuffer += string.Format(CultureInfo.InvariantCulture, "INSERT INTO #DRG VALUES ({0},{1},'{2}');", currentReadRow, rm.Replace("\'", ""),
-                                          GrouperHelper.ToSqlDate(tglMasuk));
+            if (!fields["Norm"].Equals(dataReader["rm"].ToString()))
+                throw new ArgumentException(string.Format("Cari info pasien tidak berhasil: Norm tidak sesuai {0} -> {1} ", fields["Norm"],
+                                                          dataReader["rm"]));
+
+            fields["Nama"] = dataReader["Nama"].ToString();
+            fields["Dokter"] = dataReader["Dokter"].ToString();
+            fields["SKP"] = dataReader["SKP"].ToString();
+            fields["KdUnit"] = dataReader["KdUnit"].ToString();
+            fields["UrutMasuk"] = dataReader["UrutMasuk"].ToString();
+        }
+
+
+        private static void InsertIntoTempTable(string rm, DateTime tglMasuk, string kdUnit, string urutMasuk)
+        {
+            insertBuffer += string.Format(CultureInfo.InvariantCulture, "INSERT INTO #DRG VALUES ({0},{1},'{2}','{3}',{4});", currentReadRow, rm.Replace("\'", ""),
+                                          GrouperHelper.ToSqlDate(tglMasuk), kdUnit, urutMasuk);
             currentReadRow++;
         }
 
@@ -145,6 +175,7 @@ namespace InadrgExporter
             dataReader.Close();
             writer.Flush();
             writer.Close();
+            writer.Dispose();
             connection.Close();
         }
 

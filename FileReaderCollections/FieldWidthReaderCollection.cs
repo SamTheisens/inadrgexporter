@@ -11,18 +11,20 @@ namespace InadrgExporter.FileReaderCollections
     {
         private readonly long rows;
         private readonly TextFieldParser parser;
+        private bool disposed;
         private Dictionary<string,string> currentFields;
         private readonly Dictionary<string, int> mappingDictionary;
-        private readonly Collection<FieldMapping> excelMapping;
+        private readonly Collection<FieldMapping> fieldMapping;
 
 
-        public FieldWidthReaderCollection(string fileName, List<DictionaryField> dictionary)
+        public FieldWidthReaderCollection(string fileName, List<DictionaryField> dictionary, Collection<FieldMapping> fieldMapping)
         {
             parser = new TextFieldParser(fileName) {TextFieldType = FieldType.FixedWidth};
 
             var widths = new Collection<int>();
             int lineWidth = 0;
-            excelMapping = GrouperHelper.ReadMapping("dic_excel_mapping.dic");
+            this.fieldMapping = fieldMapping;
+            mappingDictionary = GrouperHelper.CreateMappingDictionary(this.fieldMapping, dictionary);
 
             foreach (var tuple in dictionary)
             {
@@ -31,10 +33,10 @@ namespace InadrgExporter.FileReaderCollections
                 lineWidth += tuple.Characters * tuple.Repeat;
             }
             parser.SetFieldWidths(widths.ToArray());
-            mappingDictionary = GrouperHelper.CreateMappingDictionary(excelMapping, dictionary);
+            
 
             var size = new FileInfo(fileName).Length;
-            rows = size/ (lineWidth + 2);
+            rows = size/ (lineWidth + 1);
         }
 
         public long Rows
@@ -72,7 +74,7 @@ namespace InadrgExporter.FileReaderCollections
             var readFields = parser.ReadFields();
             if (readFields == null)
                 return false;
-            var rowSet = GrouperHelper.JoinMapping(excelMapping, mappingDictionary, readFields);
+            var rowSet = GrouperHelper.JoinMapping(fieldMapping, mappingDictionary, readFields);
             currentFields = rowSet;
             return !EndOfData;
         }
@@ -95,7 +97,11 @@ namespace InadrgExporter.FileReaderCollections
 
         public void Dispose()
         {
+            if (disposed)
+                return;
+            parser.Close();
             parser.Dispose();
+            disposed = true;
         }
     }
 }

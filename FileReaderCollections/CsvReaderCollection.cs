@@ -10,17 +10,18 @@ namespace InadrgExporter.FileReaderCollections
     public sealed class CsvReaderCollection : ITextFileFieldReaderCollection
     {
         private readonly long rows;
+        private bool disposed;
         private readonly CachedCsvReader reader;
         private readonly Dictionary<string, string> currentFields = new Dictionary<string, string>();
         private readonly Collection<FieldMapping> excelMapping;
 
-        public CsvReaderCollection(string fileName)
+        public CsvReaderCollection(string fileName, Collection<FieldMapping> excelMapping)
         {
+            this.excelMapping = excelMapping;
             reader = new CachedCsvReader(new StreamReader(fileName), true, ';');
             reader.ReadToEnd();
             rows = reader.CurrentRecordIndex;
             reader.MoveToStart();
-            excelMapping = GrouperHelper.ReadMapping("dic_excel_mapping.dic");
         }
 
         public long Rows
@@ -82,7 +83,10 @@ namespace InadrgExporter.FileReaderCollections
 
         public void Dispose()
         {
+            if (disposed)
+                return;
             reader.Dispose();
+            disposed = true;
         }
     }
 }

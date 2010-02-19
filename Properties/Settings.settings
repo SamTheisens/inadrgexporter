@@ -13,10 +13,10 @@
     <Setting Name="RSKUPANGConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=server;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=sa;Password=pocopoco&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=localhost;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=sa;Password=pocopoco&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=server;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=sa;Password=pocopoco</Value>
+      <Value Profile="(Default)">Data Source=localhost;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=sa;Password=pocopoco</Value>
     </Setting>
     <Setting Name="DateFormat" Description="Format tanggal yang diluarkan oleh grouper" Type="System.String" Scope="User">
       <Value Profile="(Default)">dd/MM/yyyy</Value>
@@ -71,6 +71,9 @@
     </Setting>
     <Setting Name="ToExcelFileName" Type="System.String" Scope="User">
       <Value Profile="(Default)">toexcel.txt</Value>
+    </Setting>
+    <Setting Name="ThreeMHISCommandLine" Type="System.String" Scope="User">
+      <Value Profile="(Default)"> -i "{0}" -u "{1}" -p {2} -w </Value>
     </Setting>
   </Settings>
 </SettingsFile>

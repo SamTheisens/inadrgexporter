@@ -37,7 +37,6 @@ namespace InadrgExporter.Forms
                                 MessageBoxOptions.RtlReading);
             }
             crystalReportViewer1.ReportSource = individualReport;
-
         }
     }
 }

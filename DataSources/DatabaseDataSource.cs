@@ -8,7 +8,7 @@ using InadrgExporter.Properties;
 
 namespace InadrgExporter.DataSources
 {
-    class DatabaseDataSource : IDataSource
+    public class DatabaseDataSource : IDataSource
     {
         private SqlConnection connection;
         private SqlDataReader reader;
@@ -85,7 +85,7 @@ namespace InadrgExporter.DataSources
 
         public void Reset()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Dictionary<string, object> Current

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -32,6 +33,7 @@ namespace InadrgExporter.Forms
         private PreviewMode previewMode = PreviewMode.Database;
         private DateTime groupedFrom, groupedUntil;
         private PreviewBindingSource currentBindingSource;
+        private DataTable currentTable;
 
         public bool ShowFailedGroupingsOnly { get; set; }
 
@@ -46,8 +48,8 @@ namespace InadrgExporter.Forms
         {
             cUSTOMERTableAdapter.Fill(customerDataset.CUSTOMER);
             comboBoxCustomer.SelectedIndex = 3;
-            fromDateTimePicker.Value = new DateTime(2009, 6, 20);
-            untilDateTimePicker.Value = new DateTime(2009, 6, 20);
+            fromDateTimePicker.Value = new DateTime(2009, 6, 1);
+            untilDateTimePicker.Value = new DateTime(2009, 6, 30);
             Text += " - " + Settings.Default.NamaRumahSakit + " - Type " +
                     Settings.Default.RumahSakit[Settings.Default.TypeRumahSakit];
         }
@@ -139,7 +141,8 @@ namespace InadrgExporter.Forms
             var arguments = new ExporterArguments
             {
                 InputFile = Path.Combine(Application.StartupPath, Settings.Default.FromGrouperFileName),
-                OutputFile = outputFileName,
+                OutputFile = outputFileName, 
+                UngroupableHandlingMode = UngroupableHandlingMode.SkipUngroupable,
                 ForVerifikator = false
             };
             exportkeExcelWorker.RunWorkerAsync(arguments);
@@ -164,7 +167,8 @@ namespace InadrgExporter.Forms
             var arguments = new ExporterArguments
             {
                 InputFile = Path.Combine(Application.StartupPath, Settings.Default.FromGrouperFileName),
-                OutputFile = outputFileName,
+                OutputFile = outputFileName, 
+                UngroupableHandlingMode = UngroupableHandlingMode.SkipUngroupable,
                 ForVerifikator = true
             };
 
@@ -206,7 +210,38 @@ namespace InadrgExporter.Forms
             RefreshPreview(fromDateTimePicker.Value, untilDateTimePicker.Value,
                            comboBoxCustomer.SelectedValue.ToString(), UngroupableHandlingMode.OnlyUngroupable);
         }
-        
+
+        private void compareOldFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var inputFileName = OpenFileDialog(Resources.WithoutDemographicsFileName);
+            if (inputFileName.Length == 0)
+                return;
+
+            var arguments = new ExporterArguments
+                                {
+                                    InputFile = inputFileName,
+                                    UngroupableHandlingMode = UngroupableHandlingMode.IncludeUngroupable,
+                                    From = fromDateTimePicker.Value,
+                                    Until = untilDateTimePicker.Value,
+                                    ForVerifikator = true
+                                };
+
+            var datasource = new DatabaseDataSource(arguments.From, arguments.Until,
+                                                    comboBoxCustomer.SelectedValue.ToString(),
+                                                    new RSKUPANGDataSet.inadrgDataTable());
+            var comparer = new RepairsComparer(datasource, arguments);
+            var bindingSource = new PreviewBindingSource(comparer, new RSKUPANGDataSet.inadrgDataTable(), arguments.From,
+                                                         arguments.Until, Int32.MaxValue);
+            bindingSource.Refresh();
+            currentBindingSource = bindingSource;
+            bindingNavigator1.BindingSource = currentBindingSource;
+            dataGridView1.CellFormatting -= dataGridView1_CellFormatting;
+            dataGridView1.CellFormatting += dataGridView1_CompareCellFormatting;
+
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = currentBindingSource.DataSource;
+        }
+
         #endregion ButtonEventHandlers
 
         #region ProgressHandlers
@@ -235,6 +270,11 @@ namespace InadrgExporter.Forms
         private void refreshPreviewWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var arguments = (ExporterArguments)e.Argument;
+
+            dataGridView1.CellFormatting -= dataGridView1_CompareCellFormatting;
+            dataGridView1.CellFormatting += dataGridView1_CellFormatting;
+
+
             var table = new RSKUPANGDataSet.inadrgDataTable();
             int stepSize;
             IDataSource datasource;
@@ -247,10 +287,9 @@ namespace InadrgExporter.Forms
             else
             {
                 var reader =
-                    new CsvReaderCollection(Path.Combine(Application.StartupPath, arguments.InputFile));
+                    new CsvReaderCollection(Path.Combine(Application.StartupPath, arguments.InputFile), GrouperHelper.ReadMapping("dic_excel_mapping.dic"));
                 datasource = new TextFileDataSource(reader, arguments.UngroupableHandlingMode, table);
                 stepSize = Int32.MaxValue;
-
             }
             var bindingSource = new PreviewBindingSource(datasource, table, arguments.From, arguments.Until, stepSize);
             bindingSource.Refresh();
@@ -292,7 +331,9 @@ namespace InadrgExporter.Forms
                         exportFromDatabaseWorker.ReportProgress((int)(((double)line / writer.Length) * 100.0), "Menulis textfile: " + line);
                         line++;
                     }
+                    currentTable = writer.Table;
                 }
+
                 exportFromDatabaseWorker.ReportProgress(0, "Data telah export.");
             }
             catch (Exception ex)
@@ -312,12 +353,12 @@ namespace InadrgExporter.Forms
             {
                 var arguments = (ExporterArguments)e.Argument;
                 var backgroundWorker = (BackgroundWorker) sender;
-
+                
                 var idatasource = new TextFileDataSource(new FieldWidthReaderCollection(arguments.InputFile,
                                                                                            GrouperHelper.ReadDictionary(
-                                                                                               "cgs_ina_out.dic")),
+                                                                                               "cgs_ina_out.dic"), GrouperHelper.ReadMapping("dic_excel_mapping.dic")),
                                                             arguments.UngroupableHandlingMode, new RSKUPANGDataSet.inadrgDataTable());
-                using (var reader = new FromGrouperReader(idatasource, arguments.OutputFile, arguments.ForVerifikator, arguments.UngroupableHandlingMode))
+                using (var reader = new FromGrouperReader(currentTable, idatasource, arguments.OutputFile, arguments.ForVerifikator, arguments.UngroupableHandlingMode))
                 {
                     var linesRead = 0;
                     var linesWritten = 0;
@@ -371,6 +412,8 @@ namespace InadrgExporter.Forms
 
         private void RefreshPreview(DateTime from, DateTime until, string kdCustomer, UngroupableHandlingMode ungroupableHandlingMode)
         {
+            exportGridKeExcelProgressBar.Style = ProgressBarStyle.Marquee;
+            exportGridKeExcelProgressBar.Visible = true;
             bindingNavigator1.Enabled = previewMode != PreviewMode.TextFile;
 
             var args = new ExporterArguments
@@ -395,7 +438,7 @@ namespace InadrgExporter.Forms
                     process.StartInfo.FileName = Path.Combine(Settings.Default.ThreeMHISDirectory,
                                                               Settings.Default.ThreeHMISExecutable);
                     process.StartInfo.Arguments = string.Format(CultureInfo.InvariantCulture,
-                                                                " -i \"{0}\" -u \"{1}\" -p {2} -w -e",
+                                                                Settings.Default.ThreeMHISCommandLine,
                                                                 Path.Combine(Application.StartupPath,
                                                                              arguments.InputFile),
                                                                 Path.Combine(Application.StartupPath,
@@ -473,7 +516,7 @@ namespace InadrgExporter.Forms
             var table = new RSKUPANGDataSet.inadrgDataTable();
             var idatasource =
                 new TextFileDataSource(
-                    new CsvReaderCollection(Path.Combine(Application.StartupPath, Settings.Default.ToExcelFileName)),
+                    new CsvReaderCollection(Path.Combine(Application.StartupPath, Settings.Default.ToExcelFileName), GrouperHelper.ReadMapping("dic_excel_mapping.dic")),
                     UngroupableHandlingMode.SkipUngroupable, table);
             var bindingSource = new PreviewBindingSource(idatasource, table, fromDateTimePicker.Value,
                                                           untilDateTimePicker.Value, Int32.MaxValue);
@@ -488,9 +531,9 @@ namespace InadrgExporter.Forms
             {
                 refreshButton.BackColor = Color.Red;
                 refreshButton.ToolTipText = Resources.RegroupNeededToolTip;
-                keExcelToolStripMenuItem.Enabled = false;
-                excelYangSalahToolStripMenuItem.Enabled = false;
-                exportDropDownButton.Enabled = false;
+                keExcelToolStripMenuItem.Enabled = true;
+                excelYangSalahToolStripMenuItem.Enabled = true;
+                exportDropDownButton.Enabled = true;
             }
             else
             {
@@ -504,6 +547,8 @@ namespace InadrgExporter.Forms
 
         private void refreshPreviewWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            exportGridKeExcelProgressBar.Style = ProgressBarStyle.Blocks;
+            exportGridKeExcelProgressBar.Visible = false;
             bindingNavigator1.BindingSource = currentBindingSource;
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = currentBindingSource.DataSource;
@@ -515,27 +560,65 @@ namespace InadrgExporter.Forms
                 return;
 
             var view = (DataGridView) sender;
-
             var currentColumn = view.Columns[e.ColumnIndex];
             var cell = view[e.ColumnIndex, e.RowIndex];
+
+            if (currentColumn.ValueType == typeof(int))
+            {
+                if (cell.Value != DBNull.Value && (int)cell.Value < 0) cell.Style.BackColor = Color.Red;
+            }
+
             switch (currentColumn.DataPropertyName)
             {
                 case "JK":
                     cell.Style.BackColor = (int)cell.Value == 1 ? Color.LightBlue : Color.LightPink;
                     break;
                 case "Jnsrawat":
-                    cell.Style.BackColor = (int) cell.Value == 1 ? Color.PaleGreen : Color.Moccasin;
+                    cell.Style.BackColor = (int)cell.Value == 1 ? Color.PaleGreen : Color.Moccasin;
                     break;
-                case "UmurThn":
-                    if (cell.Value != DBNull.Value && (int)cell.Value < 0) cell.Style.BackColor = Color.Red;
-                    break;
-                case "UmurHari":
-                    if (cell.Value != DBNull.Value && (int)cell.Value < 0) cell.Style.BackColor = Color.Red;
-                    break;
-
                 default:
                     break;
             }
         }
+        private static void dataGridView1_CompareCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == -1)
+                return;
+
+            var view = (DataGridView)sender;
+            var currentColumn = view.Columns[e.ColumnIndex];
+            var cell = view[e.ColumnIndex, e.RowIndex];
+
+            var row = view.Rows[e.RowIndex];
+            var changeCell = row.Cells["Perubahan"].Value;
+            if (changeCell != DBNull.Value)
+            {
+                row.DefaultCellStyle.BackColor = Color.LightYellow;
+                string changes = (string)changeCell;
+                var columns = changes.Split(';');
+                foreach (string change in columns)
+                {
+                    if (change.Length == 0)
+                        continue;
+                    var pair = change.Split(':');
+                    string columnName = pair[0];
+                    string beforeAfter = pair[1];
+                    if (currentColumn.DataPropertyName == columnName)
+                    {
+                        cell.ToolTipText = beforeAfter;
+                        e.CellStyle.BackColor = Color.DarkRed;
+                        e.CellStyle.ForeColor = Color.White;
+                        
+                    }
+                }
+            }
+            else
+            {
+                row.DefaultCellStyle.BackColor = Color.LightGreen;
+            }
+
+        }
+
+
     }
 }

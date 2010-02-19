@@ -36,7 +36,6 @@ namespace InadrgExporter.DataSources
             tarif = GrouperHelper.ReadTarifJamkesmas();
         }
 
-
         public int Length
         {
             get
@@ -49,6 +48,7 @@ namespace InadrgExporter.DataSources
 
         public void ReadRows(DateTime from, DateTime until, int startPosition, int stepSize)
         {
+            table.BeginLoadData();
             for (int i = 0; table.Rows.Count < stepSize && MoveNext(); i++)
             {
                 bool hasTarif = false;
@@ -80,6 +80,11 @@ namespace InadrgExporter.DataSources
                     }
                 }
             }
+            try
+            {
+                table.EndLoadData();
+            }
+            catch (ConstraintException) {}
         }
 
         public void Dispose()
@@ -91,6 +96,7 @@ namespace InadrgExporter.DataSources
         {
             if (!readerCollection.MoveNext())
             {
+                readerCollection.Dispose();
                 return false;
             }
 

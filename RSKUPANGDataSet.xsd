@@ -118,12 +118,12 @@
             <xs:sequence>
               <xs:element name="Kdrs" msprop:Generator_UserColumnName="Kdrs" msprop:Generator_ColumnVarNameInTable="columnKdrs" msprop:Generator_ColumnPropNameInRow="Kdrs" msprop:Generator_ColumnPropNameInTable="KdrsColumn" type="xs:int" minOccurs="0" />
               <xs:element name="Klsrs" msprop:Generator_UserColumnName="Klsrs" msprop:Generator_ColumnVarNameInTable="columnKlsrs" msprop:Generator_ColumnPropNameInRow="Klsrs" msprop:Generator_ColumnPropNameInTable="KlsrsColumn" type="xs:int" minOccurs="0" />
-              <xs:element name="Norm" msprop:Generator_UserColumnName="Norm" msprop:Generator_ColumnVarNameInTable="columnNorm" msprop:Generator_ColumnPropNameInRow="Norm" msprop:Generator_ColumnPropNameInTable="NormColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="Norm" msprop:Generator_UserColumnName="Norm" msprop:Generator_ColumnVarNameInTable="columnNorm" msprop:Generator_ColumnPropNameInRow="Norm" msprop:Generator_ColumnPropNameInTable="NormColumn" type="xs:int" />
               <xs:element name="Klsrawat" msprop:Generator_UserColumnName="Klsrawat" msprop:Generator_ColumnVarNameInTable="columnKlsrawat" msprop:Generator_ColumnPropNameInRow="Klsrawat" msprop:Generator_ColumnPropNameInTable="KlsrawatColumn" type="xs:int" minOccurs="0" />
               <xs:element name="Biaya" msprop:Generator_UserColumnName="Biaya" msprop:Generator_ColumnVarNameInTable="columnBiaya" msprop:Generator_ColumnPropNameInRow="Biaya" msprop:Generator_ColumnPropNameInTable="BiayaColumn" type="xs:int" minOccurs="0" />
               <xs:element name="Recid" msprop:Generator_UserColumnName="Recid" msprop:Generator_ColumnVarNameInTable="columnRecid" msprop:Generator_ColumnPropNameInRow="Recid" msprop:Generator_ColumnPropNameInTable="RecidColumn" type="xs:long" />
               <xs:element name="Jnsrawat" msprop:Generator_UserColumnName="Jnsrawat" msprop:Generator_ColumnVarNameInTable="columnJnsrawat" msprop:Generator_ColumnPropNameInRow="Jnsrawat" msprop:Generator_ColumnPropNameInTable="JnsrawatColumn" type="xs:int" minOccurs="0" />
-              <xs:element name="Tglmsk" msprop:Generator_UserColumnName="Tglmsk" msprop:Generator_ColumnVarNameInTable="columnTglmsk" msprop:Generator_ColumnPropNameInRow="Tglmsk" msprop:Generator_ColumnPropNameInTable="TglmskColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Tglmsk" msprop:Generator_UserColumnName="Tglmsk" msprop:Generator_ColumnVarNameInTable="columnTglmsk" msprop:Generator_ColumnPropNameInRow="Tglmsk" msprop:Generator_ColumnPropNameInTable="TglmskColumn" type="xs:dateTime" />
               <xs:element name="Tglklr" msprop:Generator_UserColumnName="Tglklr" msprop:Generator_ColumnVarNameInTable="columnTglklr" msprop:Generator_ColumnPropNameInRow="Tglklr" msprop:Generator_ColumnPropNameInTable="TglklrColumn" type="xs:dateTime" minOccurs="0" />
               <xs:element name="Los" msprop:Generator_UserColumnName="Los" msprop:Generator_ColumnVarNameInTable="columnLos" msprop:Generator_ColumnPropNameInRow="Los" msprop:Generator_ColumnPropNameInTable="LosColumn" type="xs:int" minOccurs="0" />
               <xs:element name="Tgllhr" msprop:Generator_UserColumnName="Tgllhr" msprop:Generator_ColumnVarNameInTable="columnTgllhr" msprop:Generator_ColumnPropNameInRow="Tgllhr" msprop:Generator_ColumnPropNameInTable="TgllhrColumn" type="xs:dateTime" minOccurs="0" />
@@ -307,17 +307,23 @@
               <xs:element name="Nama" msprop:Generator_UserColumnName="Nama" msprop:Generator_ColumnVarNameInTable="columnNama" msprop:Generator_ColumnPropNameInRow="Nama" msprop:Generator_ColumnPropNameInTable="NamaColumn" type="xs:string" minOccurs="0" />
               <xs:element name="Dokter" msprop:Generator_UserColumnName="Dokter" msprop:Generator_ColumnVarNameInTable="columnDokter" msprop:Generator_ColumnPropNameInRow="Dokter" msprop:Generator_ColumnPropNameInTable="DokterColumn" type="xs:string" minOccurs="0" />
               <xs:element name="SKP" msprop:Generator_UserColumnName="SKP" msprop:Generator_ColumnVarNameInTable="columnSKP" msprop:Generator_ColumnPropNameInRow="SKP" msprop:Generator_ColumnPropNameInTable="SKPColumn" type="xs:string" minOccurs="0" />
-              <xs:element name="TglDari" msprop:Generator_UserColumnName="TglDari" msprop:Generator_ColumnPropNameInRow="TglDari" msprop:Generator_ColumnVarNameInTable="columnTglDari" msprop:Generator_ColumnPropNameInTable="TglDariColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="TglDari" msprop:Generator_UserColumnName="TglDari" msprop:Generator_ColumnPropNameInRow="TglDari" msprop:Generator_ColumnVarNameInTable="columnTglDari" msprop:Generator_ColumnPropNameInTable="TglDariColumn" type="xs:dateTime" />
               <xs:element name="TglSampai" msprop:Generator_UserColumnName="TglSampai" msprop:Generator_ColumnPropNameInRow="TglSampai" msprop:Generator_ColumnVarNameInTable="columnTglSampai" msprop:Generator_ColumnPropNameInTable="TglSampaiColumn" type="xs:dateTime" minOccurs="0" />
               <xs:element name="NamaRs" msprop:Generator_UserColumnName="NamaRs" msprop:Generator_ColumnVarNameInTable="columnNamaRs" msprop:Generator_ColumnPropNameInRow="NamaRs" msprop:Generator_ColumnPropNameInTable="NamaRsColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="KdUnit" msprop:Generator_UserColumnName="KdUnit" msprop:Generator_ColumnVarNameInTable="columnKdUnit" msprop:Generator_ColumnPropNameInRow="KdUnit" msprop:Generator_ColumnPropNameInTable="KdUnitColumn" type="xs:string" />
+              <xs:element name="UrutMasuk" msprop:Generator_UserColumnName="UrutMasuk" msprop:Generator_ColumnVarNameInTable="columnUrutMasuk" msprop:Generator_ColumnPropNameInRow="UrutMasuk" msprop:Generator_ColumnPropNameInTable="UrutMasukColumn" type="xs:int" />
+              <xs:element name="Perubahan" msprop:Generator_UserColumnName="Perubahan" msprop:Generator_ColumnPropNameInRow="Perubahan" msprop:Generator_ColumnVarNameInTable="columnPerubahan" msprop:Generator_ColumnPropNameInTable="PerubahanColumn" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
     </xs:complexType>
-    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+    <xs:unique name="PrimaryKey" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:inadrg" />
-      <xs:field xpath="mstns:Recid" />
+      <xs:field xpath="mstns:Norm" />
+      <xs:field xpath="mstns:Tglmsk" />
+      <xs:field xpath="mstns:KdUnit" />
+      <xs:field xpath="mstns:UrutMasuk" />
     </xs:unique>
   </xs:element>
 </xs:schema>
