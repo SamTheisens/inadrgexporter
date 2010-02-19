@@ -78,6 +78,7 @@ namespace InadrgExporter
                     ColumnNumber = int.Parse(columns[2], CultureInfo.InvariantCulture)
                 };
                 dic.Add(tuple);
+                i++;
             }
             return dic;
         }

@@ -117,54 +117,69 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="kasirrwj" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\kasirrwj.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="excel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\excel.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="crystal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\crystal.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="3M" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3M.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="excel-salah" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\excel-salah.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="About" xml:space="preserve">
     <value>About {0}</value>
-  </data>
-  <data name="ErrorMessage" xml:space="preserve">
-    <value>Error, tolong hubungi SIMRS dan berlapor ini: {0}</value>
-  </data>
-  <data name="ErrorTitle" xml:space="preserve">
-    <value>Kesalahan</value>
-  </data>
-  <data name="JumlahBaris" xml:space="preserve">
-    <value>Jumlah baris: {0}</value>
-  </data>
-  <data name="LinesReadWritten" xml:space="preserve">
-    <value>Lines read: {0}. Lines written: {1}</value>
-  </data>
-  <data name="Version" xml:space="preserve">
-    <value>Version {0}</value>
-  </data>
-  <data name="WithDemographicsFileName" xml:space="preserve">
-    <value>untuk_import_ke_excel.txt</value>
-  </data>
-  <data name="WithoutDemographicsFileName" xml:space="preserve">
-    <value>untuk_verifikator.txt</value>
-  </data>
-  <data name="RegroupNeededToolTip" xml:space="preserve">
-    <value>Re-group memerlukan</value>
-  </data>
-  <data name="RegroupToolTip" xml:space="preserve">
-    <value>Re-group</value>
   </data>
   <data name="ErrorGrouperMissing" xml:space="preserve">
     <value>3M CGS tidak ada di: {0}</value>
     <comment>ErrorMessage</comment>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="notepad" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\notepad.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RegroupToolTip" xml:space="preserve">
+    <value>Re-group</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Kesalahan</value>
+  </data>
+  <data name="cr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cr.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="excel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\excel.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RegroupNeededToolTip" xml:space="preserve">
+    <value>Re-group memerlukan</value>
+  </data>
+  <data name="ThreeM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ThreeM.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WithDemographicsFileName" xml:space="preserve">
+    <value>untuk_import_ke_excel.txt</value>
+  </data>
+  <data name="JumlahBaris" xml:space="preserve">
+    <value>Jumlah baris: {0}</value>
+  </data>
+  <data name="compare" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\compare.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LinesReadWritten" xml:space="preserve">
+    <value>Lines read: {0}. Lines written: {1}</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Error, tolong hubungi SIMRS dan melaporkan ini: {0}</value>
+  </data>
+  <data name="NotepadVerificator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NotepadVerificator.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="crystal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\crystal.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="medismart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\medismart.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ThreeMError" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ThreeMError.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WithoutDemographicsFileName" xml:space="preserve">
+    <value>untuk_verifikator.txt</value>
+  </data>
+  <data name="compareOld" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\compareOld.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

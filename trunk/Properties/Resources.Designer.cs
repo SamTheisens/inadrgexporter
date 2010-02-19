@@ -60,19 +60,33 @@ namespace InadrgExporter.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap _3M {
-            get {
-                object obj = ResourceManager.GetObject("3M", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         /// <summary>
         ///   Looks up a localized string similar to About {0}.
         /// </summary>
         internal static string About {
             get {
                 return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap compare {
+            get {
+                object obj = ResourceManager.GetObject("compare", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap compareOld {
+            get {
+                object obj = ResourceManager.GetObject("compareOld", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon cr {
+            get {
+                object obj = ResourceManager.GetObject("cr", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -93,7 +107,7 @@ namespace InadrgExporter.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error, tolong hubungi SIMRS dan berlapor ini: {0}.
+        ///   Looks up a localized string similar to Error, tolong hubungi SIMRS dan melaporkan ini: {0}.
         /// </summary>
         internal static string ErrorMessage {
             get {
@@ -117,13 +131,6 @@ namespace InadrgExporter.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap excel_salah {
-            get {
-                object obj = ResourceManager.GetObject("excel-salah", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         /// <summary>
         ///   Looks up a localized string similar to Jumlah baris: {0}.
         /// </summary>
@@ -133,19 +140,33 @@ namespace InadrgExporter.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap kasirrwj {
-            get {
-                object obj = ResourceManager.GetObject("kasirrwj", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         /// <summary>
         ///   Looks up a localized string similar to Lines read: {0}. Lines written: {1}.
         /// </summary>
         internal static string LinesReadWritten {
             get {
                 return ResourceManager.GetString("LinesReadWritten", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap medismart {
+            get {
+                object obj = ResourceManager.GetObject("medismart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap notepad {
+            get {
+                object obj = ResourceManager.GetObject("notepad", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap NotepadVerificator {
+            get {
+                object obj = ResourceManager.GetObject("NotepadVerificator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -164,6 +185,20 @@ namespace InadrgExporter.Properties {
         internal static string RegroupToolTip {
             get {
                 return ResourceManager.GetString("RegroupToolTip", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ThreeM {
+            get {
+                object obj = ResourceManager.GetObject("ThreeM", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ThreeMError {
+            get {
+                object obj = ResourceManager.GetObject("ThreeMError", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

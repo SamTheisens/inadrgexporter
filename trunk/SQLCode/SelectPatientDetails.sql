@@ -1,11 +1,12 @@
-SELECT rm, tglMasuk, p.Nama AS Nama, p.NO_ASURANSI AS SKP, MAX(d.NAMA) AS Dokter 
+SELECT rm, tglMasuk, p.Nama AS Nama, p.NO_ASURANSI AS SKP, ISNULL(d.NAMA, '-') AS Dokter, drg.kdUnit AS KdUnit, drg.urutMasuk AS UrutMasuk
 FROM #DRG AS drg 
-LEFT OUTER JOIN dbo.KUNJUNGAN AS k 
+INNER JOIN dbo.KUNJUNGAN AS k 
  	ON k.TGL_MASUK = drg.tglMasuk 
-	AND REPLACE(LTRIM(REPLACE(REPLACE(k.KD_PASIEN, '-', ''), 0, ' ')), ' ', 0) = CONVERT(VARCHAR,drg.rm)
-LEFT OUTER JOIN dbo.PASIEN AS p 
+	AND CONVERT(INT, REPLACE(LTRIM(REPLACE(REPLACE(k.KD_PASIEN, '-', ''), 0, ' ')), ' ', 0)) = drg.rm
+	AND drg.kdUnit = k.KD_UNIT 
+	AND drg.urutMasuk = k.URUT_MASUK
+INNER JOIN dbo.PASIEN AS p 
 	ON p.KD_PASIEN = k.KD_PASIEN
-LEFT OUTER JOIN dbo.DOKTER AS d 
+LEFT JOIN dbo.DOKTER AS d 
 	ON k.KD_DOKTER = d.KD_DOKTER
-GROUP BY urut, rm, tglMasuk, p.Nama, p.NO_ASURANSI
 ORDER BY urut ASC

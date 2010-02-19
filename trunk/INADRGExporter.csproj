@@ -13,8 +13,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>drg.ico</ApplicationIcon>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -117,6 +116,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ExporterSection.cs" />
     <Compile Include="DataSources\DatabaseDataSource.cs">
     </Compile>
     <Compile Include="DictionaryField.cs" />
@@ -137,6 +137,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CustomerDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Configuration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Configuration.Designer.cs">
+      <DependentUpon>Configuration.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SettingsWindow.cs">
       <SubType>Form</SubType>
@@ -169,14 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.config" />
     <Content Include="Dictionaries\cgs_ina_in.dic">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -223,11 +224,17 @@
     <Content Include="SQLCode\SelectInadrg.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="RepairsComparer.cs" />
     <Compile Include="RSKUPANGDataSet.cs">
       <DependentUpon>RSKUPANGDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>
@@ -259,20 +266,37 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\kasirrwj.png" />
-    <None Include="Resources\3M.png" />
-    <None Include="Resources\excel.png" />
+    <None Include="ClassDiagram.cd" />
+    <None Include="Properties\DataSources\InadrgExporter.Configuration.ExporterSection.datasource" />
+    <None Include="Properties\DataSources\InadrgExporter.Properties.Settings.datasource" />
     <Content Include="Dictionaries\errorcodes.dic">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\crystal.png" />
     <None Include="Resources\excel-salah.png" />
+    <Content Include="Dictionaries\fields_to_compare.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Dictionaries\header_excel_dengan_nama.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Dictionaries\header_excel_verifikator.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\notepad.ico" />
+    <None Include="Resources\3M.ICO" />
+    <None Include="Resources\Excel.ico" />
+    <None Include="Resources\cr.ico" />
+    <None Include="Resources\3M.png" />
+    <None Include="Resources\excel.png" />
+    <None Include="Resources\crystal.png" />
+    <None Include="Resources\medismart.png" />
+    <None Include="Resources\ThreeM.png" />
+    <None Include="Resources\ThreeMError.png" />
+    <None Include="Resources\NotepadVerificator.png" />
+    <None Include="Resources\comparedb.png" />
+    <None Include="Resources\compare.png" />
+    <None Include="Resources\compareOld.png" />
+    <Content Include="drg.ico" />
     <Content Include="SQLCode\CountInadrgPredicate.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -285,6 +309,9 @@
     <EmbeddedResource Include="Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Configuration.resx">
+      <DependentUpon>Configuration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsWindow.resx">
       <DependentUpon>SettingsWindow.cs</DependentUpon>
@@ -300,6 +327,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
       <ProductName>.NET Framework 2.0 %28x86%29</ProductName>

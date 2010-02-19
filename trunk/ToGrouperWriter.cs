@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using InadrgExporter;
 using InadrgExporter.DataSources;
@@ -24,12 +25,14 @@ namespace InadrgExporter
             bindingSource.Refresh();
 
         }
+        public DataTable Table
+        {
+            get { return bindingSource.Table; }
+        }
+        
         public long Length
         {
-            get
-            {
-                return bindingSource.Length;
-            }
+            get { return bindingSource.Length; }
         }
         public bool NextLine()
         {
@@ -74,6 +77,7 @@ namespace InadrgExporter
         {
             writer.Flush();
             writer.Close();
+            writer.Dispose();
             bindingSource.Dispose();
         }
     }
