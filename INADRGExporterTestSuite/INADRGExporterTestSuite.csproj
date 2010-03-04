@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq, Version=4.0.812.4, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>MockObjects\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="nunit.mocks, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -49,7 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileReaderCollectionsTest.cs" />
-    <Compile Include="MockObjects\MockDatabaseDataSource.cs" />
+    <Compile Include="MockObjects\NameIndexCollection.cs" />
+    <Compile Include="MockObjects\StubDataReader.cs" />
+    <Compile Include="MockObjects\StubResultSet.cs" />
+    <Compile Include="MockObjects\StubResultSetCollection.cs" />
+    <Compile Include="MockObjects\StubRowCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
