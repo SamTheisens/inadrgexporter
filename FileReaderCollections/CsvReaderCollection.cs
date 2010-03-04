@@ -26,7 +26,7 @@ namespace InadrgExporter.FileReaderCollections
 
         public long Rows
         {
-            get { return rows; }
+            get { return rows + 1; }
         }
 
         public void MoveToRow(int rowNumber)

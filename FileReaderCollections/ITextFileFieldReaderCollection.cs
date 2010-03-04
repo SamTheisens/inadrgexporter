@@ -7,5 +7,6 @@ namespace InadrgExporter.FileReaderCollections
         long Rows { get; }
         void MoveToRow(int rowNumber);
         string[] Headers { get; }
+        bool EndOfData { get; }
     }
 }
