@@ -9,3 +9,7 @@ Tergantung pada modul:
  * [Microsoft Sync Framework redistributable packages](http://www.microsoft.com/en-us/download/details.aspx?id=19502) (hanya synchronization sama database providers saja).
 
 Automatically exported from code.google.com/p/inadrgexporter
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/SamTheisens/inadrgexporter/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
